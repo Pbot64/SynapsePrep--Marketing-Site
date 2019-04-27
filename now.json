@@ -1,0 +1,20 @@
+{
+  "version": 2,
+  "alias": ["synapseprep.net"],
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@now/next"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/Sat",
+      "dest": "/Sat"
+    },
+    {
+      "src": "/Act",
+      "dest": "/Act"
+    }
+  ]
+}
