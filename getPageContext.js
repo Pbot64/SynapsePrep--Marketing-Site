@@ -1,10 +1,7 @@
 import { SheetsRegistry } from 'jss';
 import { createMuiTheme, createGenerateClassName, jssPreset } from '@material-ui/core/styles';
-import purple from '@material-ui/core/colors/purple';
-import green from '@material-ui/core/colors/green';
 import { create } from 'jss';
 import extend from 'jss-extend';
-import './static/css/index.css';
 
 import * as colors from './assets/jss/colors';
 // A theme with custom primary and secondary color.
@@ -12,18 +9,12 @@ import * as colors from './assets/jss/colors';
 const theme = createMuiTheme({
   palette: {
     primary: {
-      light: purple[300],
-      main: purple[500],
-      dark: purple[700],
-    },
-    secondary: {
-      light: green[300],
-      main: green[500],
-      dark: green[700],
+      light: '#00f08b',
+      main: '#00BF6F',
     },
     text: {
       primary: '#343e4d',
-      secondary: '#FFFFFF',
+      secondary: '#7a92a5',
     },
     pinkToYellow: {
       ...colors.pinkToYellow,
@@ -40,22 +31,29 @@ const theme = createMuiTheme({
     pinkToPurple: {
       ...colors.pinkToPurple,
     },
+    blueToTurquoise: {
+      ...colors.blueToTurquoise,
+    },
+    lightBlue: '#e8f5ff',
   },
   typography: {
     useNextVariants: true,
     overline: {
-      fontFamily: 'Good Times',
-      fontStyle: 'normal',
-      fontWeight: 500,
-      fontSize: 18,
+      fontFamily: 'goodtimesrg',
+      fontSize: '1.15rem',
       letterSpacing: 2,
       lineHeight: '1.3',
     },
     caption: {
       textAlign: 'left',
     },
+
     h4: {
       fontWeight: '500',
+    },
+    h5: {
+      fontWeight: '500',
+      fontSize: '1.5rem',
     },
     h2: {
       fontWeight: '500',
@@ -68,8 +66,8 @@ const theme = createMuiTheme({
   },
 });
 const jss = create({ plugins: [...jssPreset().plugins, extend()] });
-console.log(theme);
 function createPageContext() {
+  console.log(theme);
   return {
     theme,
     jss,

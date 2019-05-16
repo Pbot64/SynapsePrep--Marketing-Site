@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Document, { Head, Main, NextScript } from 'next/document';
 import flush from 'styled-jsx/server';
-import '../static/css/index.css';
 
 class MyDocument extends Document {
   render() {
@@ -27,8 +26,8 @@ class MyDocument extends Document {
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"
           />
           <link
-            href="http://allfont.net/allfont.css?fonts=good-times"
             rel="stylesheet"
+            href="https://everythingfonts.com/font/face/0I2QRA8Tx3q_Wr3LvlRUIweF"
             type="text/css"
           />
         </Head>

@@ -8,17 +8,17 @@ import Button from '@material-ui/core/Button';
 
 // Local Components
 import chevronRight from '../assets/images/chevron-right-white.svg';
+import chevronLeft from '../assets/images/chevron-left-white.svg';
 
 const styles = theme => ({
   root: {
-    backgroundColor: 'white',
-    color: '#343e4d',
-    border: '1px solid rgba(0, 0, 0, 0.23)',
+    color: 'white',
+    backgroundColor: theme.palette.primary.main,
     boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
     fontSize: 'inherit',
     fontStyle: 'normal',
     fontWeight: 500,
-    letterSpacing: '2px',
+    letterSpacing: '1.5px',
     padding: '8px 15px',
     position: 'relative',
     textTransform: 'uppercase',
@@ -26,14 +26,15 @@ const styles = theme => ({
     zIndex: '10',
     '&:hover': {
       transform: 'translateY(1px)',
-      backgroundColor: '#ebebeb',
+      backgroundColor: theme.palette.primary.light,
     },
   },
-  green: {
-    color: 'white',
-    backgroundColor: '#17ab5d',
+  white: {
+    backgroundColor: 'white',
+    color: '#343e4d',
+    border: '1px solid rgba(0, 0, 0, 0.23)',
     '&:hover': {
-      backgroundColor: '#1ac169',
+      backgroundColor: '#ebebeb',
     },
   },
   blue: {
@@ -43,7 +44,7 @@ const styles = theme => ({
       backgroundColor: '#5ab0e9',
     },
   },
-  arrow: {
+  arrowRight: {
     '&:after': {
       background: `url(${chevronRight}) no-repeat`,
       content: '""',
@@ -56,18 +57,32 @@ const styles = theme => ({
       transform: 'translateX(5px)',
     },
   },
+  arrowLeft: {
+    '&:before': {
+      background: `url(${chevronLeft}) no-repeat`,
+      content: '""',
+      height: '14px',
+      marginRight: '10px',
+      transition: '0.5s',
+      width: '14px',
+    },
+    '&:hover:before': {
+      transform: 'translateX(-5px)',
+    },
+  },
 });
 
 const ButtonCustom = props => {
-  const { classes, className, hasArrow, children, color, ...rest } = props;
+  const { classes, className, hasArrowRight, children, hasArrowLeft, color, ...rest } = props;
   return (
     <Button
       className={classNames(
         classes.root,
         {
-          [classes.arrow]: hasArrow,
+          [classes.arrowRight]: hasArrowRight,
+          [classes.arrowLeft]: hasArrowLeft,
           [classes.blue]: color === 'blue',
-          [classes.green]: color === 'green',
+          [classes.white]: color === 'white',
         },
         className,
       )}

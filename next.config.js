@@ -1,12 +1,14 @@
 const withFonts = require('next-fonts');
 const withPlugins = require('next-compose-plugins');
 const optimizedImages = require('next-optimized-images');
+const withCSS = require('@zeit/next-css');
 
 module.exports = withPlugins([
   [
     optimizedImages,
     {
       /* config for next-optimized-images */
+      mozjpeg: { quality: 30 },
       pngquant: { quality: 30 },
       optipng: { optimizationLevel: 6 },
       svgo: {
@@ -21,6 +23,7 @@ module.exports = withPlugins([
     },
   ],
   [withFonts],
+  [withCSS],
   {
     target: 'serverless',
   },

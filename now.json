@@ -1,20 +1,19 @@
 {
   "version": 2,
   "alias": ["synapseprep.net"],
+
   "builds": [
     {
-      "src": "package.json",
+      "src": "next.config.js",
       "use": "@now/next"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/Sat",
-      "dest": "/Sat"
     },
-    {
-      "src": "/Act",
-      "dest": "/Act"
-    }
+    { "src": "/lamdas/*.js", "use": "@now/node" }
+  ],
+
+  "routes": [
+    { "src": "/checkout/(?<name>[^/]+)$", "dest": "/checkout?name=$name" },
+
+    { "src": "/api/test", "dest": "/lamdas/test.js" },
+    { "src": "/api/contact", "dest": "/lamdas/contact.js" }
   ]
 }

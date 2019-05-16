@@ -1,36 +1,40 @@
 // Node Modules
+import Link from 'next/link';
 import { withStyles } from '@material-ui/core/styles';
 
 // Local Components
-import Link from 'next/link';
 import Header from '../components/Header';
 import Panel from '../components/Panel';
+import ContactForm from '../components/ContactForm';
+import Footer from '../components/Footer';
+import Results from '../components/Results';
+import CardCustom from '../components/CardCustom';
+import ProgramsForm from '../components/ProgramsForm';
+import ButtonCustom from '../components/ButtonCustom';
 
 // Material UI Components
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-
-import Layout from '../components/MyLayout';
+import Card from '@material-ui/core/Card';
 
 // Local Assets
-import mainSatGraphic from '../assets/images/sat-main-graphic.svg';
+import mainGraphic from '../assets/images/sat-main-graphic.svg';
 import ruler from '../assets/images/ruler.svg';
 import curve from '../assets/images/curve.svg';
 import triangle from '../assets/images/triangle-icon.svg';
+import check from '../assets/images/check-icon.svg';
 import online from '../assets/images/online-course.png';
-import CardCustom from '../components/CardCustom';
-import ButtonCustom from '../components/ButtonCustom';
+import tutor from '../assets/images/1-on-1-tutoring.jpg';
+import bootcamp from '../assets/images/bootcamp.png';
+import * as colors from '../assets/jss/colors';
 
 //  Style Overrides
 const styles = theme => ({
-  mainSatGraphic: {
+  mainGraphic: {
     display: 'none',
     [theme.breakpoints.up('md')]: {
       display: 'block',
     },
-  },
-  title: {
-    marginBottom: '40px',
   },
   mainTextContainer: {
     paddingRight: '0px',
@@ -47,9 +51,13 @@ const styles = theme => ({
     },
     '& h5': {
       lineHeight: 3,
+      fontSize: '20px',
+      [theme.breakpoints.up('sm')]: {
+        fontSize: '24px',
+      },
     },
   },
-  background: {
+  curve: {
     backgroundImage: `url(${curve})`,
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
@@ -57,37 +65,34 @@ const styles = theme => ({
     paddingBottom: '180px',
     paddingTop: '50px',
   },
+  topRulerText: {
+    padding: '0px 20px',
+  },
   ruler: {
-    marginTop: '20px',
-    marginBottom: '20px',
+    display: 'block',
+    maxWidth: '2000px',
+    margin: '20px auto',
   },
   copyContainer: {
-    marginTop: '100px',
+    marginTop: '40px',
     maxWidth: '670px',
     marginLeft: 'auto',
     marginRight: 'auto',
   },
-  mainParagraph: {
+  copy: {
     marginBottom: '30px',
   },
-  Panel3: {
+  programsPanel: {
+    marginBottom: '100px',
     marginTop: '250px',
     color: 'white',
-    paddingBottom: '50px',
-    marginBottom: '100px',
+    paddingBottom: '0px',
+    [theme.breakpoints.up('md')]: {
+      paddingBottom: '50px',
+    },
   },
-  triangle: {
-    width: '80px',
-  },
-  panelHeader: {
-    maxWidth: '600px',
-    marginBottom: '50px',
-  },
-  panelTitle: {
-    marginTop: '50px',
-    marginBottom: '10px',
-  },
-  online: {
+  programImg: {
+    display: 'block',
     width: '100%',
   },
   programContainer: {
@@ -99,7 +104,6 @@ const styles = theme => ({
     },
     '& h3': {
       marginBottom: '10px',
-      fontSize: '25px',
     },
   },
   programContainerMiddle: {
@@ -109,7 +113,9 @@ const styles = theme => ({
       paddingLeft: '30px',
       marginBottom: '0px',
     },
-    '& h3': { marginBottom: '10px', fontSize: '25px' },
+    '& h3': {
+      marginBottom: '10px',
+    },
   },
   programWrapperMiddle: {
     marginTop: '40px',
@@ -127,55 +133,11 @@ const styles = theme => ({
       flexDirection: 'row',
     },
   },
-  panel4: {
-    height: '800px',
+  checkoutPanel: {
+    marginBottom: '200px',
   },
-  card: { overflow: 'hidden' },
-  programAdTitleContainer: {
-    color: 'white',
-    ...theme.palette.blueToPurple,
-  },
-  programAdTitleMiddle: {
-    fontSize: '20px',
-    margin: '15px 5px',
-  },
-  programAdTitle: {
-    fontSize: '20px',
-    margin: '15px 10px',
-  },
-
-  programAdWrapper: {
-    flexDirection: 'column',
-    alignItems: 'center',
-    [theme.breakpoints.up('md')]: {
-      flexDirection: 'row',
-    },
-  },
-  programHighlightsContainer: {
-    padding: '20px',
-  },
-  programAdButton: {
-    margin: '10px 10px',
-  },
-  programHighlights: {
-    '& h5': {
-      fontWeight: '500',
-      marginBottom: '20px',
-    },
-    '& p': {
-      '&:before': {
-        content: "' \\2714'",
-        color: 'green',
-        fontSize: '10px',
-        marginRight: '10px',
-        padding: '0px',
-        position: 'relative',
-        top: '-2px',
-      },
-    },
-  },
-  programAdContainer: {
-    padding: '16px',
+  programImgContainer: {
+    borderRadius: '10px',
   },
 });
 
@@ -185,7 +147,7 @@ const Sat = props => {
     <React.Fragment>
       <Header backgroundColor="pinkToYellow" />
 
-      <Panel padding className={classes.background}>
+      <Panel padding className={classes.curve}>
         <Grid container justify="space-between">
           <Grid
             item
@@ -195,51 +157,47 @@ const Sat = props => {
             justify="center"
             className={classes.mainTextContainer}
           >
-            <Typography variant="h2" color="textPrimary" className={classes.title}>
+            <Typography variant="h2" className={classes.panelTitle}>
               The SAT is a Joke
             </Typography>
-            <Typography variant="h5" color="textPrimary">
-              It doesn't measure intelligence
-            </Typography>
-            <Typography variant="h5" color="textPrimary">
-              It doesn't measure creativity
-            </Typography>
-            <Typography variant="h5" color="textPrimary">
-              It doesn't measure aptitude
-            </Typography>
+            <Grid item>
+              <Typography variant="h5">It doesn't measure intelligence.</Typography>
+              <Typography variant="h5">It doesn't measure creativity.</Typography>
+              <Typography variant="h5">It doesn't measure aptitude.</Typography>
+            </Grid>
           </Grid>
 
-          <Grid item xs={6} className={classes.mainSatGraphic}>
-            <img src={mainSatGraphic} alt="students with ideas" />
+          <Grid item xs={6} className={classes.mainGraphic}>
+            <img src={mainGraphic} alt="students with ideas" />
           </Grid>
         </Grid>
       </Panel>
 
-      <Typography variant="h5" color="textPrimary" align="center">
+      <Typography variant="h5" align="center" gutterBottom className={classes.topRulerText}>
         The only thing the SAT measures is
       </Typography>
-      <img class="ruler" src={ruler} alt="ruler" className={classes.ruler} />
+      <img src={ruler} alt="ruler" className={classes.ruler} />
 
       <Panel>
-        <Typography variant="h4" color="textPrimary" align="center">
+        <Typography variant="h4" align="center">
           HOW GOOD YOU ARE AT TAKING IT!
         </Typography>
         <div className={classes.copyContainer}>
-          <div class="sat-paragraph">
-            <Typography variant="subtitle2" color="textPrimary" className={classes.mainParagraph}>
+          <div>
+            <Typography variant="subtitle2" className={classes.copy}>
               This is fantastic for you though! Huh...What...How? Because, you don't have to relearn
               4 years of high school to get a higher SAT score. In fact, you could dramatically
               improve your score <u>without doing a single practice problem.</u>
             </Typography>
 
-            <Typography variant="subtitle2" color="textPrimary" className={classes.mainParagraph}>
+            <Typography variant="subtitle2" className={classes.copy}>
               Unfortunately, the test prep industry seems to be competing over who can be the{' '}
               <strong>driest</strong>, <strong>boringest</strong> (look it up), and most{' '}
               <strong>complicated</strong>. We think test prep works best when it's{' '}
               <strong>simple</strong>, <strong>straight-forward</strong>, and (dare we say it) even{' '}
               <strong>fun</strong>!
             </Typography>
-            <Typography variant="subtitle2" color="textPrimary" className={classes.mainParagraph}>
+            <Typography variant="subtitle2" className={classes.copy}>
               And once you learn our strategies to defeat the SAT, you’ll have the tools to achieve
               your highest possible score.
             </Typography>
@@ -247,250 +205,138 @@ const Sat = props => {
         </div>
       </Panel>
 
-      <Panel skewedBackgroundColor="blueToPurple" skewed className={classes.Panel3}>
-        <div class="panel">
-          <div class="panel-background panel-skewed dark-blue-light-blue-gradient-waves" />
-          <Grid container justify="center">
-            <Grid
-              container
-              item
-              direction="column"
-              alignItems="center"
-              className={classes.panelHeader}
-            >
-              <img class={classes.triangle} src={triangle} alt="triangle icon" />
-              <Typography
-                variant="h2"
-                color="inherit"
-                align="center"
-                className={classes.panelTitle}
-              >
-                Our Programs
-              </Typography>
-              <Typography variant="body1" color="inherit" align="center">
-                It doesn't measure intelligence. | It doesn't measure creativity. | It doesn't
-                measure aptitude. The only thing it actually measures is...HOW GOOD YOU ARE
-              </Typography>
-            </Grid>
-          </Grid>
-          <Grid item container justify="space-between" className={classes.programWrapper}>
-            <Grid
-              item
-              xs={12}
-              sm={10}
-              md={6}
-              container
-              direction="column"
-              justify="center"
-              className={classes.programContainer}
-            >
-              <Typography variant="overline" color="inherit" component="h3">
-                Online Course
-              </Typography>
-              <Typography variant="body1" color="inherit">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                exercitation ulla
-              </Typography>
-            </Grid>
-            <Grid item xs={12} sm={10} md={6}>
-              <img src={online} className={classes.online} />
-            </Grid>
-          </Grid>
-
-          <Grid item container justify="space-between" className={classes.programWrapperMiddle}>
-            <Grid item xs={12} sm={10} md={6}>
-              <img src={online} className={classes.online} />
-            </Grid>
-            <Grid
-              item
-              xs={12}
-              sm={10}
-              md={6}
-              container
-              direction="column"
-              justify="center"
-              className={classes.programContainerMiddle}
-            >
-              <Typography variant="overline" color="inherit" component="h3">
-                Live Instruction
-              </Typography>
-              <Typography variant="body1" color="inherit">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                exercitation ulla
-              </Typography>
-            </Grid>
-          </Grid>
-
-          <Grid item container justify="space-between" className={classes.programWrapper}>
-            <Grid
-              item
-              xs={12}
-              sm={10}
-              md={6}
-              container
-              direction="column"
-              justify="center"
-              className={classes.programContainer}
-            >
-              <Typography variant="overline" color="inherit" component="h3">
-                Bootcamps
-              </Typography>
-              <Typography variant="body1" color="inherit">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                exercitation ulla
-              </Typography>
-            </Grid>
-            <Grid item xs={12} sm={10} md={6}>
-              <img src={online} className={classes.online} />
-            </Grid>
-          </Grid>
-        </div>
+      <Panel
+        header
+        smallIcon={check}
+        title="Proven Results"
+        subtitle="Higher Test Score Guaranteed*"
+        body="Our programs work. If your SAT score doesn't improve by at least 100 points, then we'll give you your money back!"
+      >
+        <Results title="SAT" difference={226} before={1042} after={1268} />
       </Panel>
-      <Panel className={classes.panel4}>
-        <Grid container justify="center">
-          <Typography variant="h2" color="textPrimary" component="h2" gutterBottom>
-            Which One Works For You?
-          </Typography>
+
+      <Panel
+        color="white"
+        skewedBackgroundColor="blueToPurple"
+        skewed
+        className={classes.programsPanel}
+        header
+        smallIcon={triangle}
+        title="Our Programs"
+        body="It doesn't measure intelligence. | It doesn't measure creativity. | It doesn't measure
+       aptitude. The only thing it actually measures is...HOW GOOD YOU ARE"
+      >
+        <Grid item container justify="space-between" className={classes.programWrapper}>
+          <Grid
+            item
+            xs={12}
+            sm={10}
+            md={7}
+            container
+            direction="column"
+            justify="center"
+            className={classes.programContainer}
+          >
+            <Typography variant="h4" color="inherit" component="h4">
+              Online Course
+            </Typography>
+            <Typography variant="body1" color="inherit">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+              exercitation ulla
+            </Typography>
+          </Grid>
+          <Grid item xs={12} sm={10} md={5}>
+            <Card className={classes.programImgContainer}>
+              <img src={online} className={classes.programImg} />
+            </Card>
+          </Grid>
         </Grid>
 
-        <Grid container justify="space-between" className={classes.programAdWrapper}>
-          <Grid
-            item
-            xs={10}
-            sm={7}
-            md
-            container
-            direction="column"
-            className={classes.programAdContainer}
-          >
-            <CardCustom className={classes.card}>
-              <Grid item container className={classes.programAdTitleContainer} justify="center">
-                <Typography
-                  variant="overline"
-                  color="inherit"
-                  component="h3"
-                  className={classes.programAdTitle}
-                >
-                  Online Course
-                </Typography>
-              </Grid>
-              <Grid item container justify="center" className={classes.programHighlightsContainer}>
-                <Grid className={classes.programHighlights}>
-                  <Typography variant="h5" color="textPrimary" component="h5" gutterBottom>
-                    Program Highlights
-                  </Typography>
-                  <Typography variant="subtitle1" color="textPrimary" component="p" paragraph>
-                    Full access to 40+ online video lessons
-                  </Typography>
-                  <Typography variant="subtitle1" color="textPrimary" component="p" paragraph>
-                    Hundreds of online practice problems
-                  </Typography>
-                  <Typography variant="subtitle1" color="textPrimary" component="p" paragraph>
-                    Access to SAT Prep Book
-                  </Typography>
-                </Grid>
-              </Grid>
-              <Grid item container justify="center" className={classes.programAdTitleContainer}>
-                <ButtonCustom className={classes.programAdButton}>Start For Free</ButtonCustom>
-              </Grid>
-            </CardCustom>
+        <Grid item container justify="space-between" className={classes.programWrapperMiddle}>
+          <Grid item xs={12} sm={10} md={5}>
+            <Card className={classes.programImgContainer}>
+              <img src={tutor} className={classes.programImg} />
+            </Card>
           </Grid>
           <Grid
             item
-            xs={10}
-            sm={7}
-            md
+            xs={12}
+            sm={10}
+            md={7}
             container
             direction="column"
-            className={classes.programAdContainer}
+            justify="center"
+            className={classes.programContainerMiddle}
           >
-            <CardCustom className={classes.card}>
-              <Grid item container className={classes.programAdTitleContainer} justify="center">
-                <Typography
-                  variant="overline"
-                  color="inherit"
-                  component="h3"
-                  className={classes.programAdTitleMiddle}
-                >
-                  Live Instruction
-                </Typography>
-              </Grid>
-              <Grid item container justify="center" className={classes.programHighlightsContainer}>
-                <Grid className={classes.programHighlights}>
-                  <Typography variant="h5" color="textPrimary" component="h5" gutterBottom>
-                    Program Highlights
-                  </Typography>
-                  <Typography variant="subtitle1" color="textPrimary" component="p" paragraph>
-                    Full access to 40+ online video lessons
-                  </Typography>
-                  <Typography variant="subtitle1" color="textPrimary" component="p" paragraph>
-                    Hundreds of online practice problems
-                  </Typography>
-                  <Typography variant="subtitle1" color="textPrimary" component="p" paragraph>
-                    Access to SAT Prep Book
-                  </Typography>
-                </Grid>
-              </Grid>
-              <Grid item container justify="center" className={classes.programAdTitleContainer}>
-                <ButtonCustom className={classes.programAdButton}>Enroll Now</ButtonCustom>
-              </Grid>
-            </CardCustom>
-          </Grid>
-          <Grid
-            item
-            xs={10}
-            sm={7}
-            md
-            container
-            direction="column"
-            className={classes.programAdContainer}
-          >
-            <CardCustom className={classes.card}>
-              <Grid item container className={classes.programAdTitleContainer} justify="center">
-                <Typography
-                  variant="overline"
-                  color="inherit"
-                  component="h3"
-                  className={classes.programAdTitle}
-                >
-                  Bootcamp
-                </Typography>
-              </Grid>
-              <Grid item container justify="center" className={classes.programHighlightsContainer}>
-                <Grid className={classes.programHighlights}>
-                  <Typography variant="h5" color="textPrimary" component="h5" gutterBottom>
-                    Program Highlights
-                  </Typography>
-                  <Typography variant="subtitle1" color="textPrimary" component="p" paragraph>
-                    Full access to 40+ online video lessons
-                  </Typography>
-                  <Typography variant="subtitle1" color="textPrimary" component="p" paragraph>
-                    Hundreds of online practice problems
-                  </Typography>
-                  <Typography variant="subtitle1" color="textPrimary" component="p" paragraph>
-                    Access to SAT Prep Book
-                  </Typography>
-                </Grid>
-              </Grid>
-              <Grid item container justify="center" className={classes.programAdTitleContainer}>
-                <ButtonCustom className={classes.programAdButton}>Sign up</ButtonCustom>
-              </Grid>
-            </CardCustom>
+            <Typography variant="h4" color="inherit" component="h4">
+              1-on-1 Tutoring
+            </Typography>
+            <Typography variant="body1" color="inherit">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+              exercitation ulla
+            </Typography>
           </Grid>
         </Grid>
-        <div class="contact-form-container-background--light-blue flex-row-center-cross-center">
-          <h3>Got Questions?</h3>
-        </div>
+
+        <Grid item container justify="space-between" className={classes.programWrapper}>
+          <Grid
+            item
+            xs={12}
+            sm={10}
+            md={7}
+            container
+            direction="column"
+            justify="center"
+            className={classes.programContainer}
+          >
+            <Typography variant="h4" color="inherit" component="h4">
+              8 Hour Bootcamp
+            </Typography>
+            <Typography variant="body1" color="inherit">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+              exercitation ulla
+            </Typography>
+          </Grid>
+          <Grid item xs={12} sm={10} md={5}>
+            <Card className={classes.programImgContainer}>
+              <img src={bootcamp} className={classes.programImg} />
+            </Card>
+          </Grid>
+        </Grid>
       </Panel>
+      <Panel className={classes.checkoutPanel}>
+        <ProgramsForm
+          title="Which One Works For You?"
+          subtitles={['Online Course', '1-on-1 Tutor', 'Bootcamp']}
+          highlights={[
+            [
+              'Full access to our SAT video course.',
+              'Hundreds of online practice problems',
+              "Receive copy of 'Defeating the SAT' Prep Book",
+            ],
+
+            [
+              'Full access to our SAT video course.',
+              'Hundreds of online practice problems',
+              "Receive copy of 'Defeating the SAT' Prep Book",
+            ],
+            [
+              'Full access to our SAT video course.',
+              'Hundreds of online practice problems',
+              "Receive copy of 'Defeating the SAT' Prep Book",
+            ],
+          ]}
+          clickable={false}
+          button
+        />
+      </Panel>
+      <ContactForm />
+      <Footer />
     </React.Fragment>
   );
-};
-
-Sat.getInitialProps = async props => {
-  return {};
 };
 
 export default withStyles(styles)(Sat);

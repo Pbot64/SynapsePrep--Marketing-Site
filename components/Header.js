@@ -4,16 +4,17 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Link from 'next/link';
 import classNames from 'classnames';
+
+// Local Components
+import ButtonCustom from './ButtonCustom';
+import Panel from './Panel';
+import SideBar from './SideBar';
+
 // Material UI Components
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Typography from '@material-ui/core/Typography';
-import SideBar from './SideBar';
-
-// Local Components
-import ButtonCustom from './ButtonCustom';
-import Panel from './Panel';
 
 // Local Assets
 import Logo from '../assets/images/white-logo.svg';
@@ -23,15 +24,19 @@ import * as colors from '../assets/jss/colors';
 const styles = theme => ({
   root: {
     alignItems: 'center',
-    minHeight: '70px',
+    minHeight: '60px',
     [theme.breakpoints.up('sm')]: {
-      minHeight: '90px',
+      minHeight: '70px',
     },
   },
   logoContainer: {
     color: 'white',
     alignItems: 'center',
     display: 'none',
+    cursor: 'pointer',
+    '&:hover': {
+      opacity: '0.8',
+    },
     [theme.breakpoints.up('md')]: {
       display: 'flex',
     },
@@ -55,17 +60,29 @@ const styles = theme => ({
     alignItems: 'center',
   },
   navlink: {
+    fontWeight: '500',
     paddingRight: '15px',
     borderRight: '1px solid white',
     marginRight: '15px',
     cursor: 'pointer',
+    '&:hover': {
+      opacity: '0.8',
+    },
+  },
+
+  navlinkLast: {
+    fontWeight: '500',
+    cursor: 'pointer',
+    '&:hover': {
+      opacity: '0.8',
+    },
   },
   navlinksContainer: {
     alignItems: 'center',
     display: 'flex',
   },
   logo: {
-    width: '75px',
+    width: '60px',
   },
   logoText: {
     marginLeft: '15px',
@@ -77,8 +94,11 @@ const styles = theme => ({
     color: 'white',
     textTransform: 'uppercase',
     fontWeight: 500,
-    letterSpacing: '2px',
+    letterSpacing: '1.5px',
     cursor: 'pointer',
+    '&:hover': {
+      opacity: '0.8',
+    },
   },
 });
 
@@ -92,18 +112,18 @@ class Header extends Component {
   };
 
   render() {
-    const { classes, backgroundColor } = this.props;
+    const { classes, backgroundColor, noMargin } = this.props;
     const { mobileOpen } = this.state;
     const color = backgroundColor;
     return (
-      <Panel backgroundColor={color}>
+      <Panel backgroundColor={color} noMargin>
         <Grid container className={classes.root} justify="space-between">
           <Grid item className={classes.menuButton}>
             <IconButton color="inherit" aria-label="Menu" onClick={this.handleDrawerToggle}>
               <MenuIcon className={classes.menuIcon} />
             </IconButton>
           </Grid>
-          <Link prefetch href="/">
+          <Link href="/">
             <Grid item className={classes.logoContainer}>
               <img src={Logo} className={classes.logo} alt="logo" />
               <Typography variant="overline" color="inherit" className={classes.logoText}>
@@ -115,9 +135,9 @@ class Header extends Component {
           <Grid item className={classes.navItems}>
             <Grid item className={classes.navlinks}>
               <Grid item>
-                <Link prefetch href="/Sat">
+                <Link href="/sat">
                   <Typography
-                    variant="h6"
+                    variant="body1"
                     align="center"
                     className={classes.navlink}
                     color="inherit"
@@ -127,9 +147,9 @@ class Header extends Component {
                 </Link>
               </Grid>
               <Grid item>
-                <Link prefetch href="/Act">
+                <Link href="/act">
                   <Typography
-                    variant="h6"
+                    variant="body1"
                     align="center"
                     className={classes.navlink}
                     color="inherit"
@@ -139,20 +159,25 @@ class Header extends Component {
                 </Link>
               </Grid>
               <Grid item>
-                <Link prefetch href="/School-tutoring">
-                  <Typography variant="h6" align="center" color="inherit">
+                <Link href="/academic">
+                  <Typography
+                    variant="body1"
+                    align="center"
+                    className={classes.navlinkLast}
+                    color="inherit"
+                  >
                     Academic Tutoring
                   </Typography>
                 </Link>
               </Grid>
             </Grid>
             <div className={classes.navlinksContainer}>
-              <Link prefetch href="./login">
+              <Link href="/login">
                 <Typography component="a" variant="body1" className={classes.login}>
                   Log in
                 </Typography>
               </Link>
-              <Link prefetch href="./register">
+              <Link href="/register">
                 <ButtonCustom color="green" className={classes.signUp}>
                   Sign Up
                 </ButtonCustom>

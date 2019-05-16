@@ -9,12 +9,12 @@ import Card from '@material-ui/core/Card';
 
 const styles = theme => ({
   root: {
-    borderRadius: 10,
     background: '#fff',
     boxShadow: '0 18px 56px -18px rgba(22,45,61,.18)',
-    marginTop: 18,
     width: '100%',
-    overflow: 'visible',
+  },
+  borderCurved: {
+    borderRadius: 10,
   },
   title: {
     paddingBottom: 10,
@@ -25,10 +25,21 @@ const styles = theme => ({
   padding: {
     padding: '20px',
   },
+  visible: {
+    overflow: 'visible',
+  },
+  clickable: {
+    cursor: 'pointer',
+    transition: '0.3s',
+    '&:hover': {
+      boxShadow: '0 2px 7px 0 rgba(0, 0, 0, 0.3)',
+      transform: 'translateY(-3px)',
+    },
+  },
 });
 
 const CardCustom = props => {
-  const { classes, className, title, borderBottom, padding } = props;
+  const { classes, className, title, borderBottom, padding, visible, clickable, square } = props;
   return (
     <React.Fragment>
       {title && (
@@ -51,12 +62,15 @@ const CardCustom = props => {
           classes.root,
           {
             [classes.padding]: padding,
+            [classes.visible]: visible,
+            [classes.clickable]: clickable,
+            [classes.borderCurved]: !square,
           },
           className,
         )}
+        square={square}
       >
-        {' '}
-        {props.children}{' '}
+        {props.children}
       </Card>
     </React.Fragment>
   );

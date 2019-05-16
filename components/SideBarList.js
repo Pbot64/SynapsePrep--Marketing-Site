@@ -34,8 +34,10 @@ const styles = theme => ({
     padding: '16px',
   },
   link: {
-    color: 'inherit',
     textDecoration: 'none',
+  },
+  itemText: {
+    padding: '0px',
   },
 });
 
@@ -51,7 +53,7 @@ const SideBarList = props => {
   const { classes } = props;
   return (
     <div className={classes.root}>
-      <Link href="./" className={classes.link}>
+      <Link href="/">
         <Toolbar className={classes.logoText}>
           <Typography variant="overline" color="inherit">
             Synapse Prep
@@ -60,33 +62,39 @@ const SideBarList = props => {
       </Link>
       <Divider />
       <List component="nav">
-        <Link href="/Sat" as="/Sat" className={classes.link}>
+        <Link href="/sat">
           <StyledListItem button>
             <ListItemIcon>
               <DashboardIcon />
             </ListItemIcon>
-            <ListItemText inset primary="SAT" />
+            <ListItemText inset primary="SAT" className={classes.itemText} />
           </StyledListItem>
         </Link>
-        <StyledListItem button>
-          <ListItemIcon>
-            <Timer />
-          </ListItemIcon>
-          <ListItemText inset primary="ACT" />
-        </StyledListItem>
-        <StyledListItem button>
-          <ListItemIcon>
-            <School />
-          </ListItemIcon>
-          <ListItemText inset primary="School Tutoring" />
-        </StyledListItem>
+        <Link href="/act">
+          <StyledListItem button>
+            <ListItemIcon>
+              <Timer />
+            </ListItemIcon>
+            <ListItemText inset primary="ACT" className={classes.itemText} />
+          </StyledListItem>
+        </Link>
+        <Link href="/academic">
+          <StyledListItem button>
+            <ListItemIcon>
+              <School />
+            </ListItemIcon>
+            <ListItemText inset primary="Academic Tutoring" className={classes.itemText} />
+          </StyledListItem>
+        </Link>
         <Divider />
-        <StyledListItem button>
-          <ListItemIcon>
-            <MailIcon />
-          </ListItemIcon>
-          <ListItemText inset primary="Support" />
-        </StyledListItem>
+        <a href="mailto:support@synapseprep.net" className={classes.link}>
+          <StyledListItem button>
+            <ListItemIcon>
+              <MailIcon />
+            </ListItemIcon>
+            <ListItemText inset primary="Support" className={classes.itemText} />
+          </StyledListItem>
+        </a>
       </List>
     </div>
   );
