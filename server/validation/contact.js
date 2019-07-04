@@ -12,7 +12,7 @@ module.exports = function validateContactInput(data) {
   }
 
   if (Validator.isEmpty(data.email)) {
-    errors.email = 'Email field is required';
+    errors.email = 'Email is required';
   }
 
   if (!Validator.isMobilePhone(data.tel)) {
@@ -20,7 +20,7 @@ module.exports = function validateContactInput(data) {
   }
 
   if (Validator.isEmpty(data.tel)) {
-    errors.tel = 'Number field is required';
+    errors.tel = 'Number is required';
   }
 
   return {

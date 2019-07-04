@@ -7,13 +7,44 @@
       "src": "next.config.js",
       "use": "@now/next"
     },
-    { "src": "/lamdas/*.js", "use": "@now/node" }
+    { "src": "/server/lamdas/*.js", "use": "@now/node" },
+    { "src": "/server/emails/html.pug", "use": "@now/static" }
   ],
 
   "routes": [
-    { "src": "/checkout/(?<name>[^/]+)$", "dest": "/checkout?name=$name" },
-
-    { "src": "/api/test", "dest": "/lamdas/test.js" },
-    { "src": "/api/contact", "dest": "/lamdas/contact.js" }
-  ]
+    {
+      "src": "/api/test",
+      "dest": "/server/lamdas/test.js"
+    },
+    {
+      "src": "/api/connect",
+      "dest": "/server/lamdas/connect.js"
+    },
+    {
+      "src": "/api/contact",
+      "dest": "/server/lamdas/contact.js"
+    },
+    {
+      "src": "/api/zip",
+      "dest": "/server/lamdas/zip.js"
+    },
+    {
+      "src": "/api/preferredContact",
+      "dest": "/server/lamdas/preferredContact.js"
+    },
+    {
+      "src": "/api/purchase",
+      "dest": "/server/lamdas/purchase.js"
+    },
+    {
+      "src": "/checkout/(?<course>[^/]+)/(?<program>[^/]+)$",
+      "dest": "/checkout?course=$course&program=$program"
+    }
+  ],
+  "env": {
+    "MONGODB_URI": "@mongodb-atlas-uri",
+    "STRIPE_SECRET_KEY": "@stripe-secret-key",
+    "STRIPE_SECRET_TEST_KEY": "@stripe-secret-test-key",
+    "EMAIL_PASSWORD": "@email-password"
+  }
 }

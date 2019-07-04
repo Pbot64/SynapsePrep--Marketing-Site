@@ -1,73 +1,81 @@
-import { SheetsRegistry } from 'jss';
-import { createMuiTheme, createGenerateClassName, jssPreset } from '@material-ui/core/styles';
-import { create } from 'jss';
-import extend from 'jss-extend';
+import { SheetsRegistry } from "jss";
+import {
+  createMuiTheme,
+  createGenerateClassName,
+  jssPreset
+} from "@material-ui/core/styles";
+import { create } from "jss";
+import extend from "jss-extend";
 
-import * as colors from './assets/jss/colors';
+import * as colors from "./components/common/colors";
 // A theme with custom primary and secondary color.
 // It's optional.
 const theme = createMuiTheme({
   palette: {
     primary: {
-      light: '#00f08b',
-      main: '#00BF6F',
+      light: "#00f08b",
+      main: "#00BF6F"
     },
     text: {
-      primary: '#343e4d',
-      secondary: '#7a92a5',
+      primary: "#343e4d",
+      secondary: "#7a92a5"
     },
     pinkToYellow: {
-      ...colors.pinkToYellow,
+      ...colors.pinkToYellow
     },
     blueToPurple: {
-      ...colors.blueToPurple,
+      ...colors.blueToPurple
     },
     blueToGreen: {
-      ...colors.blueToGreen,
+      ...colors.blueToGreen
     },
     whiteToLightBlue: {
-      ...colors.whiteToLightBlue,
+      ...colors.whiteToLightBlue
     },
     pinkToPurple: {
-      ...colors.pinkToPurple,
+      ...colors.pinkToPurple
     },
     blueToTurquoise: {
-      ...colors.blueToTurquoise,
+      ...colors.blueToTurquoise
     },
-    lightBlue: '#e8f5ff',
+    lightBlue: "#e8f5ff"
   },
   typography: {
     useNextVariants: true,
     overline: {
-      fontFamily: 'goodtimesrg',
-      fontSize: '1.15rem',
+      fontFamily: "goodtimesrg",
+      fontSize: "1.15rem",
       letterSpacing: 2,
-      lineHeight: '1.3',
+      lineHeight: "1.3"
     },
     caption: {
-      textAlign: 'left',
+      textAlign: "left"
     },
 
     h4: {
-      fontWeight: '500',
+      fontWeight: "500"
     },
     h5: {
-      fontWeight: '500',
-      fontSize: '1.5rem',
+      fontWeight: "500",
+      fontSize: "1.5rem"
     },
     h2: {
-      fontWeight: '500',
+      fontWeight: "500"
+    },
+    subtitle1: {
+      lineHeight: 1.5,
+      fontSize: "18px",
+      fontWeight: "400"
     },
     subtitle2: {
       lineHeight: 1.5,
-      fontSize: '18px',
-      fontWeight: '400',
-    },
-  },
+      fontSize: "18px",
+      fontWeight: "400"
+    }
+  }
 });
 const jss = create({ plugins: [...jssPreset().plugins, extend()] });
 function createPageContext() {
-  console.log(theme);
   return {
     theme,
     jss,
@@ -76,7 +84,7 @@ function createPageContext() {
     // This is needed in order to inject the critical CSS.
     sheetsRegistry: new SheetsRegistry(),
     // The standard class name generator.
-    generateClassName: createGenerateClassName(),
+    generateClassName: createGenerateClassName()
   };
 }
 

@@ -1,22 +1,22 @@
 // Node Modules
-import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Link from 'next/link';
+import React from "react";
+import PropTypes from "prop-types";
+import { withStyles } from "@material-ui/core/styles";
+import Link from "next/link";
 
 // Material UI Components
-import DashboardIcon from '@material-ui/icons/Dashboard';
-import Divider from '@material-ui/core/Divider';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import MailIcon from '@material-ui/icons/Mail';
-import School from '@material-ui/icons/School';
-import StarBorder from '@material-ui/icons/StarBorder';
-import Timer from '@material-ui/icons/Timer';
-import Typography from '@material-ui/core/Typography';
-import { Toolbar } from '@material-ui/core';
+import DashboardIcon from "@material-ui/icons/Dashboard";
+import Divider from "@material-ui/core/Divider";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
+import MailIcon from "@material-ui/icons/Mail";
+import School from "@material-ui/icons/School";
+import StarBorder from "@material-ui/icons/StarBorder";
+import Timer from "@material-ui/icons/Timer";
+import Typography from "@material-ui/core/Typography";
+import { Toolbar } from "@material-ui/core";
 
 // Local Components
 
@@ -26,27 +26,27 @@ import { Toolbar } from '@material-ui/core';
 const styles = theme => ({
   nested: {
     paddingLeft: theme.spacing.unit * 4,
-    opacity: 0.8,
+    opacity: 0.8
   },
   logoText: {
-    justifyContent: 'center',
-    cursor: 'pointer',
-    padding: '16px',
+    justifyContent: "center",
+    cursor: "pointer",
+    padding: "16px"
   },
   link: {
-    textDecoration: 'none',
+    textDecoration: "none"
   },
   itemText: {
-    padding: '0px',
-  },
+    padding: "0px"
+  }
 });
 
 const StyledListItem = withStyles({
   button: {
-    '&:focus': {
-      backgroundColor: 'rgba(0,0,0,0.2)',
-    },
-  },
+    "&:focus": {
+      backgroundColor: "rgba(0,0,0,0.2)"
+    }
+  }
 })(ListItem);
 
 const SideBarList = props => {
@@ -83,7 +83,11 @@ const SideBarList = props => {
             <ListItemIcon>
               <School />
             </ListItemIcon>
-            <ListItemText inset primary="Academic Tutoring" className={classes.itemText} />
+            <ListItemText
+              inset
+              primary="Academic Tutoring"
+              className={classes.itemText}
+            />
           </StyledListItem>
         </Link>
         <Divider />
@@ -92,7 +96,11 @@ const SideBarList = props => {
             <ListItemIcon>
               <MailIcon />
             </ListItemIcon>
-            <ListItemText inset primary="Support" className={classes.itemText} />
+            <ListItemText
+              inset
+              primary="Support"
+              className={classes.itemText}
+            />
           </StyledListItem>
         </a>
       </List>

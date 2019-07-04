@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Document, { Head, Main, NextScript } from 'next/document';
-import flush from 'styled-jsx/server';
+import React from "react";
+import PropTypes from "prop-types";
+import Document, { Head, Main, NextScript } from "next/document";
+import flush from "styled-jsx/server";
 
 class MyDocument extends Document {
   render() {
@@ -10,6 +10,21 @@ class MyDocument extends Document {
     return (
       <html lang="en" dir="ltr">
         <Head>
+          <script
+            async
+            src="https://www.googletagmanager.com/gtag/js?id=UA-141292271-1"
+          />
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'UA-141292271-1');
+          `
+            }}
+          />
+          <script src="https://js.stripe.com/v3/" />
           <meta charSet="utf-8" />
           {/* Use minimum-scale=1 to enable GPU rasterization */}
           <meta
@@ -19,7 +34,9 @@ class MyDocument extends Document {
           {/* PWA primary color */}
           <meta
             name="theme-color"
-            content={pageContext ? pageContext.theme.palette.primary.main : null}
+            content={
+              pageContext ? pageContext.theme.palette.primary.main : null
+            }
           />
           <link
             rel="stylesheet"
@@ -29,6 +46,12 @@ class MyDocument extends Document {
             rel="stylesheet"
             href="https://everythingfonts.com/font/face/0I2QRA8Tx3q_Wr3LvlRUIweF"
             type="text/css"
+          />
+          <link rel="manifest" href="/static/manifest.json" />
+          <link
+            rel="shortcut icon"
+            type="image/x-icon"
+            href="/static/images/favicon.ico"
           />
         </Head>
         <body>
@@ -72,7 +95,7 @@ MyDocument.getInitialProps = ctx => {
     };
 
     WrappedComponent.propTypes = {
-      pageContext: PropTypes.object.isRequired,
+      pageContext: PropTypes.object.isRequired
     };
 
     return WrappedComponent;
@@ -97,7 +120,7 @@ MyDocument.getInitialProps = ctx => {
         />
         {flush() || null}
       </React.Fragment>
-    ),
+    )
   };
 };
 

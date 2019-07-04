@@ -1,7 +1,7 @@
-const withFonts = require('next-fonts');
-const withPlugins = require('next-compose-plugins');
-const optimizedImages = require('next-optimized-images');
-const withCSS = require('@zeit/next-css');
+const withFonts = require("next-fonts");
+const withPlugins = require("next-compose-plugins");
+const optimizedImages = require("next-optimized-images");
+const withCSS = require("@zeit/next-css");
 
 module.exports = withPlugins([
   [
@@ -17,14 +17,14 @@ module.exports = withPlugins([
           { removeDesc: false },
           { removeMetadata: false },
           { removeEmptyAttrs: false },
-          { removeEmptyContainers: false },
-        ],
-      }, // at least one svg image should now be bigger
-    },
+          { removeEmptyContainers: false }
+        ]
+      } // at least one svg image should now be bigger
+    }
   ],
   [withFonts],
   [withCSS],
   {
-    target: 'serverless',
-  },
+    target: "serverless"
+  }
 ]);

@@ -1,39 +1,39 @@
 // Node Modules
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 // Material UI Components
-import Drawer from '@material-ui/core/Drawer';
-import { withStyles } from '@material-ui/core/styles';
+import Drawer from "@material-ui/core/Drawer";
+import { withStyles } from "@material-ui/core/styles";
 
 // Local Components
-import SideBarList from '../components/SideBarList';
+import SideBarList from "../components/SideBarList";
 
 // Local Assets
 
 //  Style Overrides
 const styles = theme => ({
   root: {
-    display: 'flex',
+    display: "flex"
   },
   drawer: {
-    display: 'none',
+    display: "none"
   },
   menuButton: {
     marginRight: 20,
-    [theme.breakpoints.up('lg')]: {
-      display: 'none',
-    },
+    [theme.breakpoints.up("lg")]: {
+      display: "none"
+    }
   },
   drawerPaper: {
     width: 240,
-    zIndex: 999,
+    zIndex: 999
   },
   bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)',
-  },
+    display: "inline-block",
+    margin: "0 2px",
+    transform: "scale(0.8)"
+  }
 });
 
 const SideBar = props => {
@@ -43,11 +43,11 @@ const SideBar = props => {
       <Drawer
         container={props.container}
         variant="temporary"
-        anchor={theme.direction === 'rtl' ? 'right' : 'left'}
+        anchor={theme.direction === "rtl" ? "right" : "left"}
         open={props.mobileOpen}
         onClose={props.handleDrawerToggle}
         classes={{
-          paper: classes.drawerPaper,
+          paper: classes.drawerPaper
         }}
       >
         <SideBarList />
@@ -57,7 +57,7 @@ const SideBar = props => {
 };
 
 SideBar.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired
 };
 
 export default withStyles(styles, { withTheme: true })(SideBar);

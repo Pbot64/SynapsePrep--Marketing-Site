@@ -1,11 +1,15 @@
 // Node Modules
 const express = require('express');
-const bodyParser = require('body-parser');
 const router = express.Router();
+const bodyParser = require('body-parser');
 
+// Load Input Validation
 const validateZipInput = require('../../validation/zip');
 
-router.post('/', (req, res) => {
+router.use(bodyParser.urlencoded({ extended: false }));
+router.use(bodyParser.json());
+
+router.post('*', (req, res) => {
   const { errors, isValid } = validateZipInput(req.body);
   if (!isValid) {
     return res.status(400).json(errors);

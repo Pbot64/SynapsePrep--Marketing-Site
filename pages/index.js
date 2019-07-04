@@ -1,514 +1,493 @@
 // Node Modules
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Link from 'next/link';
-import axios from 'axios';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { withStyles } from "@material-ui/core/styles";
+import Link from "next/link";
+import axios from "axios";
 
 // Local Components
-import SlideMenu from '../components/SlideMenu';
-import ContactForm from '../components/ContactForm';
-import Header from '../components/Header';
-import ButtonCustom from '../components/ButtonCustom';
-import CardCustom from '../components/CardCustom';
-import Panel from '../components/Panel';
-import Footer from '../components/Footer';
-import Results from '../components/Results';
-import Category from '../components/Category';
+import SlideMenu from "../components/SlideMenu";
+import ContactForm from "../components/forms/ContactForm";
+import Header from "../components/Header";
+import ButtonCustom from "../components/ButtonCustom";
+import CardCustom from "../components/CardCustom";
+import Panel from "../components/Panel";
+import Footer from "../components/Footer";
+import Results from "../components/Results";
+import Category from "../components/Category";
 
 // Material UI Components
-import Card from '@material-ui/core/Card';
-import Grid from '@material-ui/core/Grid';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import Typography from '@material-ui/core/Typography';
+import Card from "@material-ui/core/Card";
+import Grid from "@material-ui/core/Grid";
+import IconButton from "@material-ui/core/IconButton";
+import MenuIcon from "@material-ui/icons/Menu";
+import Typography from "@material-ui/core/Typography";
 
 // Local Assets
-import curve from '../assets/images/curve-white.svg';
-import headgear from '../assets/images/head-gear.svg';
-import check from '../assets/images/check-icon.svg';
-import lightBulb from '../assets/images/lightbulb_icon.svg';
-import world from '../assets/images/world_icon.svg';
-import labTop from '../assets/images/labtop_icon.svg';
-import laptop from '../assets/images/laptop.svg';
-import book from '../assets/images/book.svg';
-import line from '../assets/images/Icon-Line.svg';
-import inequality from '../assets/images/Icon-Inequality.svg';
-import parabola from '../assets/images/Icon-Parabola.svg';
-import flasks from '../assets/images/Icon-Flasks.svg';
-import social from '../assets/images/Icon-Social.svg';
-import fist from '../assets/images/Icon-Fist.svg';
-import handshake from '../assets/images/Icon-HandShake.svg';
-import clock from '../assets/images/Icon-Clock.svg';
-import considering from '../assets/images/Icon-Considering.svg';
-import mainGraphic from '../assets/images/main_graphic.svg';
-import lightningIcon from '../assets/images/lightning-icon.svg';
-import * as colors from '../assets/jss/colors';
+import headgear from "../static/images/head-gear.svg";
+import check from "../static/images/check-icon.svg";
+import lightBulb from "../static/images/lightbulb_icon.svg";
+import world from "../static/images/world_icon.svg";
+import labTop from "../static/images/labtop_icon.svg";
+import book from "../static/images/book.svg";
+import mainGraphic from "../static/images/main_graphic.svg";
+import lightningIcon from "../static/images/lightning-icon.svg";
 
 //  Style Overrides
 const styles = theme => ({
   root: {
-    color: 'white',
+    color: "white"
   },
-  panel2Inner: { paddingTop: '15px', color: theme.palette.text.primary },
+  panel2Inner: {
+    paddingTop: "15px",
+    color: theme.palette.text.primary
+  },
   iconsWrapper: {
-    display: 'flex',
-    flexWrap: 'noWrap',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
+    marginTop: "20px",
+    display: "flex",
+    flexWrap: "noWrap",
+    flexDirection: "column",
+    alignItems: "center",
     [theme.breakpoints.up(800)]: {
-      maxWidth: '1200px',
-      flexDirection: 'row',
-      alignItems: 'initial',
-    },
+      flexDirection: "row",
+      alignItems: "initial"
+    }
   },
   button: {
-    margin: theme.spacing.unit,
+    margin: theme.spacing.unit
   },
   input: {
-    display: 'none',
+    display: "none"
   },
   logoText: {
-    fontSize: '25px',
-    [theme.breakpoints.up('sm')]: {
-      fontSize: '34px',
-    },
+    fontSize: "25px",
+    [theme.breakpoints.up("sm")]: {
+      fontSize: "34px"
+    }
   },
   textContainer: {
-    marginTop: '20px',
-    maxWidth: '500px',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    textAlign: 'center',
-    [theme.breakpoints.up('md')]: {
-      marginLeft: '0px',
-      textAlign: 'left',
-      alignItems: 'flex-start',
-      paddingRight: '20px',
-    },
+    marginTop: "20px",
+    maxWidth: "500px",
+    marginLeft: "auto",
+    marginRight: "auto",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    textAlign: "center",
+    [theme.breakpoints.up("md")]: {
+      marginLeft: "0px",
+      textAlign: "left",
+      alignItems: "flex-start",
+      paddingRight: "20px"
+    }
   },
   mainGraphic: {
-    position: 'relative',
-    top: '4px',
+    position: "relative",
+    top: "4px"
   },
   subTitle: {
-    marginTop: '10px',
-    fontSize: '16px',
-    [theme.breakpoints.up('sm')]: {
-      fontSize: '20px',
-    },
+    marginTop: "10px",
+    fontSize: "16px",
+    [theme.breakpoints.up("sm")]: {
+      fontSize: "20px"
+    }
   },
   mainGraphicContainer: {
-    display: 'none',
-    [theme.breakpoints.up('md')]: {
-      display: 'block',
-    },
+    display: "none",
+    [theme.breakpoints.up("md")]: {
+      display: "block"
+    }
   },
   mainButton: {
-    marginBottom: '30px',
-    marginTop: '40px',
+    marginBottom: "30px",
+    marginTop: "40px"
   },
   mainButtonBottom: {
-    marginBottom: '15px',
-    marginTop: '20px',
+    marginBottom: "20px",
+    marginTop: "20px"
   },
   panel1: {
-    ...theme.palette.blueToGreen,
+    ...theme.palette.blueToGreen
   },
   panel2: {
-    paddingTop: '30px',
+    paddingTop: "30px"
   },
   icon: {
-    position: 'relative',
-    width: '120px',
-    marginTop: '-75px',
-    marginBottom: '10px',
+    position: "relative",
+    width: "120px",
+    marginTop: "-75px",
+    marginBottom: "10px"
   },
   iconSubtitle: {
-    marginTop: '10px',
-    marginBottom: '20px',
+    marginTop: "10px",
+    marginBottom: "20px"
   },
   iconWrapper: {
-    padding: '10px',
-    marginTop: '20px',
-    maxWidth: '400px',
+    maxWidth: "400px",
     [theme.breakpoints.up(800)]: {
-      maxWidth: '100%',
-    },
+      maxWidth: "100%"
+    }
+  },
+  iconMiddleWrapper: {
+    marginTop: "30px",
+    marginBottom: "30px",
+    maxWidth: "400px",
+    [theme.breakpoints.up(800)]: {
+      marginTop: "0px",
+      marginBottom: "0px",
+
+      maxWidth: "100%"
+    }
   },
   card: {
-    display: 'flex',
-    flexDirection: 'column',
-    height: '100%',
-    alignItems: 'center',
-    marginTop: '30px',
+    display: "flex",
+    flexDirection: "column",
+    height: "100%",
+    alignItems: "center",
+    marginTop: "30px"
   },
   iconTextContainer: {
-    textAlign: 'center',
-    height: '100%',
-    justifyContent: 'space-between',
+    textAlign: "center",
+    height: "100%",
+    justifyContent: "space-between"
   },
   footer: {
-    height: '600px',
+    height: "600px"
   },
   formWrapper: {
-    maxWidth: '1000px',
-    marginLeft: 'auto',
-    justifyContent: 'center',
-    paddingTop: '40px',
-    [theme.breakpoints.up('md')]: {
-      flexDirection: 'row',
-    },
+    alignItems: "center",
+
+    paddingTop: "40px",
+    [theme.breakpoints.up("md")]: {}
   },
   formContainer: {
-    padding: '10px',
-    height: '350px',
-    flexBasis: 'auto',
-    alignItems: 'center',
-    [theme.breakpoints.up('sm')]: {
-      height: '400px',
+    alignItems: "center",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    height: "350px",
+    width: "100%",
+    [theme.breakpoints.up("sm")]: {
+      alignItems: "flex-start",
+      marginRight: "auto",
+      marginLeft: "auto",
+      maxWidth: "700px",
+      height: "400px"
     },
-    [theme.breakpoints.up('md')]: {
-      height: '350px',
-      alignItems: 'flex-start',
-      flexBasis: '0',
-      width: 'auto',
-    },
+    [theme.breakpoints.up("md")]: {
+      marginRight: "auto",
+      marginLeft: "auto",
+      maxWidth: "1000px"
+    }
   },
   formContainerInner: {},
-  '@keyframes slide-in': {
+  "@keyframes slide-in": {
     from: {
-      transform: 'translateX(100%)',
+      transform: "translateX(100%)"
     },
     to: {
-      transform: 'translateX(0)',
-    },
+      transform: "translateX(0)"
+    }
   },
-  '@keyframes simple-fade': {
+  "@keyframes simple-fade": {
     from: {
-      opacity: '0',
+      opacity: "0"
     },
     to: {
-      opacity: '1',
-    },
+      opacity: "1"
+    }
   },
   smallIcon: {
-    width: '80px',
+    width: "80px"
   },
   panelHeader: {
-    maxWidth: '600px',
-    margin: '50px 0px',
-    marginBottom: '80px',
+    maxWidth: "600px",
+    margin: "60px 0px",
+    marginBottom: "150px"
   },
   resultsPanelHeader: {
-    marginBottom: '80px',
-    maxWidth: '600px',
+    marginBottom: "80px",
+    maxWidth: "600px"
   },
   panelTitle: {
-    marginTop: '50px',
-    marginBottom: '10px',
-    fontSize: '50px',
-    [theme.breakpoints.up('sm')]: {
-      fontSize: '60px',
-    },
+    marginTop: "50px",
+    marginBottom: "10px",
+    fontSize: "50px",
+    [theme.breakpoints.up("sm")]: {
+      fontSize: "60px"
+    }
   },
   online: {
-    display: 'block',
-    width: '100%',
+    display: "block",
+    width: "100%"
   },
   programContainer: {
-    paddingRight: '0px',
-    marginBottom: '30px',
-    [theme.breakpoints.up('md')]: {
-      paddingRight: '30px',
-      marginBottom: '0px',
+    paddingRight: "0px",
+    marginBottom: "30px",
+    [theme.breakpoints.up("md")]: {
+      paddingRight: "30px",
+      marginBottom: "0px"
     },
-    '& h3': {
-      textDecoration: 'underline',
-      marginBottom: '10px',
-      fontSize: '25px',
-    },
+    "& h3": {
+      textDecoration: "underline",
+      marginBottom: "10px",
+      fontSize: "25px"
+    }
   },
   programContainerMiddle: {
-    paddingLeft: '0px',
-    marginBottom: '30px',
-    [theme.breakpoints.up('md')]: {
-      paddingLeft: '30px',
-      marginBottom: '0px',
+    paddingLeft: "0px",
+    marginBottom: "30px",
+    [theme.breakpoints.up("md")]: {
+      paddingLeft: "30px",
+      marginBottom: "0px"
     },
-    '& h3': {
-      textDecoration: 'underline',
-      marginBottom: '10px',
-      fontSize: '25px',
-    },
+    "& h3": {
+      textDecoration: "underline",
+      marginBottom: "10px",
+      fontSize: "25px"
+    }
   },
   programWrapperMiddle: {
-    marginTop: '40px',
-    marginBottom: '40px',
-    flexDirection: 'column-reverse',
-    alignContent: 'center',
-    [theme.breakpoints.up('md')]: {
-      flexDirection: 'row',
-    },
+    marginTop: "40px",
+    marginBottom: "40px",
+    flexDirection: "column-reverse",
+    alignContent: "center",
+    [theme.breakpoints.up("md")]: {
+      flexDirection: "row"
+    }
   },
   programWrapper: {
-    flexDirection: 'column',
-    alignContent: 'center',
-    [theme.breakpoints.up('md')]: {
-      flexDirection: 'row',
-    },
+    flexDirection: "column",
+    alignContent: "center",
+    [theme.breakpoints.up("md")]: {
+      flexDirection: "row"
+    }
   },
   resultsSatTitle: {
-    marginTop: '80px',
-    fontSize: '50px',
+    marginTop: "80px",
+    fontSize: "50px"
   },
   resultsSatAfter: {
-    background: '#7336df',
-    padding: '20px',
-    paddingLeft: '50px',
+    background: "#7336df",
+    padding: "20px",
+    paddingLeft: "50px"
   },
   resultsSatBefore: {
-    position: 'relative',
-    background: '#4fa3eb',
-    padding: '20px',
-    '&:after': {
+    position: "relative",
+    background: "#4fa3eb",
+    padding: "20px",
+    "&:after": {
       content: '""',
-      width: '0',
-      height: '0',
-      borderTop: '45px solid #7336df',
-      borderBottom: '44px solid #7336df',
-      borderLeft: '44px solid #7336df',
-      position: 'absolute',
-      right: '-24px',
-      top: '0px',
-      zIndex: '1',
-      borderRightColor: '#4fa3eb',
-      borderLeftColor: '#4fa3eb',
-    },
+      width: "0",
+      height: "0",
+      borderTop: "45px solid #7336df",
+      borderBottom: "44px solid #7336df",
+      borderLeft: "44px solid #7336df",
+      position: "absolute",
+      right: "-24px",
+      top: "0px",
+      zIndex: "1",
+      borderRightColor: "#4fa3eb",
+      borderLeftColor: "#4fa3eb"
+    }
   },
   panelSubtitle: {
-    marginTop: '20px',
-    fontSize: '12px',
+    marginTop: "20px",
+    fontSize: "12px"
   },
   resultsSatTopContainer: {
-    padding: '20px',
-    '& h3': {
-      color: '#00BF6F',
-      fontWeight: 500,
+    padding: "20px",
+    "& h3": {
+      color: "#00BF6F",
+      fontWeight: 500
     },
-    '& p': {
-      fontSize: '11px',
-    },
+    "& p": {
+      fontSize: "11px"
+    }
   },
   resultsSatBottomContainer: {
-    color: 'white',
-    '& h3': {
-      fontWeight: 500,
-    },
+    color: "white",
+    "& h3": {
+      fontWeight: 500
+    }
   },
   bookContainer: {
-    opacity: '1',
-    marginBottom: '-7px',
-    position: 'inherit',
-    [theme.breakpoints.up('md')]: {
-      opacity: '0.7',
-      marginBottom: '130px',
-      top: '137px',
-      position: 'relative',
-    },
+    marginTop: "50px"
   },
-  book: {},
+  book: { marginBottom: "-7px", width: "100%" },
   panel4Covered: {
-    paddingBottom: '200px',
-    overflow: 'hidden',
+    paddingBottom: "200px",
+    overflow: "hidden"
   },
-  programImgContainer: { borderRadius: '10px' },
+  programImgContainer: { borderRadius: "10px" },
   categoryContainer: {
-    opacity: '0.7',
-    justifyContent: 'center',
-    width: '170%',
-    marginLeft: '-100px',
-    [theme.breakpoints.up('sm')]: {
-      flexWrap: 'wrap',
-      justifyContent: 'flex-start',
-      marginLeft: '-100px',
-      width: '330px',
-    },
+    opacity: "0.7",
+    justifyContent: "center",
+    width: "170%",
+    marginLeft: "-100px",
+    [theme.breakpoints.up("sm")]: {
+      flexWrap: "wrap",
+      justifyContent: "flex-start",
+      marginLeft: "-100px",
+      width: "330px"
+    }
   },
   categorySubContainer: {
-    flexWrap: 'noWrap',
+    flexWrap: "noWrap",
 
-    [theme.breakpoints.up('sm')]: {
-      width: '140px',
-      flexWrap: 'wrap',
-    },
+    [theme.breakpoints.up("sm")]: {
+      width: "140px",
+      flexWrap: "wrap"
+    }
   },
   categoryMainContainer: {
-    opacity: '0.7',
-    marginLeft: '-80px',
-    width: '120%',
-    [theme.breakpoints.up('sm')]: {
-      marginLeft: '-160px',
-      width: 'inherit',
-      flexWrap: 'wrap',
+    opacity: "0.7",
+    marginLeft: "-80px",
+    width: "120%",
+    [theme.breakpoints.up("sm")]: {
+      marginLeft: "-160px",
+      width: "inherit",
+      flexWrap: "wrap"
     },
-    [theme.breakpoints.up('md')]: {
-      marginLeft: '-100px',
-    },
+    [theme.breakpoints.up("md")]: {
+      marginLeft: "-100px"
+    }
   },
 
   categoryContainer2: {
-    height: 'fit-content',
-    opacity: '0.7',
-    marginRight: '-150px',
-    position: 'relative',
-    width: '330px',
-    display: 'none',
-    [theme.breakpoints.up('md')]: {
-      display: 'flex',
-    },
+    height: "fit-content",
+    opacity: "0.7",
+    marginRight: "-150px",
+    position: "relative",
+    width: "330px",
+    display: "none",
+    [theme.breakpoints.up("md")]: {
+      display: "flex"
+    }
   },
   categoryLast: {
-    width: '120px',
-    margin: '10px',
-    display: 'none',
-    [theme.breakpoints.up('sm')]: {
-      display: 'inherit',
-    },
+    width: "120px",
+    margin: "10px",
+    display: "none",
+    [theme.breakpoints.up("sm")]: {
+      display: "inherit"
+    }
   },
   categoryWrapper: {
-    flexDirection: 'column-reverse',
-    marginBottom: '200px',
-    [theme.breakpoints.up('sm')]: {
-      flexDirection: 'row',
-      marginBottom: '0px',
-    },
+    flexDirection: "column-reverse",
+    marginBottom: "200px",
+    [theme.breakpoints.up("sm")]: {
+      flexDirection: "row",
+      marginBottom: "0px"
+    }
   },
 
   background: {
-    position: 'absolute',
+    position: "absolute",
     backgroundImage: `url(${headgear})`,
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'center',
-    backgroundSize: 'cover',
-    paddingBottom: '180px',
-    height: '1000px',
-    paddingTop: '50px',
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "center",
+    backgroundSize: "cover",
+    paddingBottom: "180px",
+    height: "1000px",
+    paddingTop: "50px"
   },
   coveredMainTextWrapper: {},
   coveredMainTextContainer: {},
   coveredMainTextContainer2: {},
-  bottomPanelText: {
-    marginBottom: '70px',
-  },
   learn: {
-    cursor: 'pointer',
-    '&:hover': {
-      opacity: 0.7,
-    },
+    cursor: "pointer",
+    "&:hover": {
+      opacity: 0.7
+    }
   },
   mainTextContainerCovered: {
-    minHeight: '400px',
+    minHeight: "400px",
 
-    marginLeft: '0px',
+    marginLeft: "0px",
     [theme.breakpoints.up(700)]: {
-      minHeight: '500px',
-      marginLeft: '350px',
+      minHeight: "500px",
+      marginLeft: "350px"
     },
-    [theme.breakpoints.up('md')]: {
-      minHeight: 'auto',
-      height: 'auto',
-      marginLeft: '0px',
-    },
+    [theme.breakpoints.up("md")]: {
+      minHeight: "auto",
+      height: "auto",
+      marginLeft: "0px"
+    }
   },
   headgearContainer: {
-    display: 'none',
+    marginBottom: "50px",
     [theme.breakpoints.up(700)]: {
-      display: 'block',
-      maxWidth: 'none',
-      width: '600px',
-      position: 'absolute',
-      left: '-300px',
-      marginRight: '50px',
+      display: "block",
+      maxWidth: "none",
+      width: "600px",
+      position: "absolute",
+      left: "-300px",
+      marginRight: "50px",
+      marginBottom: "0px"
     },
-    [theme.breakpoints.up('md')]: {
-      width: 'inherit',
-      position: 'initial',
-    },
+    [theme.breakpoints.up("md")]: {
+      width: "inherit",
+      position: "initial"
+    }
   },
   coveredTitles: {
-    textDecoration: 'underline',
+    textDecoration: "underline"
   },
   coveredText: {
-    fontSize: '16px',
+    fontSize: "16px"
   },
   coveredTextContainerTop: {},
   coveredTextContainerBottom: {
-    marginTop: '30px',
+    marginTop: "30px"
   },
   coveredMainContentContainer: {
-    position: 'relative',
+    position: "relative",
 
-    [theme.breakpoints.up(700)]: {},
+    [theme.breakpoints.up(700)]: {}
   },
   shimmer: {
-    position: 'absolute',
-    width: '100%',
-    backgroundColor: 'transparent',
-    backgroundImage: 'linear-gradient(90deg,transparent,rgba(0,0,0,.05))',
+    position: "absolute",
+    width: "100%",
+    backgroundColor: "transparent",
+    backgroundImage: "linear-gradient(90deg,transparent,rgba(0,0,0,.05))"
   },
   panelTitleBottom: {
-    marginTop: '20px',
-    fontSize: '30px',
-    [theme.breakpoints.up('sm')]: {
-      fontSize: '35px',
-    },
-  },
+    marginTop: "20px",
+    fontSize: "30px",
+    [theme.breakpoints.up("sm")]: {
+      fontSize: "35px"
+    }
+  }
 });
-const initialSubMenus = [
-  {
-    option: 'A) SAT',
-    subMenu: [
-      {
-        option: 'A) Learn more about our programs',
-      },
-      {
-        option: 'B) Just let me sign up already',
-        subMenu: [
-          { option: 'BootCamp!' },
-          { option: '1 on 1 Tutoring' },
-          { option: 'Online Course' },
-        ],
-      },
-    ],
-  },
-  {
-    option: 'B) ACT',
-  },
-];
 
 class IndexPage extends Component {
   constructor() {
     super();
     this.state = {
-      menu: 'SAT_Signup_Courses',
-      step: 2,
+      menu: "Root",
+      step: 1,
       expanded1: false,
-      expanded2: false,
+      expanded2: false
     };
     this.myDivToFocus = React.createRef();
+  }
+
+  componentDidMount() {
+    axios
+      .get("/api/connect")
+      .then(res => console.log(res))
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   handleClick = () => {
     //.current is verification that your element has rendered
     if (this.myDivToFocus.current) {
       this.myDivToFocus.current.scrollIntoView({
-        behavior: 'smooth',
+        behavior: "smooth"
       });
     }
   };
@@ -525,13 +504,13 @@ class IndexPage extends Component {
 
   setMenu = newMenu => {
     this.setState({
-      menu: newMenu,
+      menu: newMenu
     });
   };
 
   handleExpand = (expanded, currentExpand) => {
     this.setState({
-      [expanded]: currentExpand,
+      [expanded]: currentExpand
     });
   };
 
@@ -546,11 +525,19 @@ class IndexPage extends Component {
             <Header />
             <Panel>
               <Grid item xs={4} className={classes.shimmer} />
-              <Grid container justify="space-between" className={classes.panel1Inner}>
+              <Grid
+                container
+                justify="space-between"
+                className={classes.panel1Inner}
+              >
                 <Grid item container xs className={classes.textContainer}>
                   <Grid item>
-                    <Typography variant="h4" color="inherit" className={classes.logoText}>
-                      Creative, Relatively Fun, and Straight-forward Test Prep.
+                    <Typography
+                      variant="h4"
+                      color="inherit"
+                      className={classes.logoText}
+                    >
+                      Creative, Relatively Fun, and Straight-forward Test Prep
                     </Typography>
                     <Typography
                       component="h1"
@@ -571,18 +558,34 @@ class IndexPage extends Component {
                   </ButtonCustom>
                 </Grid>
                 <Grid item xs={7} className={classes.mainGraphicContainer}>
-                  <img src={mainGraphic} className={classes.mainGraphic} alt="students studying" />
+                  <img
+                    src={mainGraphic}
+                    className={classes.mainGraphic}
+                    alt="students studying"
+                  />
                 </Grid>
               </Grid>
             </Panel>
           </div>
 
-          <Panel backgroundColor="whiteToLightBlue" className={classes.panel2Inner}>
-            <Grid item container justify="space-between" className={classes.iconsWrapper}>
-              <Grid item container direction="column" className={classes.iconWrapper}>
+          <Panel
+            backgroundColor="whiteToLightBlue"
+            className={classes.panel2Inner}
+          >
+            <Grid item container spacing={24} className={classes.iconsWrapper}>
+              <Grid
+                item
+                container
+                direction="column"
+                className={classes.iconWrapper}
+              >
                 <CardCustom visible padding className={classes.card}>
                   <img src={world} alt="world" className={classes.icon} />
-                  <Grid container direction="column" className={classes.iconTextContainer}>
+                  <Grid
+                    container
+                    direction="column"
+                    className={classes.iconTextContainer}
+                  >
                     <Typography
                       variant="overline"
                       className={classes.icontitle}
@@ -606,10 +609,23 @@ class IndexPage extends Component {
                 </CardCustom>
               </Grid>
 
-              <Grid item container direction="column" className={classes.iconWrapper}>
+              <Grid
+                item
+                container
+                direction="column"
+                className={classes.iconMiddleWrapper}
+              >
                 <CardCustom visible padding className={classes.card}>
-                  <img src={lightBulb} alt="light bulb" className={classes.icon} />
-                  <Grid container direction="column" className={classes.iconTextContainer}>
+                  <img
+                    src={lightBulb}
+                    alt="light bulb"
+                    className={classes.icon}
+                  />
+                  <Grid
+                    container
+                    direction="column"
+                    className={classes.iconTextContainer}
+                  >
                     <Grid container direction="column" justify="space-between">
                       <Typography
                         variant="overline"
@@ -634,10 +650,19 @@ class IndexPage extends Component {
                 </CardCustom>
               </Grid>
 
-              <Grid item container direction="column" className={classes.iconWrapper}>
+              <Grid
+                item
+                container
+                direction="column"
+                className={classes.iconWrapper}
+              >
                 <CardCustom visible padding className={classes.card}>
                   <img src={labTop} alt="labtop" className={classes.icon} />
-                  <Grid container direction="column" className={classes.iconTextContainer}>
+                  <Grid
+                    container
+                    direction="column"
+                    className={classes.iconTextContainer}
+                  >
                     <Typography
                       variant="overline"
                       className={classes.iconTitle}
@@ -651,7 +676,8 @@ class IndexPage extends Component {
                       className={classes.iconSubtitle}
                       color="textPrimary"
                     >
-                      Straight-forward strategies that avoid complicated wording.
+                      Straight-forward strategies that avoid complicated
+                      wording.
                     </Typography>
 
                     <Typography variant="caption" color="textPrimary">
@@ -663,37 +689,35 @@ class IndexPage extends Component {
             </Grid>
 
             <div ref={this.myDivToFocus}>
-              <Grid item container justify="space-between" className={classes.formWrapper}>
-                <Grid
-                  item
-                  sm={12}
-                  md
-                  container
-                  direction="column"
-                  alignItems="center"
-                  justify="space-between"
-                  className={classes.formContainer}
-                >
+              <Grid
+                item
+                container
+                direction="column"
+                justify="space-between"
+                className={classes.formWrapper}
+              >
+                <Grid item className={classes.formContainer}>
                   {(() => {
                     switch (menu) {
-                      case 'SAT':
+                      case "SAT":
                         return (
                           <React.Fragment>
                             <SlideMenu
-                              title="Want to take a look around first?"
+                              title="Take a look around first?"
                               choices={[
                                 {
-                                  choice: 'A) Show me what you got!',
-                                  to: '/sat',
+                                  choice: "A) Show me what you got!",
+                                  to: "/SAT"
                                 },
                                 {
-                                  choice: "B) No thanks, I'm ready to see pricing/sign up.",
-                                  menu: 'SAT_Signup_Courses',
+                                  choice:
+                                    "B) No thanks, I'm ready to see pricing/sign up.",
+                                  menu: "SAT_Signup_Courses"
                                 },
                                 {
                                   choice: "C) Let's chat on the phone first.",
-                                  menu: 'SAT_Phone_Courses',
-                                },
+                                  menu: "SAT_Phone_Courses"
+                                }
                               ]}
                               onClickHandler={this.setMenu}
                               backButton
@@ -701,25 +725,26 @@ class IndexPage extends Component {
                             />
                           </React.Fragment>
                         );
-                      case 'SAT_Signup_Courses':
+                      case "SAT_Signup_Courses":
                         return (
                           <React.Fragment>
                             <SlideMenu
                               title="Which program interests you?"
                               choices={[
                                 {
-                                  choice: 'A) Online video course',
-                                  to: '/login',
+                                  choice: "A) Self-paced course",
+                                  to: "/login"
                                 },
                                 {
-                                  choice: 'B) 1-on-1 instruction',
-                                  to: '/checkout?name=1-on-1 SAT',
-                                  as: '/checkout/sat/1-on-1',
+                                  choice: "B) 1-on-1 instruction",
+                                  to: "/checkout?course=SAT&program=1-on-1",
+                                  as: "/checkout/SAT/1-on-1"
                                 },
                                 {
-                                  choice: 'C) In-person bootcamp',
-                                  to: '/checkout?name=Find Bootcamp Near You',
-                                },
+                                  choice: "C) Bootcamp",
+                                  to: "/checkout?course=SAT&program=Bootcamp",
+                                  as: "/checkout/SAT/Bootcamp"
+                                }
                               ]}
                               onClickHandler={this.setMenu}
                               backButton
@@ -727,24 +752,27 @@ class IndexPage extends Component {
                             />
                           </React.Fragment>
                         );
-                      case 'SAT_Phone_Courses':
+                      case "SAT_Phone_Courses":
                         return (
                           <React.Fragment>
                             <SlideMenu
                               title="Which program interests you?"
                               choices={[
                                 {
-                                  choice: 'A) Online video course',
-                                  menu: 'SAT_Phone_Online_WhoNeeds',
+                                  choice: "A) Self-paced course",
+                                  menu: "SAT_Phone_Online_WhoNeeds",
+                                  program: "Self-paced"
                                 },
                                 {
-                                  choice: 'B) 1-on-1 instruction',
-                                  menu: 'SAT_Phone_InPersonOrOnline',
+                                  choice: "B) 1-on-1 instruction",
+                                  menu: "SAT_Phone_InPersonOrOnline",
+                                  program: "1-on-1"
                                 },
                                 {
-                                  choice: 'C) Bootcamp',
-                                  menu: 'SAT_Phone_InPersonOrOnline',
-                                },
+                                  choice: "C) Bootcamp",
+                                  menu: "SAT_Phone_InPersonOrOnline",
+                                  program: "Bootcamp"
+                                }
                               ]}
                               onClickHandler={this.setMenu}
                               backButton
@@ -752,24 +780,27 @@ class IndexPage extends Component {
                             />
                           </React.Fragment>
                         );
-                      case 'SAT_Phone_Online_WhoNeeds':
+                      case "SAT_Phone_Online_WhoNeeds":
                         return (
                           <React.Fragment>
                             <SlideMenu
                               title="Who needs tutoring?"
                               choices={[
                                 {
-                                  choice: 'A) Me, myself, and I',
-                                  menu: 'SAT_Phone_Online_Name',
+                                  choice: "A) Me, myself, and I",
+                                  menu: "SAT_Phone_Online_Name",
+                                  whoNeeds: "Self"
                                 },
                                 {
                                   choice: "B) My lil puddin'",
-                                  menu: 'SAT_Phone_Online_Name',
+                                  menu: "SAT_Phone_Online_Name",
+                                  whoNeeds: "Child"
                                 },
                                 {
-                                  choice: 'C) Someone else I care about',
-                                  menu: 'SAT_Phone_Online_Name',
-                                },
+                                  choice: "C) Someone else I care about",
+                                  menu: "SAT_Phone_Online_Name",
+                                  whoNeeds: "Someone else"
+                                }
                               ]}
                               onClickHandler={this.setMenu}
                               backButton
@@ -777,20 +808,20 @@ class IndexPage extends Component {
                             />
                           </React.Fragment>
                         );
-                      case 'SAT_Phone_Online_Name':
+                      case "SAT_Phone_Online_Name":
                         return (
                           <React.Fragment>
                             <SlideMenu
                               form
                               currentValidators={[
-                                'required',
-                                'minStringLength: 2',
-                                'maxStringLength: 30',
+                                "required",
+                                "minStringLength: 2",
+                                "maxStringLength: 30"
                               ]}
                               currentErrorMessages={[
-                                'Name is required',
-                                'Name must be longer than 2 characters',
-                                'Name must be shorter than 30 characters',
+                                "Name is required",
+                                "Name must be longer than 2 letters",
+                                "Name must be shorter than 30 letters"
                               ]}
                               title="What's your name?"
                               label="Name"
@@ -802,13 +833,16 @@ class IndexPage extends Component {
                             />
                           </React.Fragment>
                         );
-                      case 'SAT_Phone_Online_Email':
+                      case "SAT_Phone_Online_Email":
                         return (
                           <React.Fragment>
                             <SlideMenu
                               form
-                              currentValidators={['required', 'isEmail']}
-                              currentErrorMessages={['Email is required', 'Email is not valid']}
+                              currentValidators={["required", "isEmail"]}
+                              currentErrorMessages={[
+                                "Email is required",
+                                "Email is not valid"
+                              ]}
                               title="What's your email?"
                               value="email"
                               label="Email"
@@ -820,23 +854,24 @@ class IndexPage extends Component {
                             />
                           </React.Fragment>
                         );
-                      case 'SAT_Phone_Online_Number':
+                      case "SAT_Phone_Online_Number":
                         return (
                           <React.Fragment>
                             <SlideMenu
+                              phone
                               form
                               title="What's your number?"
                               value="tel"
                               label="Phone 
                               Number"
-                              formChoice="SAT_Phone_1on1_Time"
+                              formChoice="SAT_Phone_Online_Time"
                               onClickHandler={this.setMenu}
                               backButton
                               backMenu="SAT_Phone_Online_Email"
                             />
                           </React.Fragment>
                         );
-                      case 'SAT_Phone_Online_Time':
+                      case "SAT_Phone_Online_Time":
                         return (
                           <React.Fragment>
                             <SlideMenu
@@ -852,20 +887,22 @@ class IndexPage extends Component {
                           </React.Fragment>
                         );
 
-                      case 'SAT_Phone_InPersonOrOnline':
+                      case "SAT_Phone_InPersonOrOnline":
                         return (
                           <React.Fragment>
                             <SlideMenu
                               title="In-person or Online"
                               choices={[
                                 {
-                                  choice: 'A) In-person (currently only offered near Austin, TX)',
-                                  menu: 'SAT_Phone_WhoNeeds',
+                                  choice: "A) In-person",
+                                  menu: "SAT_Phone_WhoNeeds",
+                                  location: "In-person"
                                 },
                                 {
-                                  choice: 'B) Online ',
-                                  menu: 'SAT_Phone_WhoNeeds',
-                                },
+                                  choice: "B) Online ",
+                                  menu: "SAT_Phone_WhoNeeds",
+                                  location: "Online"
+                                }
                               ]}
                               onClickHandler={this.setMenu}
                               backButton
@@ -874,24 +911,27 @@ class IndexPage extends Component {
                           </React.Fragment>
                         );
 
-                      case 'SAT_Phone_WhoNeeds':
+                      case "SAT_Phone_WhoNeeds":
                         return (
                           <React.Fragment>
                             <SlideMenu
                               title="Who needs tutoring?"
                               choices={[
                                 {
-                                  choice: 'A) Me, myself, and I',
-                                  menu: 'SAT_Phone_Name',
+                                  choice: "A) Me, myself, and I",
+                                  menu: "SAT_Phone_Name",
+                                  whoNeeds: "Self"
                                 },
                                 {
                                   choice: "B) My lil puddin'",
-                                  menu: 'SAT_Phone_Name',
+                                  menu: "SAT_Phone_Name",
+                                  whoNeeds: "Child"
                                 },
                                 {
-                                  choice: 'C) Someone else I care about',
-                                  menu: 'SAT_Phone_Name',
-                                },
+                                  choice: "C) Someone else I care about",
+                                  menu: "SAT_Phone_Name",
+                                  whoNeeds: "Someone else"
+                                }
                               ]}
                               onClickHandler={this.setMenu}
                               backButton
@@ -900,20 +940,20 @@ class IndexPage extends Component {
                           </React.Fragment>
                         );
 
-                      case 'SAT_Phone_Name':
+                      case "SAT_Phone_Name":
                         return (
                           <React.Fragment>
                             <SlideMenu
                               form
                               currentValidators={[
-                                'required',
-                                'minStringLength: 2',
-                                'maxStringLength: 30',
+                                "required",
+                                "minStringLength: 2",
+                                "maxStringLength: 30"
                               ]}
                               currentErrorMessages={[
-                                'Name is required',
-                                'Name must be longer than 2 characters',
-                                'Name must be shorter than 30 characters',
+                                "Name is required",
+                                "Name must be longer than 2 letters",
+                                "Name must be shorter than 30 letters"
                               ]}
                               title="What's your name?"
                               label="Name"
@@ -925,13 +965,16 @@ class IndexPage extends Component {
                             />
                           </React.Fragment>
                         );
-                      case 'SAT_Phone_Email':
+                      case "SAT_Phone_Email":
                         return (
                           <React.Fragment>
                             <SlideMenu
                               form
-                              currentValidators={['required', 'isEmail']}
-                              currentErrorMessages={['Email is required', 'Email is not valid']}
+                              currentValidators={["required", "isEmail"]}
+                              currentErrorMessages={[
+                                "Email is required",
+                                "Email is not valid"
+                              ]}
                               title="What's your email?"
                               value="email"
                               label="Email"
@@ -943,11 +986,12 @@ class IndexPage extends Component {
                             />
                           </React.Fragment>
                         );
-                      case 'SAT_Phone_Number':
+                      case "SAT_Phone_Number":
                         return (
                           <React.Fragment>
                             <SlideMenu
                               form
+                              phone
                               title="What's your number?"
                               value="tel"
                               label="Phone 
@@ -959,7 +1003,7 @@ class IndexPage extends Component {
                             />
                           </React.Fragment>
                         );
-                      case 'SAT_Phone_Time':
+                      case "SAT_Phone_Time":
                         return (
                           <React.Fragment>
                             <SlideMenu
@@ -974,11 +1018,11 @@ class IndexPage extends Component {
                             />
                           </React.Fragment>
                         );
-                      case 'Phone_Done':
+                      case "Phone_Done":
                         return (
                           <React.Fragment>
                             <SlideMenu
-                              title="Awesome! You're all set. We'll give you a call within 24hrs."
+                              title="Awesome! You're all set. We'll give you a call within 48hrs."
                               onClickHandler={this.setMenu}
                               resetButton
                               backMenu="Root"
@@ -986,24 +1030,24 @@ class IndexPage extends Component {
                           </React.Fragment>
                         );
 
-                      case 'ACT':
+                      case "ACT":
                         return (
                           <React.Fragment>
                             <SlideMenu
-                              title="Want to take a look around first?"
+                              title="Take a look around first?"
                               choices={[
                                 {
-                                  choice: 'A) Show me what you got!',
-                                  to: '/act',
+                                  choice: "A) Show me what you got!",
+                                  to: "/ACT"
                                 },
                                 {
                                   choice: "B) No thanks, I'm ready to sign up.",
-                                  menu: 'ACT_Signup_Courses',
+                                  menu: "ACT_Signup_Courses"
                                 },
                                 {
                                   choice: "C) Let's chat on the phone first.",
-                                  menu: 'ACT_Phone_Courses',
-                                },
+                                  menu: "ACT_Phone_Courses"
+                                }
                               ]}
                               onClickHandler={this.setMenu}
                               backButton
@@ -1011,21 +1055,22 @@ class IndexPage extends Component {
                             />
                           </React.Fragment>
                         );
-                      case 'ACT_Signup_Courses':
+                      case "ACT_Signup_Courses":
                         return (
                           <React.Fragment>
                             <SlideMenu
                               title="Which program interests you?"
                               choices={[
                                 {
-                                  choice: 'B) 1-on-1 instruction',
-                                  to: '/checkout?name=1-on-1 ACT',
-                                  as: '/checkout/act/1-on-1',
+                                  choice: "B) 1-on-1 instruction",
+                                  to: "/checkout?course=ACT&program=1-on-1",
+                                  as: "/checkout/ACT/1-on-1"
                                 },
                                 {
-                                  choice: 'C) Bootcamp',
-                                  to: '/checkout',
-                                },
+                                  choice: "C) Bootcamp",
+                                  to: "/checkout?course=ACT&program=Bootcamp",
+                                  as: "/checkout/ACT/Bootcamp"
+                                }
                               ]}
                               onClickHandler={this.setMenu}
                               backButton
@@ -1033,20 +1078,22 @@ class IndexPage extends Component {
                             />
                           </React.Fragment>
                         );
-                      case 'ACT_Phone_Courses':
+                      case "ACT_Phone_Courses":
                         return (
                           <React.Fragment>
                             <SlideMenu
                               title="Which program interests you?"
                               choices={[
                                 {
-                                  choice: 'B) 1-on-1 instruction',
-                                  menu: 'ACT_Phone_InPersonOrOnline',
+                                  choice: "B) 1-on-1 instruction",
+                                  menu: "ACT_Phone_InPersonOrOnline",
+                                  program: "1-on-1"
                                 },
                                 {
-                                  choice: 'C) Bootcamp',
-                                  menu: 'ACT_Phone_InPersonOrOnline',
-                                },
+                                  choice: "C) Bootcamp",
+                                  menu: "ACT_Phone_InPersonOrOnline",
+                                  program: "Bootcamp"
+                                }
                               ]}
                               onClickHandler={this.setMenu}
                               backButton
@@ -1054,20 +1101,22 @@ class IndexPage extends Component {
                             />
                           </React.Fragment>
                         );
-                      case 'ACT_Phone_InPersonOrOnline':
+                      case "ACT_Phone_InPersonOrOnline":
                         return (
                           <React.Fragment>
                             <SlideMenu
                               title="In-person or Online"
                               choices={[
                                 {
-                                  choice: 'A) In-person (currently only offered near Austin, TX)',
-                                  menu: 'ACT_Phone_WhoNeeds',
+                                  choice: "A) In-person",
+                                  menu: "ACT_Phone_WhoNeeds",
+                                  location: "In-person"
                                 },
                                 {
-                                  choice: 'B) Online ',
-                                  menu: 'ACT_Phone_WhoNeeds',
-                                },
+                                  choice: "B) Online ",
+                                  menu: "ACT_Phone_WhoNeeds",
+                                  location: "Online"
+                                }
                               ]}
                               onClickHandler={this.setMenu}
                               backButton
@@ -1075,24 +1124,27 @@ class IndexPage extends Component {
                             />
                           </React.Fragment>
                         );
-                      case 'ACT_Phone_WhoNeeds':
+                      case "ACT_Phone_WhoNeeds":
                         return (
                           <React.Fragment>
                             <SlideMenu
                               title="Who needs tutoring?"
                               choices={[
                                 {
-                                  choice: 'A) Me, myself, and I',
-                                  menu: 'ACT_Phone_Name',
+                                  choice: "A) Me, myself, and I",
+                                  menu: "ACT_Phone_Name",
+                                  whoNeeds: "Self"
                                 },
                                 {
                                   choice: "B) My lil puddin'",
-                                  menu: 'ACT_Phone_Name',
+                                  menu: "ACT_Phone_Name",
+                                  whoNeeds: "Child"
                                 },
                                 {
-                                  choice: 'C) Someone else I care about',
-                                  menu: 'ACT_Phone_Name',
-                                },
+                                  choice: "C) Someone else I care about",
+                                  menu: "ACT_Phone_Name",
+                                  whoNeeds: "Someone else"
+                                }
                               ]}
                               onClickHandler={this.setMenu}
                               backButton
@@ -1101,20 +1153,20 @@ class IndexPage extends Component {
                           </React.Fragment>
                         );
 
-                      case 'ACT_Phone_Name':
+                      case "ACT_Phone_Name":
                         return (
                           <React.Fragment>
                             <SlideMenu
                               form
                               currentValidators={[
-                                'required',
-                                'minStringLength: 2',
-                                'maxStringLength: 30',
+                                "required",
+                                "minStringLength: 2",
+                                "maxStringLength: 30"
                               ]}
                               currentErrorMessages={[
-                                'Name is required',
-                                'Name must be longer than 2 characters',
-                                'Name must be shorter than 30 characters',
+                                "Name is required",
+                                "Name must be longer than 2 letters",
+                                "Name must be shorter than 30 letters"
                               ]}
                               title="What's your name?"
                               label="Name"
@@ -1126,13 +1178,16 @@ class IndexPage extends Component {
                             />
                           </React.Fragment>
                         );
-                      case 'ACT_Phone_Email':
+                      case "ACT_Phone_Email":
                         return (
                           <React.Fragment>
                             <SlideMenu
                               form
-                              currentValidators={['required', 'isEmail']}
-                              currentErrorMessages={['Email is required', 'Email is not valid']}
+                              currentValidators={["required", "isEmail"]}
+                              currentErrorMessages={[
+                                "Email is required",
+                                "Email is not valid"
+                              ]}
                               title="What's your email?"
                               value="email"
                               label="Email"
@@ -1144,11 +1199,12 @@ class IndexPage extends Component {
                             />
                           </React.Fragment>
                         );
-                      case 'ACT_Phone_Number':
+                      case "ACT_Phone_Number":
                         return (
                           <React.Fragment>
                             <SlideMenu
                               form
+                              phone
                               title="What's your number?"
                               value="tel"
                               label="Phone 
@@ -1160,7 +1216,7 @@ class IndexPage extends Component {
                             />
                           </React.Fragment>
                         );
-                      case 'ACT_Phone_Time':
+                      case "ACT_Phone_Time":
                         return (
                           <React.Fragment>
                             <SlideMenu
@@ -1175,24 +1231,24 @@ class IndexPage extends Component {
                             />
                           </React.Fragment>
                         );
-                      case 'Academic':
+                      case "Academic":
                         return (
                           <React.Fragment>
                             <SlideMenu
-                              title="Want to take a look around first?"
+                              title="Take a look around first?"
                               choices={[
                                 {
-                                  choice: 'A) Show me what you got!',
-                                  to: '/academic',
+                                  choice: "A) Show me what you got!",
+                                  to: "/academic"
                                 },
                                 {
                                   choice: "B) No thanks, I'm ready to sign up.",
-                                  menu: 'Academic_Signup_Courses',
+                                  menu: "Academic_Signup_Courses"
                                 },
                                 {
                                   choice: "C) Let's chat on the phone first.",
-                                  menu: 'Academic_Phone_Courses',
-                                },
+                                  menu: "Academic_Phone_Courses"
+                                }
                               ]}
                               onClickHandler={this.setMenu}
                               backButton
@@ -1200,16 +1256,18 @@ class IndexPage extends Component {
                             />
                           </React.Fragment>
                         );
-                      case 'Academic_Signup_Courses':
+                      case "Academic_Signup_Courses":
                         return (
                           <React.Fragment>
                             <SlideMenu
                               title="Which program interests you?"
                               choices={[
                                 {
-                                  choice: 'A) 1-on-1 instruction',
-                                  to: '/checkout',
-                                },
+                                  choice: "A) 1-on-1 instruction",
+                                  to:
+                                    "/checkout?course=Academic&program=1-on-1",
+                                  as: "/checkout/Academic/1-on-1"
+                                }
                               ]}
                               onClickHandler={this.setMenu}
                               backButton
@@ -1218,17 +1276,17 @@ class IndexPage extends Component {
                           </React.Fragment>
                         );
 
-                      case 'Academic_Phone_Courses':
+                      case "Academic_Phone_Courses":
                         return (
                           <React.Fragment>
                             <SlideMenu
                               title="Which program interests you?"
                               choices={[
                                 {
-                                  choice: 'A) 1 on 1 instruction',
-
-                                  menu: 'Academic_Phone_InPersonOrOnline',
-                                },
+                                  choice: "A) 1 on 1 instruction",
+                                  menu: "Academic_Phone_InPersonOrOnline",
+                                  program: "1-on-1"
+                                }
                               ]}
                               onClickHandler={this.setMenu}
                               backButton
@@ -1236,20 +1294,22 @@ class IndexPage extends Component {
                             />
                           </React.Fragment>
                         );
-                      case 'Academic_Phone_InPersonOrOnline':
+                      case "Academic_Phone_InPersonOrOnline":
                         return (
                           <React.Fragment>
                             <SlideMenu
                               title="In-person or online"
                               choices={[
                                 {
-                                  choice: 'A) In-person (currently only offered near Austin, TX)',
-                                  menu: 'Academic_Phone_WhoNeeds',
+                                  choice: "A) In-person",
+                                  menu: "Academic_Phone_WhoNeeds",
+                                  location: "In-person"
                                 },
                                 {
-                                  choice: 'B) Online ',
-                                  menu: 'Academic_Phone_WhoNeeds',
-                                },
+                                  choice: "B) Online ",
+                                  menu: "Academic_Phone_WhoNeeds",
+                                  location: "Online"
+                                }
                               ]}
                               onClickHandler={this.setMenu}
                               backButton
@@ -1257,24 +1317,27 @@ class IndexPage extends Component {
                             />
                           </React.Fragment>
                         );
-                      case 'Academic_Phone_WhoNeeds':
+                      case "Academic_Phone_WhoNeeds":
                         return (
                           <React.Fragment>
                             <SlideMenu
                               title="Who needs Tutoring?"
                               choices={[
                                 {
-                                  choice: 'A) Me, myself, and I',
-                                  menu: 'Academic_Phone_Name',
+                                  choice: "A) Me, myself, and I",
+                                  menu: "Academic_Phone_Name",
+                                  whoNeeds: "Self"
                                 },
                                 {
                                   choice: "B) My lil puddin'",
-                                  menu: 'Academic_Phone_Name',
+                                  menu: "Academic_Phone_Name",
+                                  whoNeeds: "Child"
                                 },
                                 {
-                                  choice: 'C) Someone else I care about',
-                                  menu: 'Academic_Phone_Name',
-                                },
+                                  choice: "C) Someone else I care about",
+                                  menu: "Academic_Phone_Name",
+                                  whoNeeds: "Someone else"
+                                }
                               ]}
                               onClickHandler={this.setMenu}
                               backButton
@@ -1283,20 +1346,20 @@ class IndexPage extends Component {
                           </React.Fragment>
                         );
 
-                      case 'Academic_Phone_Name':
+                      case "Academic_Phone_Name":
                         return (
                           <React.Fragment>
                             <SlideMenu
                               form
                               currentValidators={[
-                                'required',
-                                'minStringLength: 2',
-                                'maxStringLength: 30',
+                                "required",
+                                "minStringLength: 2",
+                                "maxStringLength: 30"
                               ]}
                               currentErrorMessages={[
-                                'Name is required',
-                                'Name must be longer than 2 characters',
-                                'Name must be shorter than 30 characters',
+                                "Name is required",
+                                "Name must be longer than 2 letters",
+                                "Name must be shorter than 30 letters"
                               ]}
                               title="What's your name?"
                               label="Name"
@@ -1308,13 +1371,16 @@ class IndexPage extends Component {
                             />
                           </React.Fragment>
                         );
-                      case 'Academic_Phone_Email':
+                      case "Academic_Phone_Email":
                         return (
                           <React.Fragment>
                             <SlideMenu
                               form
-                              currentValidators={['required', 'isEmail']}
-                              currentErrorMessages={['Email is required', 'Email is not valid']}
+                              currentValidators={["required", "isEmail"]}
+                              currentErrorMessages={[
+                                "Email is required",
+                                "Email is not valid"
+                              ]}
                               title="What's your email?"
                               value="email"
                               label="Email"
@@ -1326,11 +1392,12 @@ class IndexPage extends Component {
                             />
                           </React.Fragment>
                         );
-                      case 'Academic_Phone_Number':
+                      case "Academic_Phone_Number":
                         return (
                           <React.Fragment>
                             <SlideMenu
                               form
+                              phone
                               title="What's your number?"
                               value="tel"
                               label="Phone 
@@ -1342,7 +1409,7 @@ class IndexPage extends Component {
                             />
                           </React.Fragment>
                         );
-                      case 'Academic_Phone_Time':
+                      case "Academic_Phone_Time":
                         return (
                           <React.Fragment>
                             <SlideMenu
@@ -1357,20 +1424,20 @@ class IndexPage extends Component {
                             />
                           </React.Fragment>
                         );
-                      case 'Will':
+                      case "Will":
                         return (
                           <React.Fragment>
                             <SlideMenu
                               title="Which program interests you?"
                               choices={[
                                 {
-                                  choice: 'A) World domination',
-                                  menu: 'Will_1',
+                                  choice: "A) World domination",
+                                  menu: "Will_1"
                                 },
                                 {
-                                  choice: 'B) The therapy I so obviously need',
-                                  menu: 'Therapy',
-                                },
+                                  choice: "B) The therapy I so obviously need",
+                                  menu: "Therapy"
+                                }
                               ]}
                               onClickHandler={this.setMenu}
                               backButton
@@ -1378,20 +1445,22 @@ class IndexPage extends Component {
                             />
                           </React.Fragment>
                         );
-                      case 'Will_1':
+                      case "Will_1":
                         return (
                           <React.Fragment>
                             <SlideMenu
                               title="You sure about this?"
                               choices={[
                                 {
-                                  choice: 'Yes, I want everyone to bow before my wealth and power!',
-                                  menu: 'Will_2',
+                                  choice:
+                                    "Yes, I want everyone to bow before my wealth and power!",
+                                  menu: "Will_2"
                                 },
                                 {
-                                  choice: 'No, I want to live humbly and make genuine friends.',
-                                  menu: 'Root',
-                                },
+                                  choice:
+                                    "No, I want to live humbly and make genuine friends.",
+                                  menu: "Root"
+                                }
                               ]}
                               onClickHandler={this.setMenu}
                               backButton
@@ -1399,16 +1468,16 @@ class IndexPage extends Component {
                             />
                           </React.Fragment>
                         );
-                      case 'Will_2':
+                      case "Will_2":
                         return (
                           <React.Fragment>
                             <SlideMenu
                               title="OK then! Our course is just few clicks away."
                               choices={[
                                 {
-                                  choice: 'Proceed',
-                                  menu: 'Will_3',
-                                },
+                                  choice: "Proceed",
+                                  menu: "Will_3"
+                                }
                               ]}
                               onClickHandler={this.setMenu}
                               backButton
@@ -1416,16 +1485,16 @@ class IndexPage extends Component {
                             />
                           </React.Fragment>
                         );
-                      case 'Will_3':
+                      case "Will_3":
                         return (
                           <React.Fragment>
                             <SlideMenu
                               title="You're almost there!"
                               choices={[
                                 {
-                                  choice: 'Proceed',
-                                  menu: 'Will_4',
-                                },
+                                  choice: "Proceed",
+                                  menu: "Will_4"
+                                }
                               ]}
                               onClickHandler={this.setMenu}
                               backButton
@@ -1433,16 +1502,16 @@ class IndexPage extends Component {
                             />
                           </React.Fragment>
                         );
-                      case 'Will_4':
+                      case "Will_4":
                         return (
                           <React.Fragment>
                             <SlideMenu
                               title="You're so close that your enemies can feel it!"
                               choices={[
                                 {
-                                  choice: 'Proceed',
-                                  menu: 'Will_5',
-                                },
+                                  choice: "Proceed",
+                                  menu: "Will_5"
+                                }
                               ]}
                               onClickHandler={this.setMenu}
                               backButton
@@ -1450,16 +1519,16 @@ class IndexPage extends Component {
                             />
                           </React.Fragment>
                         );
-                      case 'Will_5':
+                      case "Will_5":
                         return (
                           <React.Fragment>
                             <SlideMenu
                               title="Don't quit now! It's just a little further."
                               choices={[
                                 {
-                                  choice: 'Proceed',
-                                  menu: 'Will_2',
-                                },
+                                  choice: "Proceed",
+                                  menu: "Will_2"
+                                }
                               ]}
                               onClickHandler={this.setMenu}
                               backButton
@@ -1467,7 +1536,7 @@ class IndexPage extends Component {
                             />
                           </React.Fragment>
                         );
-                      case 'Therapy':
+                      case "Therapy":
                         return (
                           <React.Fragment>
                             <SlideMenu
@@ -1486,21 +1555,24 @@ class IndexPage extends Component {
                               title="What are you looking to defeat?"
                               choices={[
                                 {
-                                  choice: 'A) SAT',
-                                  menu: 'SAT',
+                                  choice: "A) SAT",
+                                  menu: "SAT",
+                                  course: "SAT"
                                 },
                                 {
-                                  choice: 'B) ACT',
-                                  menu: 'ACT',
+                                  choice: "B) ACT",
+                                  menu: "ACT",
+                                  course: "ACT"
                                 },
                                 {
-                                  choice: 'C) A class',
-                                  menu: 'Academic',
+                                  choice: "C) A class",
+                                  menu: "Academic",
+                                  course: "Academic"
                                 },
                                 {
-                                  choice: 'D) The will of those who oppose me',
-                                  menu: 'Will',
-                                },
+                                  choice: "D) The will of those who oppose me",
+                                  menu: "Will"
+                                }
                               ]}
                               onClickHandler={this.setMenu}
                             />
@@ -1509,41 +1581,41 @@ class IndexPage extends Component {
                     }
                   })()}
                 </Grid>
-                <Grid item xs={7} sm={6} md={5} className={classes.bookContainer}>
-                  <img src={book} alt="book" className={classes.book} />
+                <Grid
+                  container
+                  justify="center"
+                  className={classes.bookContainer}
+                >
+                  <Grid item xs={8} sm={6} md={4}>
+                    <img src={book} alt="book" className={classes.book} />
+                  </Grid>
                 </Grid>
               </Grid>
             </div>
           </Panel>
-
-          <Panel backgroundColor="pinkToPurple" className={classes.panel4Covered}>
-            <Grid container justify="center">
+          <Panel
+            backgroundColor="pinkToPurple"
+            className={classes.panel4Covered}
+            header
+            paddingTop
+            smallIcon={lightningIcon}
+            title="High-Tech Tech"
+            subtitle="Smart and Funny"
+            body="Advanced tools and in-depth diagostics give our students the upper hand."
+          >
+            <Grid
+              item
+              container
+              justify="center"
+              className={classes.coveredMainContentContainer}
+            >
               <Grid
-                container
                 item
-                direction="column"
-                alignItems="center"
-                className={classes.panelHeader}
+                xs={12}
+                sm={8}
+                md={5}
+                className={classes.headgearContainer}
               >
-                <img className={classes.smallIcon} src={lightningIcon} alt="triangle icon" />
-                <Typography variant="overline" align="center" className={classes.panelSubtitle}>
-                  We're even smarter than we are funny.
-                </Typography>
-                <Typography
-                  variant="h2"
-                  color="inherit"
-                  align="center"
-                  className={classes.panelTitle}
-                >
-                  High-Tech Tech
-                </Typography>
-                <Typography variant="body1" color="inherit" align="center">
-                  Access to advanced tools and in-depth diagostics give our students the upper hand.
-                </Typography>
-              </Grid>
-            </Grid>
-            <Grid item container justify="center" className={classes.coveredMainContentContainer}>
-              <Grid item xs={12} sm={8} md={5} className={classes.headgearContainer}>
                 <img src={headgear} />
               </Grid>
               <Grid
@@ -1557,19 +1629,30 @@ class IndexPage extends Component {
                 className={classes.mainTextContainerCovered}
               >
                 <Grid item className={classes.coveredTextContainerTop}>
-                  <Typography variant="h5" color="inherit" className={classes.coveredTitles}>
+                  <Typography
+                    variant="h5"
+                    color="inherit"
+                    className={classes.coveredTitles}
+                  >
                     Personalized Learning
                   </Typography>
                   {expanded1 && (
                     <React.Fragment>
-                      <Typography variant="body1" color="inherit" className={classes.coveredText}>
-                        By leveraging the latest in AI, our curriculum dynamically adjusts to
-                        student performance. This ensures you avoid both wasting time on concepts
-                        you've already mastered and feeling overwelmed on difficult material. It
-                        gets even cooler though! As you progress, our software learns the extent of
-                        your related knowledge. This empowers us to precisely diagnose 'why' you're
-                        struggling on certain problem types and what knowledge is needed to correct
-                        for it.
+                      <Typography
+                        variant="body1"
+                        color="inherit"
+                        className={classes.coveredText}
+                      >
+                        By leveraging the latest in machine learning, our
+                        curriculum dynamically adjusts to student performance.
+                        This ensures our students avoid both wasting time on
+                        concepts they have already mastered and feeling
+                        overwhelmed on difficult material. It gets even cooler
+                        though! As students progress, our software learns the
+                        extent of their related knowledge. This empowers us to
+                        precisely diagnose 'why' they are struggling on certain
+                        problem types and what material is needed to correct for
+                        it.
                       </Typography>
 
                       <Typography
@@ -1577,7 +1660,7 @@ class IndexPage extends Component {
                         variant="subtitle2"
                         color="inherit"
                         onClick={() => {
-                          this.handleExpand('expanded1', false);
+                          this.handleExpand("expanded1", false);
                         }}
                       >
                         Show Less
@@ -1586,17 +1669,22 @@ class IndexPage extends Component {
                   )}
                   {!expanded1 && (
                     <React.Fragment>
-                      <Typography variant="body1" color="inherit" className={classes.coveredText}>
-                        By leveraging the latest in AI, our curriculum dynamically adjusts to
-                        student performance. This ensures you avoid wasting time on concepts you've
-                        already mastered...
+                      <Typography
+                        variant="body1"
+                        color="inherit"
+                        className={classes.coveredText}
+                      >
+                        By leveraging the latest in AI, our curriculum
+                        dynamically adjusts to student performance. This ensures
+                        you our students aviod both wasting time on concepts
+                        they have already mastered...
                       </Typography>
                       <Typography
                         className={classes.learn}
                         variant="subtitle2"
                         color="inherit"
                         onClick={() => {
-                          this.handleExpand('expanded1', true);
+                          this.handleExpand("expanded1", true);
                         }}
                       >
                         Learn More
@@ -1606,26 +1694,36 @@ class IndexPage extends Component {
                 </Grid>
 
                 <Grid item className={classes.coveredTextContainerBottom}>
-                  <Typography variant="h5" color="inherit" className={classes.coveredTitles}>
+                  <Typography
+                    variant="h5"
+                    color="inherit"
+                    className={classes.coveredTitles}
+                  >
                     In Analysis We Trust
                   </Typography>
                   {expanded2 && (
                     <React.Fragment>
-                      <Typography variant="body1" color="inherit" className={classes.coveredText}>
-                        When it comes to assessing student progress, we don't leave anything to
-                        guesswork. First, every course starts with a comprehensive diagnostic test.
-                        This is followed by a series of progress tests you'll take throughout the
-                        course. A final 'completion test' is then administered at the course's end.
-                        An AI assisted qualitiative analysis is prepared after each test and is made
-                        avialable to the student/parent to moniter progress and to show which areas
-                        still neef work.
+                      <Typography
+                        variant="body1"
+                        color="inherit"
+                        className={classes.coveredText}
+                      >
+                        When it comes to assessing student progress, we don't
+                        leave anything to guesswork. First, every course starts
+                        with a comprehensive diagnostic test. This is followed
+                        by a series of progress tests you'll take throughout the
+                        course. A final 'completion test' is then administered
+                        at the course's end. An AI assisted qualitiative
+                        analysis is prepared after each test and is made
+                        avialable to the student/parent to moniter progress and
+                        to show which areas still neef work.
                       </Typography>
                       <Typography
                         className={classes.learn}
                         variant="subtitle2"
                         color="inherit"
                         onClick={() => {
-                          this.handleExpand('expanded2', false);
+                          this.handleExpand("expanded2", false);
                         }}
                       >
                         Show Less
@@ -1634,17 +1732,22 @@ class IndexPage extends Component {
                   )}
                   {!expanded2 && (
                     <React.Fragment>
-                      <Typography variant="body1" color="inherit" className={classes.coveredText}>
-                        When it comes to assessing student progress, we don't leave anything to
-                        guesswork. First, every course starts with a comprehensive diagnostic test.
-                        This is followed by a series of progress tests...
+                      <Typography
+                        variant="body1"
+                        color="inherit"
+                        className={classes.coveredText}
+                      >
+                        When it comes to assessing student progress, we don't
+                        leave anything to guesswork. First, every course starts
+                        with a comprehensive diagnostic test. This is followed
+                        by a series of progress tests...
                       </Typography>
                       <Typography
                         className={classes.learn}
                         variant="subtitle2"
                         color="inherit"
                         onClick={() => {
-                          this.handleExpand('expanded2', true);
+                          this.handleExpand("expanded2", true);
                         }}
                       >
                         Learn More
@@ -1655,45 +1758,17 @@ class IndexPage extends Component {
               </Grid>
             </Grid>
           </Panel>
-          <Panel skewed forward skewedBackgroundColor="blueToPurple">
-            <Grid container justify="center">
-              <Grid
-                container
-                item
-                direction="column"
-                alignItems="center"
-                className={classes.resultsPanelHeader}
-              >
-                <img className={classes.smallIcon} src={check} alt="checkmark icon" />
-                <Typography
-                  variant="overline"
-                  align="center"
-                  className={classes.panelSubtitle}
-                  color="textPrimary"
-                >
-                  Higher Test Score Guaranteed*
-                </Typography>
-                <Typography
-                  variant="h2"
-                  color="inherit"
-                  align="center"
-                  className={classes.panelTitle}
-                >
-                  Proven Results
-                </Typography>
-                <Typography
-                  variant="body1"
-                  color="inherit"
-                  align="center"
-                  paragraph
-                  color="inherit"
-                >
-                  We're so confident in our programs that we'll give you your money back if your SAT
-                  score doesn't improve by at least 100 points!
-                </Typography>
-              </Grid>
-            </Grid>
-            {step === 2 && (
+          <Panel
+            skewed
+            forward
+            skewedBackgroundColor="blueToPurple"
+            header
+            smallIcon={check}
+            title="Proven Results"
+            subtitle="Higher Test Score Guaranteed*"
+            body="Our programs work. If your SAT score doesn't improve by at least 100 points, then we'll give you your money back!"
+          >
+            {step === 1 && (
               <Results
                 title="SAT"
                 difference={226}
@@ -1704,7 +1779,7 @@ class IndexPage extends Component {
                 step={step}
               />
             )}
-            {step === 1 && (
+            {step === 2 && (
               <Results
                 title="ACT"
                 difference={5.3}
@@ -1727,6 +1802,7 @@ class IndexPage extends Component {
               />
             )}
           </Panel>
+
           <Panel>
             <Grid container justify="center">
               <Grid
@@ -1746,7 +1822,10 @@ class IndexPage extends Component {
                   Join the thousands of students and parents who love us!
                 </Typography>
 
-                <ButtonCustom className={classes.mainButtonBottom} onClick={this.handleClick}>
+                <ButtonCustom
+                  className={classes.mainButtonBottom}
+                  onClick={this.handleClick}
+                >
                   Get Started
                 </ButtonCustom>
                 <Typography
@@ -1755,9 +1834,8 @@ class IndexPage extends Component {
                   paragraph
                   align="center"
                   color="textPrimary"
-                  className={classes.bottomPanelText}
                 >
-                  Warning! You should only press this button if you have a sense of humor.
+                  Warning! Only press this button if you have a sense of humor.
                 </Typography>
               </Grid>
             </Grid>
@@ -1783,7 +1861,7 @@ class IndexPage extends Component {
 // };
 
 IndexPage.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(IndexPage);

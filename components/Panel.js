@@ -1,111 +1,126 @@
 // Node Modules
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import classNames from 'classnames';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { withStyles } from "@material-ui/core/styles";
+import classNames from "classnames";
 
 // Material UI Components
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
 
 // Local Components
-import * as colors from '../assets/jss/colors';
+import * as colors from "./common/colors";
 
 // Local Assets
 
 //  Style Overrides
 const styles = theme => ({
   root: {
-    position: 'relative',
-    maxWidth: '2000px',
-    marginLeft: 'auto',
-    marginRight: 'auto',
+    position: "relative",
+    maxWidth: "2000px",
+    marginLeft: "auto",
+    marginRight: "auto"
   },
   inner: {
-    maxWidth: '1200px',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    'padding-left': '16px',
-    'padding-right': '16px',
-    [theme.breakpoints.up('sm')]: {
-      'padding-left': '24px',
-      'padding-right': '24px',
-    },
+    maxWidth: "1200px",
+    position: "relative",
+    marginLeft: "auto",
+    height: "100%",
+    marginRight: "auto",
+    "padding-left": "16px",
+    "padding-right": "16px",
+    [theme.breakpoints.up("sm")]: {
+      "padding-left": "24px",
+      "padding-right": "24px"
+    }
   },
   noInnerPadding: {
-    maxWidth: '2000px',
-    'padding-left': '0px',
-    'padding-right': '0px',
+    maxWidth: "2000px",
+    "padding-left": "0px",
+    "padding-right": "0px"
   },
   padding: {
-    paddingTop: '20px',
-    paddingBottom: '20px',
+    paddingTop: "20px",
+    paddingBottom: "20px"
   },
   pinkToYellow: {
-    ...theme.palette.pinkToYellow,
+    ...theme.palette.pinkToYellow
   },
   blueToPurple: {
-    ...theme.palette.blueToPurple,
+    ...theme.palette.blueToPurple
   },
   pinkToPurple: {
-    ...theme.palette.pinkToPurple,
+    ...theme.palette.pinkToPurple
   },
   whiteToLightBlue: {
-    ...theme.palette.whiteToLightBlue,
+    ...theme.palette.whiteToLightBlue
   },
   blueToTurquoise: {
-    ...theme.palette.blueToTurquoise,
+    ...theme.palette.blueToTurquoise
   },
   darkGrey: {
-    backgroundColor: '#2D3739',
-    color: 'white',
+    backgroundColor: "#2D3739",
+    color: "white"
+  },
+  whiteSmoke: {
+    backgroundColor: "whitesmoke"
   },
   skewed: {
-    position: 'absolute',
-    left: '0',
-    top: '0',
-    width: '100%',
-    height: '100%',
-    zIndex: '-1',
-    backfaceVisibility: 'hidden',
-    overflow: 'hidden',
-    transform: 'skewY(-7deg) translateY(-100px)',
+    position: "absolute",
+    left: "0",
+    top: "0",
+    width: "100%",
+    height: "100%",
+    zIndex: "-1",
+    backfaceVisibility: "hidden",
+    overflow: "hidden",
+    transform: "skewY(-7deg) translateY(-100px)"
   },
   forward: {
-    zIndex: '2',
+    zIndex: "2"
   },
   lightBlue: {
-    backgroundColor: theme.palette.lightBlue,
+    backgroundColor: theme.palette.lightBlue
   },
   panelSmallIcon: {
-    width: '80px',
+    width: "80px"
   },
   panelTitle: {
-    marginTop: '50px',
-    marginBottom: '10px',
-    fontSize: '50px',
-    [theme.breakpoints.up('sm')]: {
-      fontSize: '60px',
-    },
+    marginTop: "50px",
+    marginBottom: "10px",
+    fontSize: "50px",
+    [theme.breakpoints.up("sm")]: {
+      fontSize: "60px"
+    }
   },
   panelSubtitle: {
-    marginTop: '20px',
-    fontSize: '12px',
+    marginTop: "20px",
+    fontSize: "12px"
   },
   panelHeader: {
-    maxWidth: '600px',
-    marginBottom: '50px',
+    maxWidth: "600px",
+    marginBottom: "60px"
   },
   white: {
-    color: 'white',
+    color: "white"
   },
   noMargin: {
-    marginLeft: '0px',
-    marginRight: '0px',
+    marginLeft: "0px",
+    marginRight: "0px",
+    maxWidth: "inherit"
   },
   fullHeight: {
-    height: '100%',
+    height: "100%"
   },
+  backgroundWhite: {
+    backgroundColor: "white"
+  },
+  paddingTop: {
+    paddingTop: "60px"
+  },
+  hidden: {
+    overflow: "hidden"
+  }
 });
 
 const Panel = props => {
@@ -127,6 +142,8 @@ const Panel = props => {
     color,
     noMargin,
     fullHeight,
+    paddingTop,
+    hidden
   } = props;
 
   return (
@@ -134,27 +151,32 @@ const Panel = props => {
       className={classNames(
         classes.root,
         {
-          [classes.white]: color === 'white',
-          [classes.pinkToYellow]: backgroundColor === 'pinkToYellow',
-          [classes.blueToPurple]: backgroundColor === 'blueToPurple',
-          [classes.pinkToPurple]: backgroundColor === 'pinkToPurple',
-          [classes.blueToTurquoise]: backgroundColor === 'blueToTurquoise',
-          [classes.whiteToLightBlue]: backgroundColor === 'whiteToLightBlue',
-          [classes.darkGrey]: backgroundColor === 'darkGrey',
-          [classes.lightBlue]: backgroundColor === 'lightBlue',
+          [classes.white]: color === "white",
+          [classes.backgroundWhite]: backgroundColor === "white",
+          [classes.pinkToYellow]: backgroundColor === "pinkToYellow",
+          [classes.blueToPurple]: backgroundColor === "blueToPurple",
+          [classes.pinkToPurple]: backgroundColor === "pinkToPurple",
+          [classes.blueToTurquoise]: backgroundColor === "blueToTurquoise",
+          [classes.whiteToLightBlue]: backgroundColor === "whiteToLightBlue",
+          [classes.darkGrey]: backgroundColor === "darkGrey",
+          [classes.lightBlue]: backgroundColor === "lightBlue",
+          [classes.whiteSmoke]: backgroundColor === "whiteSmoke",
           [classes.forward]: forward,
           [classes.noMargin]: noMargin,
+          [classes.paddingTop]: paddingTop,
+          [classes.hidden]: hidden
         },
-        className,
+        className
       )}
     >
       {skewed && (
         <Grid
           item
           className={classNames(classes.skewed, {
-            [classes.pinkToYellow]: skewedBackgroundColor === 'pinkToYellow',
-            [classes.pinkToPurple]: skewedBackgroundColor === 'pinkToPurple',
-            [classes.blueToPurple]: skewedBackgroundColor === 'blueToPurple',
+            [classes.pinkToYellow]: skewedBackgroundColor === "pinkToYellow",
+            [classes.pinkToPurple]: skewedBackgroundColor === "pinkToPurple",
+            [classes.blueToPurple]: skewedBackgroundColor === "blueToPurple",
+            [classes.backgroundWhite]: skewedBackgroundColor === "white"
           })}
         />
       )}
@@ -163,7 +185,7 @@ const Panel = props => {
         className={classNames(classes.inner, {
           [classes.padding]: padding,
           [classes.noInnerPadding]: noInnerPadding,
-          [classes.fullHeight]: fullHeight,
+          [classes.fullHeight]: fullHeight
         })}
       >
         {header && (
@@ -175,7 +197,11 @@ const Panel = props => {
               alignItems="center"
               className={classes.panelHeader}
             >
-              <img className={classes.panelSmallIcon} src={smallIcon} alt="smallIcon" />
+              <img
+                className={classes.panelSmallIcon}
+                src={smallIcon}
+                alt="smallIcon"
+              />
               <Typography
                 color="inherit"
                 variant="overline"
@@ -193,7 +219,12 @@ const Panel = props => {
               >
                 {title}
               </Typography>
-              <Typography variant="body1" align="center" color="inherit" paragraph>
+              <Typography
+                variant="body1"
+                align="center"
+                color="inherit"
+                paragraph
+              >
                 {body}
               </Typography>
             </Grid>
@@ -206,7 +237,7 @@ const Panel = props => {
 };
 
 Panel.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(Panel);

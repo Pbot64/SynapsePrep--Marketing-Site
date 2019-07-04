@@ -1,137 +1,146 @@
 // Node Modules
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import CountUp from 'react-countup';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { withStyles } from "@material-ui/core/styles";
+import CountUp from "react-countup";
 
 // Material UI Components
-import Card from '@material-ui/core/Card';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
+import Card from "@material-ui/core/Card";
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
 
 // Local Components
-import ButtonCustom from '../components/ButtonCustom';
-import CardCustom from '../components/CardCustom';
-import Panel from '../components/Panel';
+import ButtonCustom from "../components/ButtonCustom";
+import CardCustom from "../components/CardCustom";
+import Panel from "../components/Panel";
 
 // Local Assets
-import chevronRight from '../assets/images/chevron-right.svg';
-import chevronLeft from '../assets/images/chevron-left.svg';
+import chevronRight from "../static/images/chevron-right.svg";
+import chevronLeft from "../static/images/chevron-left.svg";
 
 //  Style Overrides
 const styles = theme => ({
   resultsSatTitle: {
-    marginLeft: '80px',
-    marginRight: '80px',
-    fontSize: '30px',
-    [theme.breakpoints.up('sm')]: {
-      fontSize: '50px',
-    },
+    marginLeft: "80px",
+    marginRight: "80px",
+    fontSize: "30px",
+    [theme.breakpoints.up("sm")]: {
+      fontSize: "50px"
+    }
   },
   resultsSatAfter: {
-    background: '#7336df',
-    padding: '20px',
-    paddingLeft: '30px',
-    paddingRight: '10px',
-    [theme.breakpoints.up('sm')]: {
-      paddingLeft: '50px',
-    },
+    background: "#7336df",
+    padding: "20px",
+    paddingLeft: "30px",
+    paddingRight: "10px",
+    [theme.breakpoints.up("sm")]: {
+      paddingLeft: "50px"
+    }
   },
   resultsSatBefore: {
-    position: 'relative',
-    background: '#4fa3eb',
-    padding: '20px',
-    paddingLeft: '10px',
-    [theme.breakpoints.up('sm')]: {
-      paddingLeft: '20px',
+    position: "relative",
+    background: "#4fa3eb",
+    padding: "20px",
+    paddingLeft: "10px",
+    [theme.breakpoints.up("sm")]: {
+      paddingLeft: "20px"
     },
-    '&:after': {
+    "&:after": {
       content: '""',
-      width: '0',
-      height: '0',
-      borderTop: '40px solid #7336df',
-      borderBottom: '36px solid #7336df',
-      borderLeft: '40px solid #7336df',
-      position: 'absolute',
-      right: '-20px',
-      top: '0px',
-      zIndex: '1',
-      borderRightColor: '#4fa3eb',
-      borderLeftColor: '#4fa3eb',
-      [theme.breakpoints.up('sm')]: {
-        borderTop: '42px solid #7336df',
-        borderBottom: '40px solid #7336df',
+      width: "0",
+      height: "0",
+      borderTop: "40px solid #7336df",
+      borderBottom: "36px solid #7336df",
+      borderLeft: "40px solid #7336df",
+      position: "absolute",
+      right: "-20px",
+      top: "0px",
+      zIndex: "1",
+      borderRightColor: "#4fa3eb",
+      borderLeftColor: "#4fa3eb",
+      [theme.breakpoints.up("sm")]: {
+        borderTop: "42px solid #7336df",
+        borderBottom: "40px solid #7336df"
       },
-      [theme.breakpoints.up('md')]: {
-        borderTop: '48px solid #7336df',
-      },
-    },
+      [theme.breakpoints.up("md")]: {
+        borderTop: "48px solid #7336df"
+      }
+    }
   },
 
   resultsSatTopContainer: {
-    padding: '10px',
-    [theme.breakpoints.up('sm')]: {
-      padding: '20px',
+    padding: "10px",
+    [theme.breakpoints.up("sm")]: {
+      padding: "20px"
     },
-    '& h3': {
-      color: '#00BF6F',
-      fontWeight: 500,
+    "& h3": {
+      color: "#00BF6F",
+      fontWeight: 500
     },
-    '& p': {
-      fontSize: '8px',
-      [theme.breakpoints.up('sm')]: {
-        fontSize: '11px',
-      },
-    },
+    "& p": {
+      fontSize: "8px",
+      [theme.breakpoints.up("sm")]: {
+        fontSize: "11px"
+      }
+    }
   },
   resultsSatBottomContainer: {
-    color: 'white',
-    '& h3': {
-      fontWeight: 500,
-    },
+    color: "white",
+    "& h3": {
+      fontWeight: 500
+    }
   },
   arrow: {
-    width: '20px',
+    width: "20px"
   },
   arrowButtonLeft: {
-    border: '13x solid rgba(0, 0, 0, 0.23)',
-    height: '63px',
-    borderRadius: '40px',
-    position: 'absolute',
-    left: '10px',
-    [theme.breakpoints.up('md')]: {
-      left: '80px',
-    },
+    border: "13x solid rgba(0, 0, 0, 0.23)",
+    height: "63px",
+    borderRadius: "40px",
+    position: "absolute",
+    left: "10px",
+    [theme.breakpoints.up("md")]: {
+      left: "80px"
+    }
   },
   arrowButtonRight: {
-    border: '13x solid rgba(0, 0, 0, 0.23)',
-    height: '63px',
-    borderRadius: '100px',
-    position: 'absolute',
-    right: '10px',
-    [theme.breakpoints.up('md')]: {
-      right: '80px',
-    },
+    border: "13x solid rgba(0, 0, 0, 0.23)",
+    height: "63px",
+    borderRadius: "100px",
+    position: "absolute",
+    right: "10px",
+    [theme.breakpoints.up("md")]: {
+      right: "80px"
+    }
   },
   titleContainer: {
-    position: 'relative',
+    position: "relative"
   },
   resultsText: {
-    fontSize: '12px',
-    [theme.breakpoints.up('sm')]: {
-      fontSize: '14px',
+    fontSize: "12px",
+    [theme.breakpoints.up("sm")]: {
+      fontSize: "14px"
     },
-    [theme.breakpoints.up('md')]: {
-      fontSize: '16px',
-    },
+    [theme.breakpoints.up("md")]: {
+      fontSize: "16px"
+    }
   },
   resultsWrapper: {
-    marginTop: '20px',
-  },
+    marginTop: "20px"
+  }
 });
 
 const Results = props => {
-  const { classes, title, difference, before, after, stepForward, stepBack, step } = props;
+  const {
+    classes,
+    title,
+    difference,
+    before,
+    after,
+    stepForward,
+    stepBack,
+    step
+  } = props;
 
   return (
     <React.Fragment>
@@ -145,8 +154,16 @@ const Results = props => {
             alignItems="center"
           >
             {step > 1 && (
-              <ButtonCustom color="white" onClick={stepBack} className={classes.arrowButtonLeft}>
-                <img src={chevronLeft} alt="left arrow" className={classes.arrow} />
+              <ButtonCustom
+                color="white"
+                onClick={stepBack}
+                className={classes.arrowButtonLeft}
+              >
+                <img
+                  src={chevronLeft}
+                  alt="left arrow"
+                  className={classes.arrow}
+                />
               </ButtonCustom>
             )}
             <Typography
@@ -164,7 +181,11 @@ const Results = props => {
                 onClick={stepForward}
                 className={classes.arrowButtonRight}
               >
-                <img src={chevronRight} alt="right arrow" className={classes.arrow} />
+                <img
+                  src={chevronRight}
+                  alt="right arrow"
+                  className={classes.arrow}
+                />
               </ButtonCustom>
             )}
           </Grid>
@@ -180,7 +201,7 @@ const Results = props => {
                 <Typography variant="h3" component="h3" color="inherit">
                   <CountUp end={difference} useEasing={false} duration={1} />+
                 </Typography>
-                <Typography variant="subtitle1" component="h4" color="textPrimary">
+                <Typography variant="body1" component="p" color="textPrimary">
                   Point Increase
                 </Typography>
               </Grid>
@@ -289,7 +310,7 @@ const Results = props => {
 };
 
 Results.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(Results);

@@ -1,8 +1,9 @@
-const express = require('express');
-const test = require('../routes/api/test');
+import express from "express";
 
 const app = express();
 
-app.use(test);
+app.get("*", (req, res) => {
+  res.send("works!");
+});
 
-module.exports = app;
+export default app;
