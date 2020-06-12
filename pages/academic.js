@@ -1,5 +1,5 @@
 // Node Modules
-import React, { Component } from "react";
+import React, { useState, Component } from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 
@@ -41,6 +41,7 @@ import bootcamp from "../static/images/bootcamp.png";
 import nodes from "../static/images/nodes.svg";
 
 import atom from "../static/images/Icon-Atom.svg";
+import { Button, Divider } from "@material-ui/core";
 
 //  Style Overrides
 const styles = theme => ({
@@ -83,7 +84,7 @@ const styles = theme => ({
     margin: "50px 0px"
   },
   panelTitle: {
-    marginTop: "20px",
+    marginTop: "35px",
     marginBottom: "10px"
   },
   panelSubtitle: {
@@ -264,13 +265,46 @@ const styles = theme => ({
     borderBottom: "2px solid #4fa3eb",
     paddingBottom: "20px"
   },
-  mainCopyParagraph: {
+  mainCopy: {
     paddingTop: "20px"
+  },
+  mainCopyItalic: {
+    paddingTop: "20px",
+    fontStyle: "italic"
+  },
+  mainCopyBold: {
+    paddingTop: "20px",
+    fontWeight: "500"
+  },
+  mainCopyBoldUnderline: {
+    paddingTop: "20px",
+    fontWeight: "500",
+    textDecoration: "underline"
+  },
+  toggleExpand: {
+    display: "inline-block",
+    cursor: "pointer",
+    color: "#9866df",
+    marginTop: "20px",
+    "&:hover": {
+      opacity: 0.7
+    }
+  },
+  divider: {
+    marginTop: "50px",
+    marginBottom: "20px"
   }
 });
 
 const Academic = props => {
   const { classes } = props;
+  const [expanded, setExpanded] = useState(false);
+
+  // handleExpand = (expanded, currentExpand) => {
+  //   this.setState({
+  //     [expanded]: currentExpand
+  //   });
+  // };
   return (
     <React.Fragment>
       <Header backgroundColor="pinkToPurple" />
@@ -343,7 +377,7 @@ const Academic = props => {
             />
             <Typography
               variant="overline"
-              color="textPrimary"
+              color="inherit"
               component="h3"
               className={classes.panelSubtitle}
             >
@@ -427,107 +461,276 @@ const Academic = props => {
           <CardCustom padding className={classes.copyCard}>
             <Typography
               variant="overline"
+              component="h3"
               color="inherit"
               align="center"
               className={classes.mainCopyTitle}
             >
-              A Personal Great Explainer
-            </Typography>
-            <Typography
-              variant="subtitle1"
-              color="inherit"
-              className={classes.mainCopyParagraph}
-            >
-              What the heck is a a 'great explainer'? 'World Class' tutor?
+              A Great Explainer on your side
             </Typography>
             <Typography
               variant="body1"
               color="inherit"
-              className={classes.mainCopyParagraph}
+              className={classes.mainCopyItalic}
             >
-              A great explainer means unparalleled, world class, the crème de la
-              crème of tutors. Of course, plenty of tutoring services advertise
-              themselves as world class. They either do so without
-              justification, or based on the supposed Ivy League status of their
-              tutors (as if you need a degree from Harvard to explain geometry
-              to a 9th grader). The problem with these 'Ivy League' alumni
-              tutors is that they see tutoring as a short-term gig while they
-              focus their energy on finding a better job!
-            </Typography>
-            <Typography
-              variant="subtitle1"
-              color="inherit"
-              className={classes.mainCopyParagraph}
-            >
-              That's not world class to us.
+              What the heck is a 'great explainer'?
             </Typography>
             <Typography
               variant="body1"
               color="inherit"
-              className={classes.mainCopyParagraph}
+              className={classes.mainCopyBold}
             >
-              We don't put much emphasis on how many prestigious schools our
-              tutors have attended. Now we're pround that our student's grades
-              improve more than any major tutoring service (on average), but
-              getting a higher score isn't everything. It's about emphathizing,
-              inspiring, and instilling a life-long love for ideas within
-              students. Instead, what we look for first and foremost is an
-              infectious enthusiasm for thinking and teaching. While this is a
-              good start, it doesn’t get us to great explainer world class yet.
-              People are passionate about all kinds of things they suck at.
-              Therefore, our tutors must also demonstrate true understanding of
-              their subject matter (not rote memorization). Yet, to reach world
-              class status requires another, far rarer skill: the ability to
-              actually explain things well. Suprise!
-            </Typography>
-            <Typography
-              variant="subtitle1"
-              color="inherit"
-              className={classes.mainCopyParagraph}
-            >
-              Um, isn’t that what tutors do?
+              A great explainer is an unparalleled, world class tutor!
             </Typography>
             <Typography
               variant="body1"
               color="inherit"
-              className={classes.mainCopyParagraph}
+              className={classes.mainCopyItalic}
             >
-              While this may not sound too convincing on the surface, it’s what
-              our student success is predicated on. The reality is that there
-              are many knowledgeable and passionate people out there, but only a
-              small fraction of whom are truly great at explaining what they
-              know to children/young adults. At Synapse Prep, a tutor is only
-              world class once they’re proven to be a great explainer. Once
-              paired up with one of our amazing tutors, students consistantly
-              surpase their goals goals because they are paired up with That's
-              what sets our tutors apart In the tradition of Richard Feynman, we
-              use the following attributes to handpick our great explainers:
+              Wow. I'm totally convinced. Where's the checkout?
             </Typography>
             <Typography
-              variant="subtitle1"
+              variant="body1"
               color="inherit"
-              className={classes.mainCopyParagraph}
+              className={classes.mainCopy}
             >
-              Encourages creative problem solving and freedom to think
-              differently rather than restricting students to a single ‘correct’
-              approach.
+              Really?
             </Typography>
             <Typography
-              variant="subtitle1"
+              variant="body1"
               color="inherit"
-              className={classes.mainCopyParagraph}
+              className={classes.mainCopyItalic}
             >
-              Breaks down complex concepts into simpler illustrations and
-              analogies that can be more easily digested. Develops creative
-              mnemonic devices to help students who are short on time to
-              solidify difficult material. Makes sure students are comfortable
-              with the present concept before progressing forward. Recognizes a
-              student's bad habits and not taking their own assurances, but
-              instead, allowing them to demonstrate competency. Possesses a
-              tireless patience projected through steady
-              encouragement--carefully avoiding a patronizing tone. Is clear,
-              concise, and comprehensive, all while having a wonderful sense of
-              humor and playful irreverence.
+              Pfft, NO. What makes your 'great explainers' so special?
+            </Typography>
+
+            <Typography
+              variant="body1"
+              color="inherit"
+              className={classes.mainCopy}
+            >
+              You're right to be skeptical; any tutoring service can claim to be
+              world class. No one is going to advertise being average or
+              incompetent:
+            </Typography>
+
+            <Typography
+              variant="body1"
+              color="inherit"
+              className={classes.mainCopyBold}
+            >
+              "Second-rate tutors at first-rate prices!"
+            </Typography>
+            <Typography
+              variant="body1"
+              color="inherit"
+              className={classes.mainCopyBold}
+            >
+              "Some guy we briefly chatted with on Skype will come to your
+              home!"
+            </Typography>
+            <Typography
+              variant="body1"
+              color="inherit"
+              className={classes.mainCopy}
+            >
+              Instead, the reality is a steady stream of posturing from tutoring
+              companies claiming to be the best. The vast majority of whom base
+              their claim on the same two reasons: 1) positive testimonials, and
+              alleged 2) Ivy-League credentials.
+            </Typography>
+            {expanded && (
+              <React.Fragment>
+                <Typography
+                  variant="body1"
+                  color="inherit"
+                  className={classes.mainCopyBoldUnderline}
+                >
+                  1) Testimonials
+                </Typography>
+                <Typography
+                  variant="body1"
+                  color="inherit"
+                  className={classes.mainCopyItalic}
+                >
+                  "Big Prep Company has like the best tutors ever!" - Andrew A.,
+                  student
+                </Typography>
+                <Typography
+                  variant="body1"
+                  color="inherit"
+                  className={classes.mainCopyItalic}
+                >
+                  “A Big Prep Company tutor was just what our daughter/son
+                  needed to get into Yale. She/he is now well on their way
+                  toward a lucrative job that will help support us in
+                  retirement!” - Sam J., parent
+                </Typography>
+                <Typography
+                  variant="body1"
+                  color="inherit"
+                  className={classes.mainCopy}
+                >
+                  Not pointing any fingers, but we suspect some companies may be
+                  writing their own testimonials.
+                </Typography>
+                <Typography
+                  variant="body1"
+                  color="inherit"
+                  className={classes.mainCopy}
+                >
+                  Even authentic testimonials can be deceptive though. Students
+                  generally leave positive feedback for passive tutors who don't
+                  challenge them, while parents tend to leave positive feedback
+                  for short-term grade increases often achieved via
+                  regurgitation and content exposure.
+                </Typography>
+                <Typography
+                  variant="body1"
+                  color="inherit"
+                  className={classes.mainCopyBoldUnderline}
+                >
+                  2) Ivy-League Credentials
+                </Typography>
+
+                <Typography
+                  variant="body1"
+                  color="inherit"
+                  className={classes.mainCopy}
+                >
+                  This is one is our favorite——as if you need a degree from
+                  Harvard to explain geometry to a 9th grader. The problem with
+                  'Ivy League' alumni as tutors is two-fold. First, they tend to
+                  use overly technical language. Second, they see tutoring as a
+                  short-term gig while they focus their energy on finding a
+                  better job!
+                </Typography>
+                <Typography
+                  variant="body1"
+                  color="inherit"
+                  className={classes.mainCopyBold}
+                >
+                  That's not world class to us.
+                </Typography>
+
+                <Typography
+                  variant="body1"
+                  color="inherit"
+                  className={classes.mainCopy}
+                >
+                  Sure, some of our tutors have attend prestigious schools, but
+                  it's not something we emphasize. Rather, our tutors are
+                  handpicked first and foremost for their infectious enthusiasm
+                  for thinking and teaching. This passion is why our students
+                  often leave us with a newfound appreciation for academia and
+                  learning. Of course, it takes more to be a great explainer——
+                  people can be passionate about all kinds of things they suck
+                  at. Therefore, our tutors must also demonstrate true
+                  understanding of their subject matter (not rote memorization).
+                  Finally, a great explainer must possess one last, far rarer
+                  skill: the ability to actually explain things well.
+                </Typography>
+                <Typography
+                  variant="body1"
+                  color="inherit"
+                  className={classes.mainCopyItalic}
+                >
+                  Um, isn’t that what tutors do?
+                </Typography>
+                <Typography
+                  variant="body1"
+                  color="inherit"
+                  className={classes.mainCopy}
+                >
+                  Yea, it doesn't sound like much on the surface, but it’s what
+                  our student success is predicated on. There are many
+                  knowledgeable and passionate people out there, but only a
+                  small fraction are truly great at explaining what they know to
+                  children/young adults. Our selectivity——ensuring every hire
+                  qualifies as a great explainer——is what allows us to proudly
+                  attest to the world class caliber of our tutors. And once you
+                  or your child is paired up with one of our great explainers,
+                  you'll experience the difference firsthand as you meet and
+                  surpass your educational goals.
+                </Typography>
+                <Divider className={classes.divider} />
+                <Typography
+                  variant="h5"
+                  color="inherit"
+                  className={classes.mainCopy}
+                >
+                  7 Qualities of a Great Explainer
+                </Typography>
+
+                <Typography
+                  variant="body1"
+                  color="inherit"
+                  className={classes.mainCopyItalic}
+                >
+                  1) Encourages creative problem solving and freedom to think
+                  differently rather than restricting students to a single
+                  ‘correct’ approach.
+                </Typography>
+                <Typography
+                  variant="body1"
+                  color="inherit"
+                  className={classes.mainCopyItalic}
+                >
+                  2) Breaks down complex concepts into simpler illustrations and
+                  analogies that can be more easily digested.
+                </Typography>
+                <Typography
+                  variant="body1"
+                  color="inherit"
+                  className={classes.mainCopyItalic}
+                >
+                  3) Develops creative mnemonic devices to help students who are
+                  short on time to solidify difficult material.
+                </Typography>
+                <Typography
+                  variant="body1"
+                  color="inherit"
+                  className={classes.mainCopyItalic}
+                >
+                  4) Makes sure students are comfortable with the present
+                  concept before progressing forward.
+                </Typography>
+                <Typography
+                  variant="body1"
+                  color="inherit"
+                  className={classes.mainCopyItalic}
+                >
+                  5) Doesn't blindly accept a student's own assurances, but
+                  instead, allows them to demonstrate their competency.
+                </Typography>
+                <Typography
+                  variant="body1"
+                  color="inherit"
+                  className={classes.mainCopyItalic}
+                >
+                  6) Possesses a tireless patience projected through steady
+                  encouragement--carefully avoiding a patronizing tone
+                </Typography>
+                <Typography
+                  variant="body1"
+                  color="inherit"
+                  className={classes.mainCopyItalic}
+                >
+                  7) Is clear, concise, and comprehensive, all while having a
+                  wonderful sense of humor and playful irreverence.
+                </Typography>
+              </React.Fragment>
+            )}
+
+            <Typography
+              className={classes.toggleExpand}
+              variant="subtitle2"
+              color="inherit"
+              onClick={() => {
+                setExpanded(!expanded);
+              }}
+            >
+              {expanded ? "Show Less" : "Show More"}
             </Typography>
           </CardCustom>
         </Grid>
@@ -664,11 +867,11 @@ const Academic = props => {
             left
             highlights={[
               "Focus on fundamental skills and current classwork",
-              "Best for students with limited time.",
+              "Best for students with limited time",
               "Includes 2 evalutions"
             ]}
             subtitle="14 Hour"
-            to="/checkout?course=Academic&program=1-on-1"
+            to="/checkout?course=Academic&program=1-on-1&link=/academic"
             as="/checkout/Academic/1-on-1"
             button
             buttonText="See Pricing"
@@ -687,7 +890,7 @@ const Academic = props => {
               "Includes 4+ evaluations"
             ]}
             subtitle="Premiere"
-            to="/checkout?course=Academic&program=1-on-1"
+            to="/checkout?course=Academic&program=1-on-1&link=/academic"
             as="/checkout/Academic/1-on-1"
             button
             buttonText="See Pricing"
@@ -703,7 +906,7 @@ const Academic = props => {
               "Includes 3 evaluations"
             ]}
             subtitle="32 Hour"
-            to="/checkout?course=Academic&program=1-on-1"
+            to="/checkout?course=Academic&program=1-on-1&link=/academic"
             as="/checkout/Academic/1-on-1"
             button
             buttonText="See Pricing"

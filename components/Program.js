@@ -167,6 +167,10 @@ const styles = theme => ({
   },
   noPaddingTop: {
     paddingTop: "0px"
+  },
+  link: {
+    textDecoration: "none",
+    color: "inherit"
   }
 });
 
@@ -184,7 +188,7 @@ const Program = props => {
     to,
     as,
     buttonText,
-    sessions,
+    hours,
     sessionLength,
     showPrice,
     left,
@@ -198,7 +202,8 @@ const Program = props => {
     buttonBorderTop,
     showexpectedPoints,
     expectedPoints,
-    fullHeight
+    fullHeight,
+    externalLink
   } = props;
 
   return (
@@ -206,7 +211,7 @@ const Program = props => {
       <Grid
         item
         xs={12}
-        sm={7}
+        sm={12}
         md
         className={classNames(classes.programContainer, {
           [classes.noPaddingTop]: noPaddingTop
@@ -329,13 +334,13 @@ const Program = props => {
                         gutterBottom
                         className={classes.sessions}
                       >
-                        Sessions
+                        Program Length
                       </Typography>
                       <Grid item className={classes.connector}>
                         <span className={classes.turquoiseLine} />
                       </Grid>
                       <Typography variant="body1" component="h5">
-                        {sessions}
+                        {hours} hours
                       </Typography>
                     </Grid>
                     <Grid
@@ -382,7 +387,7 @@ const Program = props => {
                         component="h5"
                         className={classes.price}
                       >
-                        per session
+                        per hour
                       </Typography>
                     </Grid>
                   </React.Fragment>
@@ -405,7 +410,7 @@ const Program = props => {
                       {expectedPoints}
                     </Typography>
                     <Typography variant="body2" component="h5">
-                      Expected point increase
+                      Average point increase
                     </Typography>
                   </Grid>
                 )}
@@ -422,21 +427,39 @@ const Program = props => {
                     : classes.buttonContainer
                 }
               >
-                <Link href={to} as={as}>
-                  <ButtonCustom
-                    limitWidth
-                    fullWidth
-                    className={classes.programButton}
-                    onClick={() => {
-                      if (checkout) {
-                        setProgramHandler(subtitle, sessions, price);
-                      }
-                      return;
-                    }}
-                  >
-                    {buttonText}
-                  </ButtonCustom>
-                </Link>
+                {to ? (
+                  <Link href={to} as={as}>
+                    <ButtonCustom
+                      limitWidth
+                      fullWidth
+                      className={classes.programButton}
+                      onClick={() => {
+                        if (checkout) {
+                          setProgramHandler(subtitle, hours, price);
+                        }
+                        return;
+                      }}
+                    >
+                      {buttonText}
+                    </ButtonCustom>
+                  </Link>
+                ) : (
+                  <a className={classes.link} href={externalLink}>
+                    <ButtonCustom
+                      limitWidth
+                      fullWidth
+                      className={classes.programButton}
+                      onClick={() => {
+                        if (checkout) {
+                          setProgramHandler(subtitle, hours, price);
+                        }
+                        return;
+                      }}
+                    >
+                      {buttonText}
+                    </ButtonCustom>
+                  </a>
+                )}
               </Grid>
             )}
           </Grid>

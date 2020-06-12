@@ -7,6 +7,9 @@ import classNames from "classnames";
 import Typography from "@material-ui/core/Typography";
 import Card from "@material-ui/core/Card";
 
+
+// Local assets
+
 const styles = theme => ({
   root: {
     background: "#fff",
@@ -32,7 +35,7 @@ const styles = theme => ({
   },
   clickable: {
     cursor: "pointer",
-    transition: "0.3s",
+    transition: "0.15s",
     "&:hover": {
       boxShadow: "0 2px 7px 0 rgba(0, 0, 0, 0.3)",
       transform: "translateY(-3px)"

@@ -31,8 +31,10 @@ app.post("*", async (req, res) => {
     program: req.body.program,
     programLevel: req.body.programLevel,
     location: req.body.location,
-    fname: req.body.fname,
-    lname: req.body.lname,
+    parentFirstName: req.body.parentFirstName,
+    parentLastName: req.body.parentLastName,
+    studentFirstName: req.body.studentFirstName,
+    studentLastName: req.body.studentLastName,
     email: req.body.email,
     tel: req.body.tel,
     grade: req.body.grade,
@@ -44,9 +46,7 @@ app.post("*", async (req, res) => {
   const promise1 = stripe.charges.create({
     amount: req.body.totalPrice,
     currency: "usd",
-    description: `${req.body.programLevel} ${req.body.course} ${
-      req.body.program
-    }`,
+    description: `${req.body.programLevel} ${req.body.course} ${req.body.program}`,
     source: req.body.id,
     receipt_email: req.body.email
   });
@@ -55,8 +55,6 @@ app.post("*", async (req, res) => {
 
   Promise.all([promise1, promise2])
     .then(([stripeData, purchaseData]) => {
-      console.log(stripeData);
-
       res.status(200).json({ data: { stripeData, purchaseData } });
     })
     .catch(err => res.send(err));

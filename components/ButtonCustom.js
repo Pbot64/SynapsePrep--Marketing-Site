@@ -6,10 +6,11 @@ import classNames from "classnames";
 // Material UI Components
 import Button from "@material-ui/core/Button";
 
-// Local Components
+// Local assets
 import chevronRight from "../static/images/chevron-right-white.svg";
 import chevronLeft from "../static/images/chevron-left-white.svg";
 import chevronLeftBlack from "../static/images/chevron-left.svg";
+import chevronRightBlack from "../static/images/chevron-right.svg";
 
 const styles = theme => ({
   root: {
@@ -17,6 +18,7 @@ const styles = theme => ({
     backgroundColor: theme.palette.primary.main,
     boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
     fontSize: "inherit",
+    minWidth: "initial",
     flexShrink: "0",
     letterSpacing: "1.5px",
     padding: "8px 15px",
@@ -60,6 +62,19 @@ const styles = theme => ({
       transform: "translateX(5px)"
     }
   },
+  arrowRightBlack: {
+    "&:after": {
+      background: `url(${chevronRightBlack}) no-repeat`,
+      content: '""',
+      height: "14px",
+      marginLeft: "10px",
+      transition: "0.5s",
+      width: "14px"
+    },
+    "&:hover:after": {
+      transform: "translateX(5px)"
+    }
+  },
   arrowLeft: {
     "&:before": {
       background: `url(${chevronLeft}) no-repeat`,
@@ -86,6 +101,7 @@ const styles = theme => ({
       transform: "translateX(-5px)"
     }
   },
+
   limitWidth: {
     maxWidth: "250px",
     marginLeft: "auto",
@@ -101,6 +117,7 @@ const ButtonCustom = props => {
     children,
     hasArrowLeft,
     hasArrowLeftBlack,
+    hasArrowRightBlack,
     color,
     limitWidth,
     ...rest
@@ -113,6 +130,7 @@ const ButtonCustom = props => {
           [classes.arrowRight]: hasArrowRight,
           [classes.arrowLeft]: hasArrowLeft,
           [classes.arrowLeftBlack]: hasArrowLeftBlack,
+          [classes.arrowRightBlack]: hasArrowRightBlack,
           [classes.limitWidth]: limitWidth,
           [classes.blue]: color === "blue",
           [classes.white]: color === "white"

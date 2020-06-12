@@ -18,6 +18,7 @@ import Typography from "@material-ui/core/Typography";
 
 // Local Assets
 import Logo from "../static/images/white-logo.svg";
+import blueLogo from "../static/images/blue-logo.svg";
 import * as colors from "./common/colors";
 
 //  Style Overrides
@@ -30,7 +31,6 @@ const styles = theme => ({
     }
   },
   logoContainer: {
-    color: "white",
     alignItems: "center",
     display: "none",
     cursor: "pointer",
@@ -42,13 +42,11 @@ const styles = theme => ({
     }
   },
   menuButton: {
-    color: "white",
     [theme.breakpoints.up("md")]: {
       display: "none"
     }
   },
   navlinks: {
-    color: "white",
     display: "none",
     marginRight: "60px",
     [theme.breakpoints.up("md")]: {
@@ -61,8 +59,9 @@ const styles = theme => ({
   },
   navlink: {
     fontWeight: "500",
+    fontSize: "1.1rem",
     paddingRight: "15px",
-    borderRight: "1px solid white",
+    borderRight: "1px solid",
     marginRight: "15px",
     cursor: "pointer",
     "&:hover": {
@@ -70,10 +69,12 @@ const styles = theme => ({
     }
   },
   link: {
-    textDecoration: "none"
+    textDecoration: "none",
+    color: "inherit"
   },
   navlinkLast: {
     fontWeight: "500",
+    fontSize: "1.1rem",
     cursor: "pointer",
     "&:hover": {
       opacity: "0.8"
@@ -93,7 +94,6 @@ const styles = theme => ({
     marginLeft: "20px"
   },
   login: {
-    color: "white",
     textTransform: "uppercase",
     fontWeight: 500,
     letterSpacing: "1.5px",
@@ -114,7 +114,7 @@ class Header extends Component {
   };
 
   render() {
-    const { classes, backgroundColor, ...rest } = this.props;
+    const { classes, backgroundColor, logo, ...rest } = this.props;
     const { mobileOpen } = this.state;
     return (
       <Panel backgroundColor={backgroundColor} {...rest}>
@@ -130,7 +130,11 @@ class Header extends Component {
           </Grid>
           <Link href="/">
             <Grid item className={classes.logoContainer}>
-              <img src={Logo} className={classes.logo} alt="logo" />
+              <img
+                src={logo == "blue" ? blueLogo : Logo}
+                className={classes.logo}
+                alt="logo"
+              />
               <Typography
                 variant="overline"
                 color="inherit"
@@ -185,7 +189,11 @@ class Header extends Component {
                 className={classes.link}
                 href="https://app.synapseprep.net/login"
               >
-                <Typography variant="body1" className={classes.login}>
+                <Typography
+                  variant="body1"
+                  color="inherit"
+                  className={classes.login}
+                >
                   Log in
                 </Typography>
               </a>

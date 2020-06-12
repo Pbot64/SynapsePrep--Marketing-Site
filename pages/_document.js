@@ -1,19 +1,24 @@
-import React from "react";
-import PropTypes from "prop-types";
-import Document, { Head, Main, NextScript } from "next/document";
-import flush from "styled-jsx/server";
+import React from 'react';
+import PropTypes from 'prop-types';
+import Document, { Head, Main, NextScript } from 'next/document';
+import flush from 'styled-jsx/server';
 
 class MyDocument extends Document {
   render() {
     const { pageContext } = this.props;
 
     return (
-      <html lang="en" dir="ltr">
+      <html lang='en' dir='ltr'>
         <Head>
+          <script src='https://cdn.lr-ingest.io/LogRocket.min.js' crossOrigin='anonymous' />
           <script
-            async
-            src="https://www.googletagmanager.com/gtag/js?id=UA-141292271-1"
+            dangerouslySetInnerHTML={{
+              __html: `
+              window.LogRocket && window.LogRocket.init('ushzey/syanpse-prep');
+              `
+            }}
           />
+          <script async src='https://www.googletagmanager.com/gtag/js?id=UA-141292271-1' />
           <script
             dangerouslySetInnerHTML={{
               __html: `
@@ -24,35 +29,63 @@ class MyDocument extends Document {
           `
             }}
           />
-          <script src="https://js.stripe.com/v3/" />
-          <meta charSet="utf-8" />
+
+          {/* <script
+            dangerouslySetInnerHTML={{
+              __html: `
+              var Tawk_API = Tawk_API || {} 
+              console.log(Tawk_API)
+              
+              Tawk_LoadStart = new Date();
+
+              (function(){
+              var s1 = document.createElement("script")
+              
+              var s0=document.getElementsByTagName("script")[0];
+
+              s1.async=true;
+
+              s1.src='https://embed.tawk.to/5e36bb0d298c395d1ce5c64e/default';
+
+              s1.charset='UTF-8';
+
+              s1.setAttribute('crossorigin','*');
+
+              s0.parentNode.insertBefore(s1,s0);
+             
+              })();`
+            }}
+          /> */}
+
+          <script src='https://js.stripe.com/v3/' />
           {/* Use minimum-scale=1 to enable GPU rasterization */}
           <meta
-            name="viewport"
-            content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
+            name='viewport'
+            content='minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no'
           />
           {/* PWA primary color */}
           <meta
-            name="theme-color"
-            content={
-              pageContext ? pageContext.theme.palette.primary.main : null
-            }
+            name='theme-color'
+            content={pageContext ? pageContext.theme.palette.primary.main : null}
+          />
+          <meta
+            name='description'
+            content='Offering in-home and online tutoring. Enroll in a 2-day SAT or ACT
+            prep class in Austin, Texas. Our world class tutors guide students through fun and easy
+            to follow curriculum.'
           />
           <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"
+            rel='stylesheet'
+            href='https://fonts.googleapis.com/css?family=Roboto:300,400,500'
           />
           <link
-            rel="stylesheet"
-            href="https://everythingfonts.com/font/face/0I2QRA8Tx3q_Wr3LvlRUIweF"
-            type="text/css"
+            rel='stylesheet'
+            href='https://everythingfonts.com/font/face/0I2QRA8Tx3q_Wr3LvlRUIweF'
+            type='text/css'
           />
-          <link rel="manifest" href="/static/manifest.json" />
-          <link
-            rel="shortcut icon"
-            type="image/x-icon"
-            href="/static/images/favicon.ico"
-          />
+          <link rel='manifest' href='/static/manifest.json' />
+          <link rel='shortcut icon' type='image/x-icon' href='/static/images/favicon.ico' />
+          <title>Creative, Fun, and Straightforward Tutoring and Test Prep.</title>
         </Head>
         <body>
           <Main />
@@ -114,7 +147,7 @@ MyDocument.getInitialProps = ctx => {
     styles: (
       <React.Fragment>
         <style
-          id="jss-server-side"
+          id='jss-server-side'
           // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{ __html: css }}
         />

@@ -76,7 +76,9 @@ app.post("*", async (req, res) => {
             to: preferredContact.email
           },
           locals: {
-            title: "We'll Call You Soon!"
+            title: "We'll Call You Soon!",
+            message:
+              "We're super excited you visited us and look forward to chatting within 48hrs.  You're also welcome to reply to this message if you'd rather communicate via email."
           }
         })
         .then(email => {

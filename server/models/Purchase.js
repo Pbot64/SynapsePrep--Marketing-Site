@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const { Schema } = mongoose;
 
@@ -6,47 +6,55 @@ const { Schema } = mongoose;
 const PurchaseSchema = new Schema({
   course: {
     type: String,
-    required: true,
+    required: true
   },
   program: {
     type: String,
-    required: true,
+    required: true
   },
   programLevel: {
-    type: String,
+    type: String
   },
   location: {
     type: String,
-    required: true,
+    required: true
   },
-  fname: {
+  parentFirstName: {
     type: String,
-    required: true,
+    required: true
   },
-  lname: {
+  parentLastName: {
     type: String,
-    required: true,
+    required: true
+  },
+  studentFirstName: {
+    type: String,
+    required: true
+  },
+  studentLastName: {
+    type: String,
+    required: true
   },
   email: {
     type: String,
-    required: true,
+    required: true
   },
   tel: {
     type: String,
-    required: true,
+    required: true
   },
   grade: {
-    type: String,
+    type: String
   },
   subjects: {
-    type: Array,
+    type: Array
   },
   venue: {
-    type: String,
+    type: String
   },
   date: {
-    type: String,
-  },
+    type: String
+  }
 });
-const Purchase = mongoose.model('purchase', PurchaseSchema);
+const Purchase = mongoose.model("purchase", PurchaseSchema);
 module.exports = Purchase;

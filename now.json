@@ -1,7 +1,5 @@
 {
   "version": 2,
-  "alias": ["synapseprep.net"],
-
   "builds": [
     {
       "src": "next.config.js",
@@ -37,8 +35,24 @@
       "dest": "/server/lamdas/purchase.js"
     },
     {
+      "src": "/api/subscribe",
+      "dest": "/server/lamdas/subscribe.js"
+    },
+    {
+      "src": "/api/blog",
+      "dest": "/server/lamdas/blog.js"
+    },
+    {
+      "src": "/api/blogPost",
+      "dest": "/server/lamdas/blogPost.js"
+    },
+    {
       "src": "/checkout/(?<course>[^/]+)/(?<program>[^/]+)$",
       "dest": "/checkout?course=$course&program=$program"
+    },
+    {
+      "src": "/blog/post/(?<slug>[^/]+)$",
+      "dest": "/post?slug=$slug"
     }
   ],
   "env": {

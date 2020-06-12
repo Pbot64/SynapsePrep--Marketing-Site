@@ -41,8 +41,6 @@ router.post("*", async (req, res) => {
   newPreferredContact
     .save()
     .then(preferredContact => {
-      console.log("preferredContact:", preferredContact);
-
       const transporter = nodemailer.createTransport({
         host: "smtp.gmail.com",
         port: 587,
@@ -57,6 +55,10 @@ router.post("*", async (req, res) => {
       const email = new Email({
         transport: transporter,
         message: {
+          subject: `Hey ${preferredContact.name
+            .split(" ")
+            .slice(0, -1)
+            .join(" ")}, We'll Call You Soon!`,
           from: "support@synapseprep.net"
         },
         // uncomment below to send emails in development/test env:
@@ -70,14 +72,12 @@ router.post("*", async (req, res) => {
             to: preferredContact.email
           },
           locals: {
-            name: preferredContact.name
-              .split(" ")
-              .slice(0, -1)
-              .join(" "),
             title: "We'll Call You Soon!"
           }
         })
-        .then(res.status(200).json("email sent"))
+        .then(email => {
+          res.status(200).send(email);
+        })
         .catch(console.error);
     })
     .catch(err => console.log(err));

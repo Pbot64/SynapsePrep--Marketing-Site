@@ -395,8 +395,6 @@ class AcademicForm extends Component {
       })
     };
 
-    console.log("grade:", grade);
-    console.log("subjects", subjects);
     return (
       <React.Fragment>
         <Grid item xs={12} sm={12} md={9} className={classes.root}>

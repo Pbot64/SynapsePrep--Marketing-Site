@@ -96,7 +96,7 @@ const styles = theme => ({
   arrowButtonLeft: {
     border: "13x solid rgba(0, 0, 0, 0.23)",
     height: "63px",
-    borderRadius: "40px",
+
     position: "absolute",
     left: "10px",
     [theme.breakpoints.up("md")]: {
@@ -106,7 +106,7 @@ const styles = theme => ({
   arrowButtonRight: {
     border: "13x solid rgba(0, 0, 0, 0.23)",
     height: "63px",
-    borderRadius: "100px",
+
     position: "absolute",
     right: "10px",
     [theme.breakpoints.up("md")]: {

@@ -32,6 +32,7 @@ import Typography from "@material-ui/core/Typography";
 
 // Local Assets
 import * as colors from "../components/common/colors";
+import SemesterForm from "../components/forms/SemesterForm";
 
 const styles = theme => ({
   root: {
@@ -247,8 +248,10 @@ class Checkout extends Component {
     telError: "",
     submitted: false,
     location: "distant",
-    fname: "",
-    lname: "",
+    parentFirstName: "",
+    parentLastName: "",
+    studentFirstName: "",
+    studentLastName: "",
     email: "",
     tel: "(  )    -    ",
     venue: null,
@@ -259,13 +262,21 @@ class Checkout extends Component {
     subjects: "",
     token: {},
     tokenId: "",
-    sessions: 1,
+    hours: 1,
     quantity: 1,
     totalPrice: "",
     expiryDate: ""
   };
 
   checkoutRef = React.createRef();
+
+  componentDidMount() {
+    console.log("outside", this.state.program);
+    if (this.props.program == "Semester") {
+      this.handleNext(2);
+      console.log(this.state.program);
+    }
+  }
 
   handleNext = jumpToStep => {
     if (jumpToStep) {
@@ -344,12 +355,12 @@ class Checkout extends Component {
       });
   };
 
-  setProgramHandler = (currentProgramLevel, currentSessions, currentPrice) => {
+  setProgramHandler = (currentProgramLevel, currentHours, currentPrice) => {
     this.setState({
       programLevel: currentProgramLevel,
-      sessions: currentSessions,
+      hours: currentHours,
       price: currentPrice,
-      totalPrice: `${currentPrice * currentSessions}00`
+      totalPrice: `${currentPrice * currentHours}00`
     });
     this.handleNext(3);
   };
@@ -423,9 +434,7 @@ class Checkout extends Component {
 
     if (name == "quantity") {
       this.setState({
-        totalPrice: `${this.state.price *
-          e.target.value *
-          this.state.sessions}00`
+        totalPrice: `${this.state.price * e.target.value * this.state.hours}00`
       });
     }
   };
@@ -503,7 +512,7 @@ class Checkout extends Component {
     }
 
     if (venue !== null && date !== null) {
-      this.setProgramHandler("8 Hour", 1, 85);
+      this.setProgramHandler("8 Hour", 8, 25);
       this.handleNext(3);
     }
   };
@@ -542,6 +551,63 @@ class Checkout extends Component {
     }
   };
 
+  handleSemesterClick = () => {
+    const { venue, date } = this.state;
+
+    if (venue == null) {
+      this.setState({
+        errorVenue: "School is required",
+        disabled: true
+      });
+    }
+
+    if (date == null) {
+      this.setState({
+        errorDate: "Season is required",
+        disabled: true
+      });
+    }
+
+    if (venue !== null && date !== null) {
+      this.setProgramHandler("14 Week", 56, 20);
+      this.handleNext(3);
+    }
+  };
+
+  handleSemesterChange = name => value => {
+    this.setState({
+      [name]: value
+    });
+
+    if (name == "venue") {
+      if (value == null) {
+        this.setState({
+          errorVenue: "School is required",
+          disabled: true
+        });
+      } else {
+        this.setState({
+          errorVenue: "",
+          disabled: false
+        });
+      }
+    }
+
+    if (name == "date") {
+      if (value == null) {
+        this.setState({
+          errorDate: "Season is required",
+          disabled: true
+        });
+      } else {
+        this.setState({
+          errorDate: "",
+          disabled: false
+        });
+      }
+    }
+  };
+
   handleFormSubmit = e => {
     e.preventDefault();
     let purchaseData = {
@@ -549,8 +615,10 @@ class Checkout extends Component {
       program: this.props.program,
       programLevel: this.state.programLevel,
       location: this.state.location,
-      fname: this.state.fname,
-      lname: this.state.lname,
+      parentFirstName: this.state.parentFirstName,
+      parentLastName: this.state.parentLastName,
+      studentFirstName: this.state.studentFirstName,
+      studentLastName: this.state.studentLastName,
       email: this.state.email,
       tel: this.state.tel,
       id: this.state.tokenId,
@@ -564,7 +632,10 @@ class Checkout extends Component {
         subjects: this.state.subjects
       };
     }
-    if (this.props.program == "Bootcamp") {
+    if (
+      this.props.program == "Bootcamp" ||
+      this.props.program == "14 Week Course"
+    ) {
       purchaseData = {
         ...purchaseData,
         venue: this.state.venue.value,
@@ -575,7 +646,6 @@ class Checkout extends Component {
     axios
       .post("/api/purchase", purchaseData)
       .then(res => {
-        console.log(res);
         this.setState({ submitted: true, formStep: this.state.formStep + 1 });
         window.scrollTo(0, 0);
       })
@@ -620,8 +690,7 @@ class Checkout extends Component {
     this.checkoutRef.current.submit();
   };
   render() {
-    console.log(this.state);
-    const { classes, program, course } = this.props;
+    const { classes, program, course, link } = this.props;
     const {
       activeStep,
       programLevel,
@@ -629,11 +698,13 @@ class Checkout extends Component {
       price,
       errors,
       location,
-      fname,
-      lname,
+      parentFirstName,
+      parentLastName,
+      studentFirstName,
+      studentLastName,
       email,
       tel,
-      sessions,
+      hours,
       disabled,
       subjects,
       errorSubjects,
@@ -645,8 +716,6 @@ class Checkout extends Component {
       errorDate,
       academicSelected,
       quantity,
-      totalPrice,
-      token,
       expiryDate
     } = this.state;
 
@@ -661,6 +730,8 @@ class Checkout extends Component {
         ? `Choose the 1-on-1 ${course} program that fits your needs`
         : activeStep == 2 && program == "Bootcamp"
         ? `${course} Bootcamp Date and Location`
+        : activeStep == 2 && program == "Semester"
+        ? `${course} Semester Long Course Season and Location`
         : activeStep == 2 && course == "Academic" && academicSelected == false
         ? `1-on-1 Academic Tutoring Grade and Subject`
         : activeStep == 2 && course == "Academic" && academicSelected == true
@@ -787,7 +858,7 @@ class Checkout extends Component {
               <Grid item className={classes.locationQuestionText}>
                 <Grid item className={classes.buttonContainer}>
                   {activeStep == 0 && (
-                    <Link href="/">
+                    <Link href={link ? link : "/"}>
                       <ButtonCustom
                         color="white"
                         hasArrowLeftBlack
@@ -870,7 +941,7 @@ class Checkout extends Component {
                     left
                     summary
                     showPrice
-                    price={80}
+                    price={70}
                     setProgramHandler={this.setProgramHandler}
                     summaryText="Complete review of one SAT subject area. This program is best for students with limited study time or who only wish to focus on one part of the SAT."
                     highlights={[
@@ -879,7 +950,7 @@ class Checkout extends Component {
                       "Full access to complementary online materials related to chosen SAT subject."
                     ]}
                     subtitle="14 Hour"
-                    sessions={7}
+                    hours={14}
                     sessionLength={"2 hours"}
                     fullHeight
                     button
@@ -892,7 +963,7 @@ class Checkout extends Component {
                     ribbon
                     showPrice
                     setProgramHandler={this.setProgramHandler}
-                    price={60}
+                    price={50}
                     summaryText="The Rolls Royce of SAT Prep.  This program is highly tailored to student needs. We will work with you for however long it takes to reach your goals (the listed duration is only approximate). Choose to work in some or all parts of the SAT."
                     highlights={[
                       "Our most thorough course",
@@ -901,7 +972,7 @@ class Checkout extends Component {
                       "Full access to complementary online materials."
                     ]}
                     subtitle="Premiere"
-                    sessions={25}
+                    hours={50}
                     sessionLength={"2 hours"}
                     button
                     buttonText="Select"
@@ -911,7 +982,7 @@ class Checkout extends Component {
                     right
                     summary
                     showPrice
-                    price={70}
+                    price={60}
                     setProgramHandler={this.setProgramHandler}
                     summaryText="Complete review of 2 SAT subject areas with some exposure to the remaining 2 subject areas. This program is best for students with limited study time while still focusing on all parts of the SAT."
                     highlights={[
@@ -920,7 +991,7 @@ class Checkout extends Component {
                       "Full access to complementary online materials."
                     ]}
                     subtitle="32 Hour"
-                    sessions={16}
+                    hours={32}
                     sessionLength={"2 hours"}
                     fullHeight
                     button
@@ -935,7 +1006,7 @@ class Checkout extends Component {
                     left
                     summary
                     showPrice
-                    price={80}
+                    price={70}
                     setProgramHandler={this.setProgramHandler}
                     summaryText="Complete review of one ACT subject area. This program is best for students with limited study time or who only wish to focus on one part of the ACT."
                     highlights={[
@@ -944,7 +1015,7 @@ class Checkout extends Component {
                       "Full access to complementary online materials related to chosen ACT subject."
                     ]}
                     subtitle="14 Hour"
-                    sessions={7}
+                    hours={14}
                     sessionLength={"2 hours"}
                     fullHeight
                     button
@@ -957,7 +1028,7 @@ class Checkout extends Component {
                     ribbon
                     showPrice
                     setProgramHandler={this.setProgramHandler}
-                    price={60}
+                    price={50}
                     summaryText="The Rolls Royce of ACT Prep.  This program is highly tailored to student needs. We will work with you for however long it takes to reach your goals (the listed duration is only approximate). Choose to work in some or all parts of the ACT."
                     highlights={[
                       "Our most thorough course",
@@ -966,7 +1037,7 @@ class Checkout extends Component {
                       "Full access to complementary online materials."
                     ]}
                     subtitle="Premiere"
-                    sessions={25}
+                    hours={50}
                     sessionLength={"2 hours"}
                     button
                     buttonText="Select"
@@ -976,7 +1047,7 @@ class Checkout extends Component {
                     right
                     summary
                     showPrice
-                    price={70}
+                    price={60}
                     setProgramHandler={this.setProgramHandler}
                     summaryText="Complete review of 2 ACT subject areas with some exposure to the remaining 2 subject areas. This program is best for students with limited study time while still focusing on all parts of the ACT."
                     highlights={[
@@ -985,7 +1056,7 @@ class Checkout extends Component {
                       "Full access to complementary online materials."
                     ]}
                     subtitle="32 Hour"
-                    sessions={16}
+                    hours={32}
                     sessionLength={"2 hours"}
                     fullHeight
                     button
@@ -1006,10 +1077,10 @@ class Checkout extends Component {
                       noPaddingTop
                       summary
                       showPrice
-                      price={80}
+                      price={25}
                       title="Program Details"
                       subtitle="8-hour Bootcamp"
-                      sessions="2"
+                      hours={8}
                       sessionLength="4 hours"
                       summaryText="This isn't some droning lecture or seminar. This is a passionately delivered, motivation building, 
                       all-encompassing, BOOTCAMP. Over the course of one fiery weekend, students are equipped with every tip,
@@ -1018,15 +1089,15 @@ class Checkout extends Component {
                         and the the ultimate cramming session for you procrastinators.
                       Students must arrive focused, prepared and on-time."
                       highlights={[
-                        "Have every key strategy before test day.",
+                        "Learn every key strategy before test day.",
                         "Lively and inspiring",
                         "Copy of our SAT prep book included"
                       ]}
                     />
                     <BootcampForm
-                      setProgramHandler={this.setProgramHandler}
                       handleChange={this.handleSelectChange}
                       date={date}
+                      course={course}
                       venue={venue}
                       disabled={disabled}
                       errorVenue={errorVenue}
@@ -1054,10 +1125,10 @@ class Checkout extends Component {
                       noPaddingTop
                       summary
                       showPrice
-                      price={80}
+                      price={25}
                       title="Program Details"
                       subtitle="8-hour Bootcamp"
-                      sessions="2"
+                      hours={8}
                       sessionLength="4 hours"
                       summaryText="This isn't some droning lecture or seminar. This is a passionately delivered, motivation building, 
                       all-encompassing, BOOTCAMP. Over the course of one fiery weekend, students are equipped with every tip,
@@ -1066,7 +1137,7 @@ class Checkout extends Component {
                         and the the ultimate cramming session for you procrastinators.
                       Students must arrive focused, prepared and on-time."
                       highlights={[
-                        "Have every key strategy before test day.",
+                        "Learn every key strategy before test day.",
                         "Lively and inspiring",
                         "Copy of our ACT prep book included"
                       ]}
@@ -1081,6 +1152,58 @@ class Checkout extends Component {
                       errorDate={errorDate}
                       handleBootcampClick={this.handleBootcampClick}
                       handleBootcampChange={this.handleBootcampChange}
+                      handleNext={() => {
+                        this.handleNext(4);
+                      }}
+                    />
+                  </Grid>
+                </React.Fragment>
+              )}
+
+              {course == "SAT" && program == "Semester" && (
+                <React.Fragment>
+                  <Grid
+                    item
+                    container
+                    justify="space-between"
+                    className={classes.bootcampLocationWrapper}
+                  >
+                    <Program
+                      left
+                      noPaddingTop
+                      summary
+                      showPrice
+                      price={20}
+                      title="Program Details"
+                      subtitle="14-Week SAT Course"
+                      sessions="70"
+                      sessionLength="1 hour"
+                      summaryText="This is not your everyday high-school class. 
+                      At its basis, this course is a comprehensive review of all 4 parts of the SAT. 
+                   Yet, each hour long session is 
+                      packed with passionate delivery, unique perspectives, and motivation building.
+                       Creativity and individualism are highly encouraged.
+                       After 14 weeks, students will leave equipped with hundreds of tips,
+                      tricks, and strategies to defeat the SAT. This is the ultimate refresher
+                       for students who have diligently studied throughout high-school
+                      and the the ultimate cramming session for those who have haven't been as focused. 
+                      Only enroll in this course if you've been informed by your school that this course is being offered."
+                      highlights={[
+                        "Learn every key strategy before test day.",
+                        "Lively and inspiring",
+                        "Copy of our SAT prep book included"
+                      ]}
+                    />
+                    <SemesterForm
+                      setProgramHandler={this.setProgramHandler}
+                      handleChange={this.handleSelectChange}
+                      date={date}
+                      venue={venue}
+                      disabled={disabled}
+                      errorVenue={errorVenue}
+                      errorDate={errorDate}
+                      handleSemesterClick={this.handleSemesterClick}
+                      handleSemesterChange={this.handleSemesterChange}
                       handleNext={() => {
                         this.handleNext(4);
                       }}
@@ -1119,7 +1242,7 @@ class Checkout extends Component {
                     left
                     showPrice
                     summary
-                    price={80}
+                    price={70}
                     setProgramHandler={this.setProgramHandler}
                     summaryText="
                     Sessions focuses on building fundamental skills and
@@ -1130,7 +1253,7 @@ class Checkout extends Component {
                       "Includes 2 evalutions"
                     ]}
                     subtitle="14 Hour"
-                    sessions={7}
+                    hours={14}
                     sessionLength={"2 hours"}
                     fullHeight
                     button
@@ -1144,8 +1267,8 @@ class Checkout extends Component {
                     summary
                     showPrice
                     setProgramHandler={this.setProgramHandler}
-                    price={60}
-                    summaryText="The Rolls Royce of SAT Prep. This program is highly tailored to student needs. 
+                    price={50}
+                    summaryText="The Rolls Royce of Academic Tutoring. This program is highly tailored to student needs. 
                     We will work with you for however long it takes to reach your goals (the listed duration is only approximate)."
                     highlights={[
                       "Tailored re-teaching of entire class",
@@ -1154,7 +1277,7 @@ class Checkout extends Component {
                       "Includes 4 evaluations"
                     ]}
                     subtitle="Premiere"
-                    sessions={25}
+                    hours={50}
                     sessionLength={"2 hours"}
                     button
                     buttonText="Select"
@@ -1165,7 +1288,7 @@ class Checkout extends Component {
                     right
                     summary
                     showPrice
-                    price={70}
+                    price={60}
                     setProgramHandler={this.setProgramHandler}
                     summaryText="Sessions focus on building fundamental skills,
                     reviewing difficult chapters, and getting students up to speed on their current
@@ -1176,7 +1299,7 @@ class Checkout extends Component {
                       "Includes 3 evaluations"
                     ]}
                     subtitle="32 Hour"
-                    sessions={16}
+                    hours={32}
                     sessionLength={"2 hours"}
                     fullHeight
                     button
@@ -1256,8 +1379,10 @@ class Checkout extends Component {
                                 <AddressForm
                                   telError={this.state.telError}
                                   handleChange={this.handleChange}
-                                  fname={this.state.fname}
-                                  lname={this.state.lname}
+                                  parentFirstName={parentFirstName}
+                                  parentLastName={parentLastName}
+                                  studentFirstName={studentFirstName}
+                                  studentLastName={studentLastName}
                                   email={this.state.email}
                                   validatorListener={this.validatorListener}
                                   tel={this.state.tel}
@@ -1276,8 +1401,10 @@ class Checkout extends Component {
                                     setToken={this.setToken}
                                     setDisabled={this.setDisabled}
                                     innerRef={this.checkoutRef}
-                                    fname={fname}
-                                    lname={lname}
+                                    parentFirstName={parentFirstName}
+                                    parentLastName={parentLastName}
+                                    studentFirstName={studentFirstName}
+                                    studentLastName={studentLastName}
                                   />
                                 </Elements>
                               </React.Fragment>
@@ -1291,16 +1418,18 @@ class Checkout extends Component {
                                       program={program}
                                       course={course}
                                       price={price}
-                                      sessions={sessions}
+                                      hours={hours}
                                       programLevel={programLevel}
-                                      fname={fname}
-                                      lname={lname}
+                                      parentFirstName={parentFirstName}
+                                      parentLastName={parentLastName}
+                                      studentFirstName={studentFirstName}
+                                      studentLastName={studentLastName}
                                       tel={tel}
                                       email={email}
                                       quantity={quantity}
                                       handleChange={this.handleChange}
-                                      last4={token.card.last4}
-                                      brand={token.card.brand}
+                                      // last4={token.card.last4}
+                                      // brand={token.card.brand}
                                       expiryDate={expiryDate}
                                     />
                                   );
@@ -1376,7 +1505,7 @@ class Checkout extends Component {
 }
 
 Checkout.getInitialProps = async ({ query }) => {
-  return { course: query.course, program: query.program };
+  return { course: query.course, program: query.program, link: query.link };
 };
 
 Checkout.propTypes = {

@@ -6,11 +6,11 @@ import nodemailer from "nodemailer";
 import Email from "email-templates";
 import path from "path";
 
-//Load contact model
-import Contact from "../models/Contact";
+//Load Subscriber model
+import Subscriber from "../models/Subscriber";
 
 // Load input validation
-import validateContactInput from "../validation/contact";
+import validateSubscriberInput from "../validation/subscriber";
 
 const app = express();
 
@@ -26,19 +26,19 @@ app.set("views", "../");
 // @desc Tests post route
 // @access Public
 app.post("*", async (req, res) => {
-  const { errors, isValid } = validateContactInput(req.body);
+  const { errors, isValid } = validateSubscriberInput(req.body);
   // Check validation
   if (!isValid) {
     return res.status(400).json(errors);
   }
   await mongoose();
-  const newContact = new Contact({
+  const newSubscriber = new Subscriber({
     email: req.body.email,
-    tel: req.body.tel
+    name: req.body.name
   });
-  newContact
+  newSubscriber
     .save()
-    .then(contact => {
+    .then(subscriber => {
       const transporter = nodemailer.createTransport({
         host: "smtp.gmail.com",
         port: 587,
@@ -52,7 +52,10 @@ app.post("*", async (req, res) => {
       const email = new Email({
         transport: transporter,
         message: {
-          subject: "Hey, We'll Call You Soon",
+          subject: `Hey ${subscriber.name
+            .split(" ")
+            .slice(0, -1)
+            .join(" ")}, Welcome to Synapse Prep!`,
           from: "support@synapseprep.net"
         },
         // uncomment below to send emails in development/test env:
@@ -63,12 +66,13 @@ app.post("*", async (req, res) => {
         .send({
           template: path.join(__dirname, "..", "emails"),
           message: {
-            to: `${contact.email}`
+            to: `${subscriber.email}`
           },
           locals: {
-            title: "We'll Call You Soon!",
+            title: "We've Got Your Back!",
             message:
-              "We're super excited you visited us and look forward to chatting within 48hrs.  You're also welcome to reply to this message if you'd rather communicate via email."
+              "We're super excited you visited us. You can access our SAT prep book at this link:",
+            link: "Click here for Prep Book"
           }
         })
         .then(email => {

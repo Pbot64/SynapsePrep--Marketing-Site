@@ -76,12 +76,14 @@ class Review extends Component {
       program,
       price,
       programLevel,
-      fname,
-      lname,
+      parentFirstName,
+      parentLastName,
+      studentFirstName,
+      studentLastName,
       email,
       tel,
       course,
-      sessions,
+      hours,
       handleChange,
       quantity,
       brand,
@@ -107,10 +109,9 @@ class Review extends Component {
         label: "4"
       }
     ];
-    console.log(this.props);
     const payments = [
       { name: "Card type", detail: brand },
-      { name: "Card holder", detail: `${fname} ${lname}` },
+      { name: "Card holder", detail: `${parentFirstName} ${parentLastName}` },
       { name: "Card last4", detail: last4 },
       { name: "Expiry date", detail: expiryDate }
     ];
@@ -145,7 +146,7 @@ class Review extends Component {
               gutterBottom
               className={classes.listItems}
             >
-              Session Price
+              Hour Price
             </Typography>
 
             <Typography
@@ -212,7 +213,7 @@ class Review extends Component {
           align="right"
           className={classes.sessionNumber}
         >
-          x {sessions} sessions
+          x {hours} hours
         </Typography>
         <Grid
           item
@@ -226,7 +227,7 @@ class Review extends Component {
           </Typography>
 
           <Typography variant="h6" className={classes.total}>
-            {`$${price * quantity * sessions}.00`}
+            {`$${price * quantity * hours}.00`}
           </Typography>
         </Grid>
 
@@ -236,7 +237,10 @@ class Review extends Component {
               Personal details
             </Typography>
             <Typography gutterBottom>
-              {fname} {lname}
+              {parentFirstName} {parentLastName}
+            </Typography>
+            <Typography gutterBottom>
+              {studentFirstName} {studentLastName}
             </Typography>
             <Typography gutterBottom>{email}</Typography>
             <Typography gutterBottom>{tel}</Typography>

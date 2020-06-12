@@ -182,7 +182,7 @@ class ContactForm extends Component {
                           name="tel"
                           className={classes.tel}
                           variant="outlined"
-                          placeholder="512-123-3456"
+                          placeholder="(512) 123-3456"
                           type="tel"
                           label="Phone Number"
                           autoComplete="tel"

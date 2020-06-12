@@ -22,6 +22,9 @@ const styles = theme => ({
   },
   formControl: {
     margin: theme.spacing.unit
+  },
+  formContainer: {
+    maxHeight: "312px"
   }
 });
 
@@ -44,8 +47,10 @@ class AddressForm extends Component {
   render() {
     const {
       handleChange,
-      fname,
-      lname,
+      parentFirstName,
+      parentLastName,
+      studentFirstName,
+      studentLastName,
       email,
       classes,
       tel,
@@ -61,16 +66,16 @@ class AddressForm extends Component {
           Personal details
         </Typography>
 
-        <Grid container spacing={24}>
+        <Grid container spacing={24} className={classes.formContainer}>
           <Grid item xs={12} sm={6}>
             <TextValidator
-              label="First Name"
+              label="Parent First Name"
               variant="outlined"
-              value={fname}
+              value={parentFirstName}
               name="fname"
               autoComplete="given-name"
               fullWidth
-              onChange={handleChange("fname")}
+              onChange={handleChange("parentFirstName")}
               validators={[
                 "required",
                 "minStringLength: 2",
@@ -87,13 +92,53 @@ class AddressForm extends Component {
 
           <Grid item xs={12} sm={6}>
             <TextValidator
-              label="Last name"
+              label="Parent Last name"
               variant="outlined"
-              value={lname}
+              value={parentLastName}
               name="lname"
               autoComplete="family-name"
               fullWidth
-              onChange={handleChange("lname")}
+              onChange={handleChange("parentLastName")}
+              validators={[
+                "required",
+                "minStringLength: 2",
+                "maxStringLength: 30"
+              ]}
+              errorMessages={[
+                "Name is required",
+                "Name must be longer than 2 characters",
+                "Name must be shorter than 30 characters"
+              ]}
+              validatorListener={validatorListener}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextValidator
+              label="Student First Name"
+              variant="outlined"
+              value={studentFirstName}
+              fullWidth
+              onChange={handleChange("studentFirstName")}
+              validators={[
+                "required",
+                "minStringLength: 2",
+                "maxStringLength: 30"
+              ]}
+              errorMessages={[
+                "Name is required",
+                "Name must be longer than 2 characters",
+                "Name must be shorter than 30 characters"
+              ]}
+              validatorListener={validatorListener}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextValidator
+              label="Student Last name"
+              variant="outlined"
+              value={studentLastName}
+              fullWidth
+              onChange={handleChange("studentLastName")}
               validators={[
                 "required",
                 "minStringLength: 2",
@@ -128,7 +173,7 @@ class AddressForm extends Component {
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextValidator
-              label="Email Address"
+              label="Parent Email"
               variant="outlined"
               value={email}
               type="email"

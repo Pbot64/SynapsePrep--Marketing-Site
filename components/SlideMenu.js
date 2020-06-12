@@ -80,12 +80,14 @@ const styles = theme => ({
     cursor: "pointer",
     "&:hover": {
       "& $choiceStyle": {
-        backgroundImage:
-          "linear-gradient(224deg,  #b465da 0%, #cf6cc9 33%, #ee609c 66%, #ee609c 100%)",
-        color: "transparent",
-        "-webkit-background-clip": "text",
-        backgroundClip: "text",
-        backgroundColor: "#ebebeb",
+        color: "#cf6cc9",
+        // backgroundImage:
+        //   "linear-gradient(224deg,  #b465da 0%, #cf6cc9 33%, #ee609c 66%, #ee609c 100%)",
+        // color: "transparent",
+        // "-webkit-background-clip": "text",
+        // backgroundClip: "text",
+        boxShadow: "none",
+        backgroundColor: "transparent",
         transform: "translateY(1px)"
       }
     },
@@ -94,34 +96,29 @@ const styles = theme => ({
     }
   },
   choiceStyle: {
-    display: "block",
+    display: "inline-block",
     color: "#343e4d",
     borderRadius: "4px",
-    border: "1px solid rgba(0, 0, 0, 0.23)",
+    transitionProperty: "background-color, color, box-shadow, transform",
+    transitionDuration: "0.3s",
+    backgroundColor: "white",
     boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
     fontSize: "inherit",
     fontStyle: "normal",
     fontWeight: 500,
-    padding: "8px 15px",
+    padding: "6px 10px",
     position: "relative",
-    transition: "transform 0.3s",
     zIndex: "10",
     position: "relative",
     marginTop: "15px",
     fontWeight: "500",
-
     [theme.breakpoints.up("sm")]: {
-      display: "inline-block",
-      backgroundColor: "transparent",
-      padding: "0px",
-      boxShadow: "none",
-      border: "none",
       marginTop: "20px",
       fontSize: "25px"
     },
     [theme.breakpoints.up("md")]: {
       marginTop: "25px",
-      fontSize: "30px"
+      fontSize: "25px"
     }
   },
   submit: {
@@ -146,7 +143,13 @@ const styles = theme => ({
       alignItems: "flex-start"
     }
   },
-  formInputRoot: { backgroundColor: "white" }
+  formInputRoot: {
+    backgroundColor: "white"
+  },
+  link: {
+    textDecoration: "none",
+    width: "100%"
+  }
 });
 
 const times = [
@@ -414,6 +417,24 @@ class SlideMenu extends Component {
               className={classes.formChoices}
             >
               {choices.map(choice => {
+                if (choice.toExternal) {
+                  return (
+                    <React.Fragment key={choice.choice}>
+                      <a className={classes.link} href={choice.toExternal}>
+                        <Grid item className={classes.choiceContainer}>
+                          <Typography
+                            variant="h5"
+                            className={classes.choiceStyle}
+                            color="inherit"
+                          >
+                            {choice.choice}
+                          </Typography>
+                        </Grid>
+                      </a>
+                    </React.Fragment>
+                  );
+                }
+
                 if (choice.to) {
                   return (
                     <React.Fragment key={choice.choice}>

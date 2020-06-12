@@ -129,140 +129,32 @@ const groupBadgeStyles = {
 
 const venues = [
   {
-    label: "Online"
+    label: "Travis County High"
   },
   {
-    label: "Anderson High School"
-  },
-  {
-    label: "Ann Richards High School"
-  },
-  {
-    label: "Austin High School"
-  },
-  {
-    label: "Bowie High School"
-  },
-  {
-    label: "Connally High School"
-  },
-  {
-    label: "Crockett High School"
-  },
-  {
-    label: "LASA"
-  },
-  {
-    label: "Mccallum High School"
-  },
-  {
-    label: "New Hope High School"
-  },
-  {
-    label: "Rouse High School"
+    label: "Mccallum High"
   },
   {
     label: "San Marcos Academy"
-  },
-  {
-    label: "Travis Early College High School"
   }
 ].map(venue => ({
   value: venue.label,
   label: venue.label
 }));
 
-const satDates = [
+const seasons = [
   {
-    label: "February 29 - March 1, 2020"
+    label: "Spring"
   },
   {
-    label: "March 7-8, 2020"
+    label: "Summer"
   },
   {
-    label: "April 18-19, 2020"
-  },
-  {
-    label: "April 25-26, 2020"
-  },
-  {
-    label: "May 23-24, 2020"
-  },
-  {
-    label: "May 30-31, 2020"
-  },
-  {
-    label: "August 15-16, 2020"
-  },
-  {
-    label: "August 22-23, 2020"
-  },
-  {
-    label: "September 19-20, 2020"
-  },
-  {
-    label: "September 26-27, 2020"
-  },
-  {
-    label: "October 24-25, 2020"
-  },
-  {
-    label: "October 31 - November 1, 2020"
-  },
-  {
-    label: "November 21-22, 2020"
-  },
-  {
-    label: "November 28-29, 2020"
+    label: "Fall"
   }
-].map(venue => ({
-  value: venue.label,
-  label: venue.label
-}));
-
-const actDates = [
-  {
-    label: "February 1-2, 2020"
-  },
-  {
-    label: "March 21-22, 2020"
-  },
-  {
-    label: "March 28-29, 2020"
-  },
-  {
-    label: "May 30-31, 2020"
-  },
-  {
-    label: "June 6-7, 2020"
-  },
-  {
-    label: "July 4-5, 2020"
-  },
-  {
-    label: "July 11-12, 2020"
-  },
-  {
-    label: "August 29-30, 2020"
-  },
-  {
-    label: "September 5-6, 2020"
-  },
-  {
-    label: "October 10-11, 2020"
-  },
-  {
-    label: "October 17-18, 2020"
-  },
-  {
-    label: "November 28-29, 2020"
-  },
-  {
-    label: "December 5-6. 2020"
-  }
-].map(venue => ({
-  value: venue.label,
-  label: venue.label
+].map(season => ({
+  value: season.label,
+  label: season.label
 }));
 
 function NoOptionsMessage(props) {
@@ -392,7 +284,7 @@ const components = {
   ValueContainer
 };
 
-class BootcampForm extends Component {
+class SemesterForm extends Component {
   state = {
     anchorEl: null
   };
@@ -418,11 +310,10 @@ class BootcampForm extends Component {
       venue,
       errorVenue,
       errorDate,
-      course,
       date,
       disabled,
-      handleBootcampChange,
-      handleBootcampClick
+      handleSemesterChange,
+      handleSemesterClick
     } = this.props;
 
     const open = Boolean(anchorEl);
@@ -456,7 +347,7 @@ class BootcampForm extends Component {
             visible
             padding
             borderBottom
-            title="Select your school and a bootcamp weekend"
+            title="Select your school and semester season"
           >
             <Grid item container spacing={24}>
               <Grid item xs={12} sm={6}>
@@ -471,7 +362,7 @@ class BootcampForm extends Component {
                     options={venues}
                     components={components}
                     value={venue}
-                    onChange={handleBootcampChange("venue")}
+                    onChange={handleSemesterChange("venue")}
                     placeholder="School"
                     isClearable
                   />
@@ -486,11 +377,11 @@ class BootcampForm extends Component {
                       errors: errorDate,
                       InputLabelProps: {}
                     }}
-                    options={course === "SAT" ? satDates : actDates}
+                    options={seasons}
                     components={components}
                     value={date}
-                    onChange={handleBootcampChange("date")}
-                    placeholder="Date"
+                    onChange={handleSemesterChange("date")}
+                    placeholder="Season"
                     isClearable
                   />
                 </NoSsr>
@@ -525,16 +416,16 @@ class BootcampForm extends Component {
                 }}
               >
                 <Typography variant="body1" className={classes.popover}>
-                  Your bootcamp will take place at your highschool. If you're
-                  homeschooled then select a nearby location. Please call (512)
-                  481-2485‬ if you have any questions.
+                  Choose your school as the location. Please only sign up for
+                  this course if you know your school is offering it. If you
+                  have questions please call (512) 481-2485‬.
                 </Typography>
               </Popover>
               <ButtonCustom
                 variant="contained"
                 disabled={disabled}
                 onClick={() => {
-                  handleBootcampClick();
+                  handleSemesterClick();
                 }}
                 className={classes.button}
               >
@@ -548,8 +439,8 @@ class BootcampForm extends Component {
   }
 }
 
-BootcampForm.propTypes = {
+SemesterForm.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles, { withTheme: true })(BootcampForm);
+export default withStyles(styles, { withTheme: true })(SemesterForm);

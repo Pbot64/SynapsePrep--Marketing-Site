@@ -5,7 +5,10 @@ import { MuiThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import JssProvider from "react-jss/lib/JssProvider";
 import getPageContext from "../getPageContext";
-import { Elements, StripeProvider } from "react-stripe-elements";
+import { StripeProvider } from "react-stripe-elements";
+import NextSeo from "next-seo";
+
+import SEO from "../next-seo.config";
 
 class MyApp extends App {
   constructor() {
@@ -31,9 +34,7 @@ class MyApp extends App {
     return (
       <StripeProvider stripe={this.state.stripe}>
         <Container>
-          <Head>
-            <title>My page</title>
-          </Head>
+          <NextSeo config={SEO} />
           {/* Wrap every page in Jss and Theme providers */}
           <JssProvider
             registry={this.pageContext.sheetsRegistry}

@@ -46,7 +46,7 @@ class CheckoutForm extends Component {
 
   submit = async () => {
     let { token, error } = await this.props.stripe.createToken({
-      name: `${this.props.lname}, ${this.props.fname}`
+      name: `${this.props.parentFirstName}, ${this.props.parentLastName}`
     });
 
     if (token) {

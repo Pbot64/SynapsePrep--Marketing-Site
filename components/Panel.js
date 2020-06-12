@@ -44,26 +44,32 @@ const styles = theme => ({
     paddingBottom: "20px"
   },
   pinkToYellow: {
+    color: "white",
     ...theme.palette.pinkToYellow
   },
   blueToPurple: {
+    color: "white",
     ...theme.palette.blueToPurple
   },
   pinkToPurple: {
+    color: "white",
     ...theme.palette.pinkToPurple
   },
   whiteToLightBlue: {
+    color: "white",
     ...theme.palette.whiteToLightBlue
   },
   blueToTurquoise: {
+    color: "white",
     ...theme.palette.blueToTurquoise
   },
   darkGrey: {
-    backgroundColor: "#2D3739",
-    color: "white"
+    color: "white",
+    backgroundColor: "#2D3739"
   },
   whiteSmoke: {
-    backgroundColor: "whitesmoke"
+    backgroundColor: "whitesmoke",
+    color: theme.palette.text.primary
   },
   skewed: {
     position: "absolute",
@@ -86,7 +92,7 @@ const styles = theme => ({
     width: "80px"
   },
   panelTitle: {
-    marginTop: "50px",
+    marginTop: "35px",
     marginBottom: "10px",
     fontSize: "50px",
     [theme.breakpoints.up("sm")]: {
@@ -109,8 +115,8 @@ const styles = theme => ({
     marginRight: "0px",
     maxWidth: "inherit"
   },
-  fullHeight: {
-    height: "100%"
+  autoHeight: {
+    height: "auto"
   },
   backgroundWhite: {
     backgroundColor: "white"
@@ -141,7 +147,7 @@ const Panel = props => {
     smallIcon,
     color,
     noMargin,
-    fullHeight,
+    autoHeight,
     paddingTop,
     hidden
   } = props;
@@ -185,7 +191,7 @@ const Panel = props => {
         className={classNames(classes.inner, {
           [classes.padding]: padding,
           [classes.noInnerPadding]: noInnerPadding,
-          [classes.fullHeight]: fullHeight
+          [classes.autoHeight]: autoHeight
         })}
       >
         {header && (
