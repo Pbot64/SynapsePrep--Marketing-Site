@@ -520,7 +520,7 @@ class IndexPage extends Component {
     return (
       <React.Fragment>
         <Head>
-          <title>Free SAT + ACT prep. Get the best private tutoring——online or in-person.</title>
+          <title>Free SAT and ACT prep. The best online private tutoring.</title>
           <meta
             name='description'
             content='Free SAT practice questions. Offering affordable, top quaility in-person and online tutoring. Enroll in a 2-day SAT or ACT
