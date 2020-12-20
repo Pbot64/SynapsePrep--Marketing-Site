@@ -10,14 +10,14 @@ class MyDocument extends Document {
     return (
       <html lang='en' dir='ltr'>
         <Head>
-          <script src='https://cdn.lr-ingest.io/LogRocket.min.js' crossOrigin='anonymous' />
+          {/* <script src='https://cdn.lr-ingest.io/LogRocket.min.js' crossOrigin='anonymous' />
           <script
             dangerouslySetInnerHTML={{
               __html: `
               window.LogRocket && window.LogRocket.init('ushzey/syanpse-prep');
               `
             }}
-          />
+          /> */}
           <script async src='https://www.googletagmanager.com/gtag/js?id=UA-141292271-1' />
           <script
             dangerouslySetInnerHTML={{
@@ -29,34 +29,6 @@ class MyDocument extends Document {
           `
             }}
           />
-
-          {/* <script
-            dangerouslySetInnerHTML={{
-              __html: `
-              var Tawk_API = Tawk_API || {} 
-              console.log(Tawk_API)
-              
-              Tawk_LoadStart = new Date();
-
-              (function(){
-              var s1 = document.createElement("script")
-              
-              var s0=document.getElementsByTagName("script")[0];
-
-              s1.async=true;
-
-              s1.src='https://embed.tawk.to/5e36bb0d298c395d1ce5c64e/default';
-
-              s1.charset='UTF-8';
-
-              s1.setAttribute('crossorigin','*');
-
-              s0.parentNode.insertBefore(s1,s0);
-             
-              })();`
-            }}
-          /> */}
-
           <script src='https://js.stripe.com/v3/' />
           {/* Use minimum-scale=1 to enable GPU rasterization */}
           <meta
