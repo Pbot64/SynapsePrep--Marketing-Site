@@ -43,7 +43,7 @@ const theme = createMuiTheme({
   typography: {
     useNextVariants: true,
     overline: {
-      fontFamily: "goodtimesrg",
+      fontFamily: "goodtimesrg, sans-serif",
       fontSize: "1.15rem",
       letterSpacing: 2,
       lineHeight: "1.3"
@@ -51,7 +51,6 @@ const theme = createMuiTheme({
     caption: {
       textAlign: "left"
     },
-
     h4: {
       fontWeight: "500"
     },
