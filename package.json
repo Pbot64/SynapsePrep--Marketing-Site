@@ -44,7 +44,7 @@
     "nodemon": "^1.19.0",
     "now": "^15.4.0",
     "path": "^0.12.7",
-    "pug": "^2.0.4",
+    "pug": "^3.0.1",
     "react": "^16.8.6",
     "react-animate-on-change": "^2.1.1",
     "react-countup": "^4.1.3",
