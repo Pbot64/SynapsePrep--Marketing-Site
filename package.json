@@ -25,7 +25,7 @@
     "dotenv": "^7.0.0",
     "email-templates": "^5.1.0",
     "express": "^4.16.4",
-    "express-handlebars": "^3.1.0",
+    "express-handlebars": "^5.3.1",
     "imagemin-mozjpeg": "^8.0.0",
     "imagemin-optipng": "^6.0.0",
     "imagemin-svgo": "^7.0.0",
