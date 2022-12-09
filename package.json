@@ -24,7 +24,7 @@
     "clsx": "^1.0.4",
     "dotenv": "^7.0.0",
     "email-templates": "^5.1.0",
-    "express": "^4.16.4",
+    "express": "^4.17.3",
     "express-handlebars": "^3.1.0",
     "imagemin-mozjpeg": "^8.0.0",
     "imagemin-optipng": "^6.0.0",
